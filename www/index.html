@@ -1,0 +1,86 @@
+﻿<!DOCTYPE HTML>
+<html lang="pt-br">
+<head>
+    <title>LCQ LABORCLIN</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <META NAME="AUTHOR" CONTENT="Arkab Tecnologia da Informação">
+    <META HTTP-EQUIV="CONTENT-LANGUAGE" CONTENT="pt-br,br">
+    <META NAME="COPYRIGHT" CONTENT="&copy; 2017 Arkab IT">
+    <META NAME="GOOGLEBOT" CONTENT="NOARCHIVE">
+    <meta name="theme-color" content="#ffffff">
+    
+    <link async rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link async rel="stylesheet" href="lib/jQueryUI-1.12.1/jquery-ui.css">
+    <link async rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css" />
+    <link async rel="stylesheet" type="text/css" href="lib/datetimepicker/jquery.datetimepicker.min.css" />
+    <link async rel="stylesheet" type="text/css" href="lib/datatable/1.10.13/jquery.dataTables.min.css" />
+    <link async href='lib/fullcalendar/fullcalendar.min.css' rel='stylesheet' />
+    <link async href='lib/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <link async rel="stylesheet" type="text/css" href="css/app.css" />
+    <link async rel="stylesheet" type="text/css" href="lib/bootstrap-daterangepicker-2.1.25/daterangepicker.css" />
+
+    <script type="text/javascript" src="cordova.js"></script>
+
+    <script type="text/javascript" src="https://www.l2.io/ip.js?var=clientPublicIP"></script>
+    <script>
+        if (!(!!window.cordova)) {
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        }
+    </script>
+    <script async src="https://maps.google.com/maps/api/js?libraries=placeses,visualization,drawing,geometry,places&key=AIzaSyBNeYTBeIZb23_4fE2Ox5a6weXcH6FoS3M"></script>
+
+
+    <script type="text/javascript" src="build/js/lib.js"></script>
+
+    <script type="text/javascript" src="build/js/arkab.portal.webapp.min.js"></script>
+    <script type="text/javascript" src="config/appConfig.js"></script>
+    <script type="text/javascript" src="build/js/arkab.portal.webapp.run.min.js"></script>
+    <script async type="text/javascript" src="lib/ckeditor/ckeditor.js"></script>
+
+</head>
+<body>
+
+    <div id="arkabPortalApp" name="arkabPortalApp" class="arkabPortalApp">
+        <div ng-include="'view/navbar.html'" ng-if="identity.isAuthenticated == true"></div>
+        <div ng-view></div>   <!--class="container"-->
+        <div ng-include="'view/footer.html'" class="hidden-print"></div>
+    </div>
+
+    <script>
+        angular.element(document).ready(function () {
+            if (window.cordova) {
+                document.addEventListener('deviceready', function () {
+                    console.log("Deviceready, bootstrapping AngularJS.");
+                    angular.bootstrap(document.body, ['arkabPortal']);
+
+                    navigator.splashscreen.hide();
+
+                    document.addEventListener("backbutton", function (e) {
+                        e.preventDefault();
+                    }, false);
+
+
+                }, false);
+            } else {
+                //console.log("Running in browser, bootstrapping AngularJS now.");
+                angular.bootstrap(document.body, ['arkabPortal']);
+                
+            }
+
+        });
+    </script>
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script async>
+        google.charts.load('current', { 'packages': ['corechart'] });
+    </script>
+    <script type="text/javascript" src='lib/fullcalendar/angularjs-calendar.js'></script> <!--precisa ficar após aplicação-->
+    
+</body>
+</html>

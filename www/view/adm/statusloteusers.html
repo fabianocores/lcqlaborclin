@@ -1,0 +1,62 @@
+﻿<div class="modal fade" id="modalStatusLoteUsers" tabindex="-1" role="dialog" aria-labelledby="modalLabel" style="z-index: 1100">
+    <div class="modal-dialog" role="document" style="width: 80%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 style="margin: 0px;">
+                    Status [{{selected.name}}] <small>Usuários permitidos</small>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="col-xs-6">
+                    <h4>Autorizados</h4>
+                    <table class="table table-condensed" id="statuslote">
+                        <tr ng-repeat="user in selected.users">
+                            <td style="width: 32px;">
+                                <button class="btn btn-danger btn-xs" ng-click="removeUser(selected, user)">
+                                    <span class="fa fa-remove" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                            <td>{{user.username}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-xs-6">
+                    <h4>Selecionar outros usuários</h4>
+                    <table class="table table-condensed" id="statuslote">
+                        <tr ng-repeat="user in selected.selection">
+                            <td style="width: 32px;">
+                                <span class="btn btn-xs text-primary" ng-click="addUser(selected, user)">
+                                    <span class="fa fa-arrow-left" aria-hidden="true"></span>
+                                </span>
+                            </td>
+                            <td>{{user.username}}</td>
+                        </tr>
+                    </table>
+                </div>
+                
+
+                
+
+
+            </div>
+
+
+            
+
+            <div class="modal-footer">
+                {{mailMessage}}
+                <div class="btn-group btn-group-lg" role="group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-sign-out" aria-hidden="true"></span>
+                        Fechar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

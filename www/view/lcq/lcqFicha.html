@@ -1,0 +1,313 @@
+﻿<style>
+
+    #fichalinhas tbody tr td {
+        vertical-align: middle;
+    }
+
+</style>
+
+<pre-loader ng-if="loading || saving"></pre-loader>
+
+<div class="fullcontainer">
+    <div class="panel panel-default">
+        <table class="table table-condensed table-bordered">
+            <tr>
+                <td width="20%">
+                    <strong>Ficha análise</strong><br />
+                    {{ficha.nroficha}}
+                </td>
+                <td width="20%">
+                    <strong>Lote/Nº Série</strong><br />
+                    {{ficha.batchnum}}
+                </td>
+                <td width="20%">
+                    <strong>Tipo de ficha</strong><br />
+                    {{ficha.ficha}}
+                </td>
+                <td width="20%">
+                    <strong>Amostra</strong><br />
+                    {{ficha.amostra}}
+                </td>
+                <td width="20%">
+                    <strong>Situação</strong><br />
+                    {{ficha.status}}
+                    
+                </td>
+            </tr>
+            <tr ng-if="ficha.moreDetails">
+                <td>
+                    <strong>Data inspeção</strong><br />
+                    <input akbdatepicker class="form-control input-sm" ng-model="ficha.datains" ng-if="params.identity.lcqpermission.mudar_data_inspecao" />
+                    <span ng-if="!params.identity.lcqpermission.mudar_data_inspecao">{{ficha.datains | date}}</span>
+                </td>
+                <td>
+                    <strong>Tipo Doc</strong><br />
+                    {{ficha.r_op}}
+                </td>
+                <td>
+                    <strong>Tipo análise</strong><br />
+                    {{ficha.tipoanalname}}
+                </td>
+                <td>
+                    <strong>Aprovador</strong><br />
+                    {{ficha.aprovadorname}}
+                </td>
+                <td>
+                    <strong>Status do lote atual</strong><br />
+                    <button class="btn btn-xs btn-primary"  data-toggle="modal" data-target="#modalHistoricoStatus" ng-if="ficha.historico.length > 0">
+                        <span class="fa fa-clock-o" aria-hidden="true">
+                        </span>
+                    </button>
+                    
+                    {{ficha.statuslname}}<br />
+                </td>   
+            </tr>
+
+            <tr ng-if="ficha.moreDetails">
+                <td>
+                    <strong>Data emissão</strong><br />
+                    {{params.permissions}}
+                    <input akbdatepicker class="form-control input-sm" ng-model="ficha.dataemi" ng-if="params.identity.lcqpermission.mudar_data_emissao" />
+                    <span ng-if="!params.identity.lcqpermission.mudar_data_emissao">{{ficha.dataemi | date}}</span>
+                </td>
+                <td>
+
+                    <strong>Nº Doc</strong><br />
+                    {{ficha.numdoc}}
+                </td>
+                <td>
+                    <strong>Forma análise</strong><br />
+                    {{ficha.formanalname}}
+                </td>
+                <td>
+                    <strong>Qtde. analisada</strong><br />
+                    {{ficha.qtdanal}}
+                </td>
+                <td>
+                    <div ng-if="params.identity.lcqpermission.status_lote">
+                        <strong>Mudar status do lote para:</strong><br />
+                        <select class="form-control input-sm" ng-model="ficha.statusl" ng-options="status.code as status.name for status in statusLoteList" ng-if="params.identity.lcqpermission.status_lote"></select>
+                    </div>
+                    
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <strong>Data documento  </strong><br />
+                    {{ficha.data | date: 'dd/MM/yyyy'}}
+                </td>
+                <td>
+                    <strong>Quantidade Doc</strong><br />
+                    {{ficha.quantidade}}
+                </td>
+                <td>
+                    <strong>Peso líquido (kg)</strong><br />
+                    {{ficha.peso}}
+                </td>
+                <td>
+                    <strong>Nº nota fiscal</strong><br />
+                    {{ficha.numnf}}
+                </td>
+                <td>
+                    <strong>Fornecedor</strong><br />
+                    {{ficha.numpn}} {{ficha.numpnname}}
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <strong>Item</strong><br />
+                    {{ficha.item}}
+                </td>
+                <td colspan="3">
+                    <strong>Descrição</strong><br />
+                    {{ficha.itemname}}
+                </td>
+                <td>
+                    <strong>UM</strong><br />
+                    {{ficha.um}}
+                </td>
+            </tr>
+
+
+        </table>
+
+        <div class="panel-body" style="padding: 0px;">
+            <div class="col-sm-3">
+                <strong>Observação 1</strong>
+                <textarea ng-model="ficha.obs" rows="4" class="form-control input-sm"></textarea>
+            </div>
+            <div class="col-sm-3">
+                <strong>Observação 2</strong>
+                <textarea ng-model="ficha.obs2" rows="4" class="form-control input-sm"></textarea>
+            </div>
+            <div class="col-sm-3">
+                <strong>Observação 3</strong>
+                <textarea ng-model="ficha.obs3" rows="4" class="form-control input-sm"></textarea>
+            </div>
+            <div class="col-sm-3">
+                <strong>Observação 4</strong>
+                <textarea ng-model="ficha.obs4" rows="4" class="form-control input-sm"></textarea>
+            </div>
+        </div>
+
+        <div class="panel-body" style="overflow-x: scroll;">
+            <div class="row hidden-print">
+                <div class="col-xs-3">
+                    <div class="input-group" role="group" style="max-width: 250px; margin-bottom: 5px;">
+                        <input type="text" ng-model="search" placeholder="Procurar" class="form-control" />
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" ng-click="search = ''">
+                                <span class="fa fa-remove" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6" style="padding: 0px; margin-top: -5px; text-align: center;">
+
+                    <a href="" ng-repeat="(fase, faselinhas) in ficha.linhas | groupBy: 'fase'">
+                        <span class="label label-default" ng-click="filterFase(fase)">
+                            {{fase}}
+                        </span>&nbsp;
+                    </a>
+
+                </div>
+                <div class="col-xs-3" style="padding-left: 0px;">
+                    <div class="btn-group pull-right" role="group">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalLcqTag">
+                            <span class="fa fa-tag" aria-hidden="true"></span>
+                            Etiqueta
+                        </button>
+                        <button class="btn" ng-click="save()" ng-if="ficha" ng-disabled="saving" ng-class="{'btn-success': !saving, 'btn-warning': saving}">
+                            <span ng-if="!saving">
+                                <span class="fa fa-check" aria-hidden="true"></span>
+                                Salvar
+                            </span>
+                            <span ng-if="saving">
+                                <span class="fa fa-spin fa-spinner" aria-hidden="true"></span>
+                                Aguarde
+                            </span>
+                            
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="row" ng-hide="serverResponse.valid" ng-if="serverResponse">
+                <div class="alert alert-danger" role="alert">
+                    <strong>{{serverResponse.message}}</strong>
+                    <ul>
+                        <li ng-repeat="msg in serverResponse.messages">{{msg}}</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="panel panel-default" ng-repeat="(fase, faselinhas) in ficha.linhas | filter: search | groupBy: 'fase'">  
+                <div class="panel-heading">
+                    <h4 style="margin: 0px;">
+                        {{fase}}                        
+                    </h4>
+                </div>
+
+                <div class="row" ng-repeat="(analise, analiselinhas) in faselinhas | groupBy: 'analise'">
+
+                    <div class="col-xs-12">
+                        <h4 style="margin: 15px 0px 15px 25px;">{{analise}}</h4>
+
+                        <table class="table table-condensed table-bordered" id="fichalinhas" style="margin: 0px;">
+                            <thead>
+                                <tr>
+                                    <th width="1">#</th>
+                                    <th width="35%">Especificação / Observação / Padrão</th>
+                                    <th width="25%">Valor nominal</th>
+                                    <th width="25%">Resultado</th>
+                                    <th width="15%">Status</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="linha in analiselinhas | filter: search" ng-click="selectLinha(linha)" style="cursor: pointer;">
+                                    <td>{{linha.lineid}}</td>
+                                    <td>
+                                        {{linha.descresp}}
+                                        
+                                        {{linha.observacao}}
+
+                                        <div ng-if="linha.p_de && linha.p_ate">
+                                            {{linha.p_de}} até {{linha.p_ate}} {{linha.um}}
+                                        </div>
+
+                                        <div ng-if="linha.p_de && !linha.p_ate">
+                                            a partir de {{linha.p_de}} {{linha.um}}
+                                        </div>
+
+                                        <div ng-if="!linha.p_de && linha.p_ate">
+                                            até {{linha.p_de}} {{linha.um}}
+                                        </div>
+
+                                    </td>
+                                    
+                                    <td>{{linha.valorn}}</td>
+                                    <td ng-class="{'success': linha.status == 'A', 'danger': linha.status == 'R'}">
+                                        <center>
+                                            <table ng-if="linha.tpdados == '02' && linha.resultado" class="" style="">
+                                                <tr><th style="text-align: right; width: 50%">Média</th><td style="text-align: right;width: 50%">{{linha.resultado}} {{linha.um}}</td></tr>
+                                                <tr ng-if="linha.medias.length"><th style="text-align: right;">Medições</th><td style="text-align: right;">x{{linha.medias.length}}</td></tr>
+                                                <tr ng-if="linha.desviopadrao"><th style="text-align: right;">Desvio padrão</th><td style="text-align: right;">{{linha.desviopadrao|number:'3'}}</td></tr>
+                                                
+                                                <!--<tr ng-if="linha.desviominimo"><th style="text-align: right;">Desvio mínimo</th><td style="text-align: right;">{{linha.desviominimo|number:'3'}}</td></tr>
+                                                <tr ng-if="linha.desviomaximo"><th style="text-align: right;">Desvio máximo</th><td style="text-align: right;">{{linha.desviomaximo|number:'3'}}</td></tr>-->
+                                                <!--<tr ng-if="linha.variacao"><th style="text-align: right;">Variação</th><td style="text-align: right;">{{linha.variacao|number:'3'}}</td></tr>-->
+
+                                            </table>
+                                        </center>
+                                        <span ng-if="linha.tpdados != '02'">
+                                            {{linha.resultado}}
+                                        </span>
+                                        <center>
+                                            <span ng-if="linha.obs">
+                                                {{linha.obs}}
+                                            </span>
+                                        </center>
+                                        
+
+                                    </td>
+                                    <td ng-class="{'bgsuccess': linha.status == 'A', 'bgdanger': linha.status == 'R'}" align="center">
+                                        <span class="fa fa-thumbs-up" aria-hidden="true" ng-if="linha.status == 'A'"></span>
+
+                                        <span class="fa fa-thumbs-down" aria-hidden="true" ng-if="linha.status == 'R'"></span>
+
+                                        {{linha.aprovador}}
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        
+
+    </div>
+
+    
+    
+</div>
+
+<div ng-include="'view/lcq/lcqinput.html'"></div>
+<div ng-include="'view/lcq/lcqtag.html'"></div>
+<div ng-include="'view/lcq/lcqhistoricostatus.html'"></div>

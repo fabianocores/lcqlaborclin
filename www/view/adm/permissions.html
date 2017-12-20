@@ -1,0 +1,97 @@
+﻿<style>
+    #permissions tbody tr:hover {
+        background-color: yellow !important;
+    }
+
+    #permissions thead tr th {
+        vertical-align: middle;
+    }
+
+    #permissions tbody tr td {
+        vertical-align: middle;
+    }
+</style>
+
+
+
+
+<pre-loader ng-show="loading"></pre-loader>
+<div class="container">
+
+    <akb-title page-title="Segurança" page-subtitle="Controle as permissões dos usuários"></akb-title>
+    <div class="row">
+        <div class="col-md-12">
+            <small>
+                <a href="#/adm">Painel de controle</a> | Permissões
+            </small>
+        </div>
+    </div>
+
+    <br />
+    
+    <div class="panel panel-default">
+                
+        <table class="table table-condensed" id="permissions">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="input-group input-group-sm">
+                            <input class="form-control" ng-model="search" placeholder="Procurar" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" ng-click="search = ''">
+                                    <span class="fa fa-remove" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </th>
+                    <th style="text-align: center; background-color: lightgoldenrodyellow;">Acesso</th>
+                    <th colspan="3" style="text-align: center; background-color: lightsteelblue;">Permitir editar</th>
+                    <th style="text-align: center;">Log</th>
+                </tr>
+                <tr>
+                    <th>Nome</th>
+                    <th style="background-color: lightgoldenrodyellow; text-align: center;">Bloqueado</th>   
+                    <th style="background-color: lightsteelblue; text-align: center;">Data de emissão</th>
+                    <th style="background-color: lightsteelblue; text-align: center;">Data de inspeção</th>
+                    <th style="background-color: lightsteelblue; text-align: center;">Status do lote</th>
+                    <th style="text-align: center;">Atribuido por</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in permissions | filter: search">
+                    <td>
+                        {{user.username}}
+                    </td>
+                    <td style="text-align: center;">
+                        <span class="fa " aria-hidden="true" ng-click="user.bloqueado = !user.bloqueado; putPermission(user)" style="cursor: pointer"
+                              ng-class="{'fa-toggle-off text-muted': !user.bloqueado, 'fa-toggle-on text-primary': user.bloqueado}"></span>
+                    </td>
+                    <td style="text-align: center;">
+                        <!--{{user.mudar_data_emissao}}-->
+                        <span class="fa " aria-hidden="true" ng-click="user.mudar_data_emissao = !user.mudar_data_emissao; putPermission(user)" style="cursor: pointer"
+                              ng-class="{'fa-toggle-off text-muted': !user.mudar_data_emissao, 'fa-toggle-on text-primary': user.mudar_data_emissao}"></span>
+                    </td>
+                    <td style="text-align: center;">
+                        <!--{{user.mudar_data_inspecao}}-->
+                        <span class="fa " aria-hidden="true" ng-click="user.mudar_data_inspecao = !user.mudar_data_inspecao; putPermission(user)" style="cursor: pointer"
+                              ng-class="{'fa-toggle-off text-muted': !user.mudar_data_inspecao, 'fa-toggle-on text-primary': user.mudar_data_inspecao}"></span>
+                    </td>
+                    <td style="text-align: center;">
+                        <!--{{user.status_lote}}-->
+                        <span class="fa " aria-hidden="true" ng-click="user.status_lote = !user.status_lote; putPermission(user)" style="cursor: pointer"
+                              ng-class="{'fa-toggle-off text-muted': !user.status_lote, 'fa-toggle-on text-primary': user.status_lote}"></span>
+                    </td>
+                    <td style="text-align: center;">
+                        <span ng-if="user.alterado_por_nome">
+                            {{user.alterado_por_nome}} em {{user.alterado_em | date: 'dd/MM/yyyy HH:mm'}}
+                        </span>                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+</div>
+

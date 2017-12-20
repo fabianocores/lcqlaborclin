@@ -1,0 +1,217 @@
+﻿<nav class="navbar navbar-default" ng-if="identity.isAuthenticated == true">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/" style="padding-left: 8px; padding-right: 8px; padding-top: 0px; padding-bottom: 0px;">
+                <img src="config/branch-logo-32px.png" alt="Arkab.WebApp" class="img img-responsive" style="margin-top: 8px; padding-top: 0px; max-height: 32px;" ng-if="!appConfig.logo" />
+                <img ng-src="{{apiURL}}Adm/GetLogo/{{appConfig.logo}}-64px" alt="Arkab.WebApp" class="img img-responsive" style="margin-top: 8px; padding-top: 0px; max-height: 32px;" ng-if="appConfig.logo" />
+
+
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li data-toggle="collapse" data-target=".navbar-collapse">
+                    <a href="#/" title="Página inicial" tabindex="-1" style="padding-left: 8px; padding-right: 8px;">
+                        <span class="fa fa-home hidden-xs" title="Home" aria-hidden="true"></span>
+                        <span class="hidden-sm">Home</span>
+                    </a>
+                </li>
+
+                <li data-toggle="collapse" data-target=".navbar-collapse">
+                    <a href="#/lcq" title="LCQ" style="padding-left: 8px; padding-right: 8px;">
+                        <span class="fa fa-flask hidden-xs" title="LCQ" aria-hidden="true"></span>
+                        <span class="hidden-sm">LCQ</span>
+                    </a>
+                </li>
+
+                <li class="dropdown" ng-if="1 == 2">
+
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding-left: 8px; padding-right: 8px;">
+                        <span class="fa fa-magic" aria-hidden="true"></span>
+                        <span class="hidden-sm">Ferramentas</span>
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Relatórios</li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="#/reports/sales">
+
+                                <span>Consultar documentos</span>
+                            </a>
+
+                        </li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="#/reports/stock">
+
+                                <span>Disponibilidade de estoque</span>
+                            </a>
+
+                        </li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="#/reports/customersList">
+
+                                <span>Lista de clientes</span>
+                            </a>
+                        </li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse" ng-if="(identity.roles.toUpperCase() == 'MASTER')">
+                            <a href="#/reports/progression/0">
+                                <span>Relatório anual</span>
+                            </a>
+                        </li>
+                        <li ng-if="revenueByProductLine" data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="#/reports/revenueByProductLine">
+
+                                <span>Metas por linha de produto</span>
+                            </a>
+                        </li>
+                        <li ng-if="campaingTracking" data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="#/reports/campaingTracking">
+
+                                <span>Acompanhamento de campanhas</span>
+                            </a>
+                        </li>
+
+                        <li data-toggle="collapse" data-target=".navbar-collapse" ng-if="canUseOpportunities">
+                            <a href="#/opportunities">
+
+                                <span>Oportunidades</span>
+                            </a>
+                        </li>
+
+                        <li role="separator" class="divider" ng-if="identity.inactives || identity.freight"></li>
+                        <li class="dropdown-header">Manutenção</li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse" ng-if="identity.inactives">
+                            <a href="#/inactives">
+                                <span class="fa fa-shopping-cart" aria-hidden="true"></span>
+                                Disponibilidade de produtos
+                            </a>
+                        </li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse" ng-if="identity.freight">
+                            <a href="#/freight">
+                                <span class="fa fa-truck" aria-hidden="true"></span>
+                                Frete
+                            </a>
+                        </li>
+
+                        <li data-toggle="collapse" data-target=".navbar-collapse" ng-if="(identity.roles == 'Master' || identity.roles == 'Gerente' || identity.roles == 'Supervisor')">
+                            <a href="#/goals">
+                                <span class="fa fa-money" aria-hidden="true"></span>
+                                Metas
+                            </a>
+                        </li>
+
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Comissões</li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="#/reports/commission">
+                                <span>Extrato de comissão</span>
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Agenda</li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="#/notifications">
+                                Notificações
+                            </a>
+                        </li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="#/activities/maintenance">
+                                Atividades pendentes
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+
+
+            <ul class="nav navbar-nav navbar-right" ng-if="identity.isAuthenticated == true">
+
+
+
+                <li ng-if="identity.isAuthenticated == true" style="padding: 0px; margin: 0px;" data-toggle="collapse" data-target=".navbar-collapse" class="hidden-xs">
+                    <a href="#/profile" style="padding-left: 8px; padding-right: 1px; padding-top: 0px; padding-bottom: 0px;">
+                        <img ng-src="{{apiURL}}Account/GetAvatar/{{identity.avatarStream}}-32px" class="img img-responsive" style="height: 32px; padding: 0px; margin-top: 9px;">
+                    </a>
+                </li>
+                <li class="dropdown" ng-if="identity.isAuthenticated == true">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding-left: 8px; padding-right: 8px;">
+                        <span class="hidden-md">
+                            {{identity.companyUserName}}
+                        </span>
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="#/profile">
+                                <img ng-src="{{apiURL}}Account/GetAvatar/{{identity.avatarStream}}-32px" class="img img-responsive visible-xs" style="height: 32px;">
+                                <span class="fa fa-user-circle" aria-hidden="true"></span>
+                                Meu perfil
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse" ng-if="(identity.roles.toUpperCase() == 'MASTER') ">
+                            <a href="https://arkabit.octadesk.com/helpcenter" target="_blank">
+                                <span class="fa fa-safari" aria-hidden="true"></span>
+                                Suporte
+                            </a>
+                        </li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="https://help.crmsap.com.br/index.php?title=Portal_de_Vendas_CRMSAP_para_SAP_Business_One" target="_blank">
+                                <span class="fa fa-question-circle" aria-hidden="true"></span>
+                                Ajuda
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="https://blog.crmsap.com.br" target="_blank">
+                                <span class="fa fa-bullhorn" aria-hidden="true"></span>
+                                Novidades
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+
+                        <li data-toggle="collapse" data-target=".navbar-collapse">
+                            <a href="" ng-click="logOut()">
+                                Log off
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right" ng-if="identity.isAuthenticated == true">
+
+                <li style="padding-top: 12px;" ng-if="loginData.isCordovaApp">
+                    <button class="btn btn-default btn-danger btn-sm" ng-click="closeApp()">
+                        <span class="fa fa-close" aria-hidden="true"></span>Fechar
+                    </button>
+                </li>
+
+                <li ng-if="(identity.roles.toUpperCase() == 'MASTER') && identity.controlpanel " data-toggle="collapse" data-target=".navbar-collapse">
+                    <a href="#/adm" style="font-size: 21px; padding: 13px 4px 13px 4px; width: 43px; text-align: center;">
+                        <span class="fa fa-cogs" style=""
+                              title="Painel de controle"></span>
+                    </a>
+
+                </li>
+
+            </ul>
+
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

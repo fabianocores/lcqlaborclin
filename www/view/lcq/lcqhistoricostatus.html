@@ -1,0 +1,69 @@
+﻿<div class="modal fade" id="modalHistoricoStatus" tabindex="-1" role="dialog" aria-labelledby="modalLabel" style="z-index: 1100">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 style="margin: 0px;">
+                    Histórico de alteração do status do lote
+                </h3>
+            </div>
+            <div class="panel-body pre-scrollable" style="max-height: 550px;">
+
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width: 1px;">#</th>
+                            <th>
+                                Usuário
+                            </th>
+                            <th>
+                                Data
+                            </th>
+                            <th>
+                                Status anterior
+                            </th>
+                            <th>
+                                Novo status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="log in ficha.historico">
+                            <td>
+                                {{$index+1}}
+                            </td>
+                            <td>
+                                {{log.username}}
+                            </td>
+                            <td>
+                                {{log.createdate | date: 'dd/MM/yyyy HH:mm'}}
+                            </td>
+                            <td>
+                                <span ng-if="$index ==0 ">
+                                    {{log.statusl_anterior_name}}
+                                </span>                                
+                            </td>
+                            <td>
+                                {{log.statusl_novo_name}}
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+
+                
+            </div>
+
+            <div class="modal-footer">
+                {{tagmessage}}
+                <div class="btn-group btn-group-lg" role="group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-sign-out" aria-hidden="true"></span>
+                        Fechar janela
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

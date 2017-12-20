@@ -1,0 +1,112 @@
+﻿<div class="modal fade" id="modalLcqTag" tabindex="-1" role="dialog" aria-labelledby="modalLabel" style="z-index: 1100">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 style="margin: 0px;">
+                    Emitir etiquetas de identificação
+                </h3>
+            </div>
+            <div class="panel-body" style="padding-top: 0px; padding-bottom: 0px;">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-primary btn-sm" ng-click="selecionarTodos(true)" style="width: 70px;">
+                        Todos
+                    </button>
+                    <button class="btn btn-primary btn-sm" ng-click="selecionarTodos(false)" style="width: 70px;">
+                        Nenhum
+                    </button>
+                </div>
+            </div>
+            <div class="panel-body pre-scrollable" style="max-height: 550px;">
+                <table class="table table-condensed table-bordered" id="fichalinhas" style="margin: 0px;">
+                    <thead>
+                        <tr>
+                            <th width="1"></th>
+                            <th width="1">#</th>
+                            <th>Fase</th>
+                            <th>Analise</th>
+                            <th>Especificação / Observação / Padrão</th>
+                            <!--<th width="1">Quantidade</th>-->
+                            <!--<th width="25%">Valor nominal</th>-->
+                        </tr>
+
+                    </thead>
+
+                    <tbody ng-repeat="(fase, faselinhas) in ficha.linhas | filter: search | groupBy: 'fase'">
+                        <tr>
+                            <th colspan="2">
+                                {{fase}}
+                            </th>
+                            <th colspan="4">
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-primary btn-xs" ng-click="selecionarTodos(true, faselinhas)" style="width: 70px;">
+                                        Todos
+                                    </button>
+                                    <button class="btn btn-primary btn-xs" ng-click="selecionarTodos(false, faselinhas)" style="width: 70px;">
+                                        Nenhum
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr ng-repeat="linha in faselinhas" style="cursor: pointer;">
+                            <td>
+                                <input type="checkbox" ng-model="linha.checkforprint" />
+                            </td>
+                            <td ng-click="linha.checkforprint = !linha.checkforprint">
+                                {{linha.lineid}}
+                            </td>
+                            <td ng-click="linha.checkforprint = !linha.checkforprint">
+                                {{linha.fase}}
+                            </td>
+                            <td ng-click="linha.checkforprint = !linha.checkforprint">
+                                {{linha.analise}}
+                            </td>
+
+                            <td ng-click="linha.checkforprint = !linha.checkforprint">
+                                {{linha.descresp}}
+
+                                {{linha.observacao}}
+
+                                <div ng-if="linha.p_de && linha.p_ate">
+                                    {{linha.p_de}} até {{linha.p_ate}} {{linha.um}}
+                                </div>
+
+                                <div ng-if="linha.p_de && !linha.p_ate">
+                                    a partir de {{linha.p_de}} {{linha.um}}
+                                </div>
+
+                                <div ng-if="!linha.p_de && linha.p_ate">
+                                    até {{linha.p_de}} {{linha.um}}
+                                </div>
+
+                            </td>
+                            <!--<td>
+                                <input type="number" min="1" max="9" ng-model="linha.printquantity" class="form-control input-sm" />
+                            </td>-->
+
+                            <!--<td>{{linha.valorn}}</td>-->
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                {{tagmessage}}
+                <div class="btn-group btn-group-lg" role="group">
+                    <button type="button" class="btn btn-primary" ng-click="imprimir()">
+                        <span class="fa fa-print" aria-hidden="true"></span>
+                        Imprimir
+                    </button>
+                    
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-sign-out" aria-hidden="true"></span>
+                        Fechar janela
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

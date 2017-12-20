@@ -1,0 +1,463 @@
+﻿<div class="modal fade" id="modalLcqInput" tabindex="-1" role="dialog" aria-labelledby="modalLabel" style="z-index: 1100">
+    <div class="modal-dialog" role="document" style="width: 80%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 style="margin: 0px;">{{ficha.selected.lineid}} - {{ficha.selected.analise}} <small>{{ficha.selected.descresp}}</small></h3>
+            </div>
+
+            <div class="panel-body" style="background-color: lightskyblue">
+                <div class="form-horizontal">
+
+                    <div class="form-group" style="margin-bottom: 0px;" ng-if="ficha.selected.amostra">
+                        <label for="amostra" class="col-sm-3 control-label">Amostra</label>
+                        <div class="col-sm-9">
+                            <label for="amostra" class="form-control-static">{{ficha.selected.amostra}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0px;" ng-if="ficha.selected.valorn">
+                        <label for="valorn" class="col-sm-3 control-label">Valor nominal</label>
+                        <div class="col-sm-9">
+                            <label for="valorn" class="form-control-static">{{ficha.selected.valorn}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0px;" ng-if="ficha.selected.amostragem">
+                        <label for="amostragem" class="col-sm-3 control-label">Amostragem</label>
+                        <div class="col-sm-9">
+                            <label for="amostragem" class="form-control-static">{{ficha.selected.amostragem}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0px;" ng-if="ficha.selected.observacao">
+                        <label for="observacao" class="col-sm-3 control-label">Observação</label>
+                        <div class="col-sm-9">
+                            <label for="observacao" class="form-control-static">{{ficha.selected.observacao}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0px;" ng-if="ficha.selected.p_de || ficha.selected.p_ate">
+                        <label for="padrao" class="col-sm-3 control-label">Padrão</label>
+                        <div class="col-sm-9">
+                            <label for="padrao" class="form-control-static">
+                                
+                                
+                                <!--de {{ficha.selected.p_de}}{{ficha.selected.um}} até {{ficha.selected.p_ate}}{{ficha.selected.um}}-->
+
+                                <span ng-if="ficha.selected.p_de && ficha.selected.p_ate">
+                                    {{ficha.selected.p_de}} até {{ficha.selected.p_ate}} {{ficha.selected.um}}
+                                </span>
+
+                                <span ng-if="ficha.selected.p_de && !ficha.selected.p_ate">
+                                    a partir de {{ficha.selected.p_de}} {{ficha.selected.um}}
+                                </span>
+
+                                <span ng-if="!ficha.selected.p_de && ficha.selected.p_ate">
+                                    até {{ficha.selected.p_de}} {{ficha.selected.um}}
+                                </span>
+
+                            </label>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+            </div>
+
+            <div class="panel-body" style="padding-bottom: 0px;">
+
+                <div class="form-horizontal">
+                    <!--<div class="form-group">
+                        <label for="maquina" class="col-sm-3 control-label">Máquina</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="maquina" ng-model="ficha.selected.maquina">
+                        </div>
+                    </div>-->
+
+                    <div ng-if="ficha.selected.tpdados == '01'">
+
+                        <div class="form-group">
+                            <label for="maquina" class="col-sm-3 control-label">Resultado</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="inputResult" ng-model="ficha.selected.resultado" rows="4"></textarea>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-danger" ng-click="conforme(false)">
+                                            <span class="fa fa-thumbs-up" aria-hidden="true"></span>
+                                            Não Conforme
+                                        </button>
+                                        <button class="btn btn-success" ng-click="conforme(true)">
+                                            <span class="fa fa-thumbs-up" aria-hidden="true"></span>
+                                            Conforme
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>                    
+                    </div>
+
+                    <div ng-if="ficha.selected.tpdados == '02'">
+
+                        <!--<div class="form-group">
+                            <div class="col-xs-8">
+                                lsdkf
+                                
+                            </div>
+                        </div>-->
+                        
+                        <div class="form-group">
+
+                            <div class="col-xs-6" style="">
+
+                                <div class="input-group" role="group" style="width: 100%; margin-bottom: 5px;">
+                                    <input type="text" id="inputResult2" ng-model="ficha.selected.resultadot" ng-keypress="resultadoKeyPress($event)" class="form-control input-lg" style="text-align: right;" />
+
+                                    <div class="input-group-addon" ng-if="ficha.selected.um">
+                                        {{ficha.selected.um}}
+                                    </div>
+
+                                </div>
+
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add('7')"><h1 style="padding: 0px; margin: 0px;">7</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add('8')"><h1 style="padding: 0px; margin: 0px;">8</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add('9')"><h1 style="padding: 0px; margin: 0px;">9</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add('4')"><h1 style="padding: 0px; margin: 0px;">4</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add('5')"><h1 style="padding: 0px; margin: 0px;">5</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add('6')"><h1 style="padding: 0px; margin: 0px;">6</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add('1')"><h1 style="padding: 0px; margin: 0px;">1</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add('2')"><h1 style="padding: 0px; margin: 0px;">2</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add('3')"><h1 style="padding: 0px; margin: 0px;">3</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add('-')"><h1 style="padding: 0px; margin: 0px;">-/+</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add('0')"><h1 style="padding: 0px; margin: 0px;">0</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" ng-click="add(',')"><h1 style="padding: 0px; margin: 0px;">,</h1></button>
+                                </div>
+
+
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-danger btn-block btn-lg" ng-click="add('x')"><h1 style="padding: 0px; margin: 0px;"><span class="fa fa-remove" aria-hidden="true"></span></h1></button>
+                                </div>
+
+                                <div class="col-xs-4 col-xs-offset-4" style="padding: 0px;">
+                                    <button class="btn btn-primary btn-block btn-lg" ng-click="addValue()"><h1 style="padding: 0px; margin: 0px;"><span class="fa fa-plus" aria-hidden="true"></span></h1></button>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-6">
+
+                                <div class="panel panel-default" ng-if="ficha.selected.medias.length > 0">
+
+                                    <!--<div class="row">
+                                        <div class="col-xs-4" style="text-align: right; padding-right: 0px;">
+                                            Resultado
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <div class="pull-right">
+                                                <h4 style="padding: 0px; margin: 0px;">
+                                                    <span class="label"
+                                                          ng-class="{'label-danger': ( ( ficha.selected.p_de && ficha.selected.resultadom < ficha.selected.f_de ) || ( ficha.selected.p_ate && ficha.selected.resultadom > ficha.selected.f_ate ) ), 'label-success': !( ( ficha.selected.p_de && ficha.selected.resultadom < ficha.selected.f_de ) || ( ficha.selected.p_ate && ficha.selected.resultadom > ficha.selected.f_ate ) ) }">
+                                                        {{ficha.selected.resultadom | number: '5'}}
+                                                    </span>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>-->
+
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <center>
+                                                <table ng-if="ficha.selected.tpdados == '02' && ficha.selected.resultado" style="width: 100%;">
+                                                    <tr class="bgsuccess" ng-class="{'bgsuccess': !( ( ficha.selected.p_de && ficha.selected.resultadom < ficha.selected.f_de ) || ( ficha.selected.p_ate && ficha.selected.resultadom > ficha.selected.f_ate ) ), 'bgdanger': ( ( ficha.selected.p_de && ficha.selected.resultadom < ficha.selected.f_de ) || ( ficha.selected.p_ate && ficha.selected.resultadom > ficha.selected.f_ate ) )}">
+                                                        <th style="text-align: right; width: 50%">Média</th>
+                                                        <td style="text-align: right; width: 40%">{{ficha.selected.resultado}} {{ficha.selected.um}}</td>
+                                                        <td style="text-align: center; width: 10%">
+                                                            <span class="fa fa-thumbs-up " ng-if="!( ( ficha.selected.p_de && ficha.selected.resultadom < ficha.selected.f_de ) || ( ficha.selected.p_ate && ficha.selected.resultadom > ficha.selected.f_ate ) )">
+                                                            </span>
+                                                            <span class="fa fa-thumbs-down " ng-if="( ( ficha.selected.p_de && ficha.selected.resultadom < ficha.selected.f_de ) || ( ficha.selected.p_ate && ficha.selected.resultadom > ficha.selected.f_ate ) )">
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-if="ficha.selected.medias.length"><th style="text-align: right;">Medições</th><td style="text-align: right;">{{ficha.selected.medias.length}}</td></tr>
+                                                    <tr ng-if="ficha.selected.desviopadrao"><th style="text-align: right;">Desvio padrão</th><td style="text-align: right;">{{ficha.selected.desviopadrao|number:'3'}}</td></tr>
+                                                    <!--<tr ng-if="ficha.selected.desviominimo"><th style="text-align: right;">Desvio mínimo</th><td style="text-align: right;">{{ficha.selected.desviominimo|number:'3'}}</td></tr>
+                                                    <tr ng-if="ficha.selected.desviomaximo"><th style="text-align: right;">Desvio máximo</th><td style="text-align: right;">{{ficha.selected.desviomaximo|number:'3'}}</td></tr>-->
+                                                    
+                                                    <!--<tr ng-if="ficha.selected.variacao">
+                                                        
+                                                        <th style="text-align: right;">Variação</th>
+                                                        <td style="text-align: right;">{{ficha.selected.variacao|number:'3'}}</td>
+                                                        <td></td>
+                                                    </tr>-->
+                                                </table>
+                                            </center>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div ng-class="{'col-xs-12': ficha.selected.medias.length <= 10, 'col-xs-6': ficha.selected.medias.length > 10 && ficha.selected.medias.length <= 20, 'col-xs-4': ficha.selected.medias.length > 20}">
+                                            <center>
+                                                <table ng-if="ficha.selected.tpdados == '02' && ficha.selected.resultado " style="width: 100%;">
+
+                                                    <tr ng-repeat="media in ficha.selected.medias | orderBy: '-index'" ng-if="media.index <= 10">
+                                                        <th style="text-align: right; width: 50%">{{media.index}}º</th>
+                                                        <td style="text-align: right; width: 40%">{{media.valor | number: '3'}}</td>
+                                                        <td style="width: 10%; text-align: center;">
+                                                            <span class="fa fa-remove text-danger" ng-click="removeMedia(media.index)"></span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </center>
+                                        </div>
+                                        <div ng-class="{'col-xs-12': ficha.selected.medias.length <= 10, 'col-xs-6': ficha.selected.medias.length > 10 && ficha.selected.medias.length <= 20, 'col-xs-4': ficha.selected.medias.length > 20}">
+                                            <center>
+                                                <table ng-if="ficha.selected.tpdados == '02' && ficha.selected.resultado " style="width: 100%;">
+
+                                                    <tr ng-repeat="media in ficha.selected.medias | orderBy: '-index'" ng-if="media.index > 10 && media.index <= 20">
+                                                        <th style="text-align: right; width: 50%">{{media.index}}º</th>
+                                                        <td style="text-align: right; width: 40%">{{media.valor | number: '3'}}</td>
+                                                        <td style="width: 10%; text-align: center;">
+                                                            <span class="fa fa-remove text-danger" ng-click="removeMedia(media.index)"></span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </center>
+                                        </div>
+                                        <div ng-class="{'col-xs-12': ficha.selected.medias.length <= 10, 'col-xs-6': ficha.selected.medias.length > 10 && ficha.selected.medias.length <= 20, 'col-xs-4': ficha.selected.medias.length > 20}">
+                                            <center>
+                                                <table ng-if="ficha.selected.tpdados == '02' && ficha.selected.resultado " style="width: 100%;">
+
+                                                    <tr ng-repeat="media in ficha.selected.medias | orderBy: '-index'" ng-if="media.index > 20">
+                                                        <th style="text-align: right; width: 50%">{{media.index}}º</th>
+                                                        <td style="text-align: right; width: 40%">{{media.valor | number: '3'}}</td>
+                                                        <td style="width: 10%; text-align: center;">
+                                                            <span class="fa fa-remove text-danger" ng-click="removeMedia(media.index)"></span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </center>
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="panel-body pre-scrollable" style="padding: 0px; margin: 0px; max-height: 250px;">
+
+                                        
+                                            
+                                        <div class="col-xs-12" ng-repeat="media in ficha.selected.medias">
+                                            <div class="panel panel-default" style="">
+
+                                                <div class="col-xs-2" style="text-align: right;">
+
+                                                    <button class="btn btn-xs btn-primary" ng-click="removeMedia($index)">
+                                                        <span class="fa fa-remove"></span>
+                                                    </button>
+
+
+                                                </div>
+
+                                                <div class="col-xs-2" style="text-align: right; ">
+
+                                                    <small>
+                                                        {{$index+1}}º
+                                                    </small>
+
+                                                </div>
+                                                <div class="col-xs-6" style="text-align: right;" ng-class="{'text-danger': media.desvio}">
+                                                    {{media.valor | number: '5'}}
+                                                </div>
+
+                                                <div class="col-xs-2">
+                                                    <span class="fa fa-sort-up text-danger" ng-if="media.tipodesvio == '+'"></span>
+                                                    <span class="fa fa-sort-down text-danger" ng-if="media.tipodesvio == '-'"></span>
+                                                    <span class="fa fa-check text-success" ng-if="!media.desvio"></span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        
+                                    </div>-->
+
+                                    
+                                    <!--<div class="row" ng-if="ficha.selected.medias.length > 0">
+                                        <div class="col-xs-offset-4 col-xs-5">
+                                            <hr style="border: thin solid black; margin: 5px 0px 5px 15px;" />
+                                        </div>
+                                    </div>-->
+
+                                    
+                                </div>
+
+
+                                
+
+
+
+                            </div>
+
+
+                        </div>
+
+                        
+
+                        
+
+                        
+
+                    </div>
+
+                    
+                    <div ng-if="ficha.selected.tpdados == '03'">
+
+                        <div class="form-group">
+                            <label for="maquina" class="col-sm-3 control-label">Resultado</label>
+                            <div class="col-sm-6">
+                                <input akbdatepicker ng-model="ficha.selected.resultado" class="form-control" id="inputResult" />
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    
+                    <!--<div class="form-group">
+                        <label for="maquina" class="col-sm-3 control-label">Auditoria</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="maquina" ng-model="ficha.selected.auditoria">
+                        </div>
+                    </div>-->
+                    <div class="form-group">
+                        <label for="obs" class="col-sm-3 control-label">Observação</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="obs" ng-model="ficha.selected.obs" ng-change="validarResultado(ficha.selected.resultado)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="maquina" class="col-sm-3 control-label">Novo status</label>
+                        <div class="col-sm-9">
+                            <div class="btn-group btn-group-justified" role="group">
+                                <div class="btn-group">
+                                    
+                                    <button class="btn" ng-class="{'btn-default': ficha.selected.status != 'P', 'btn-warning': ficha.selected.status == 'P'}" ng-click="changeLineStatus('P')">
+                                        <span class="fa fa-clock-o" aria-hidden="true"></span>
+                                        Pendente
+                                    </button>
+                                </div>
+                                <div class="btn-group">
+                                    
+                                    <button class="btn" ng-class="{'btn-default': ficha.selected.status != 'R', 'btn-danger': ficha.selected.status == 'R'}" ng-click="changeLineStatus('R')">
+                                        <span class="fa fa-remove" aria-hidden="true"></span>
+                                        Reprovado
+                                    </button>
+                                </div>
+                                <div class="btn-group">
+                                    
+                                    <button class="btn" ng-class="{'btn-default': ficha.selected.status != 'A', 'btn-success': ficha.selected.status == 'A'}" ng-click="changeLineStatus('A')">
+                                        <span class="fa fa-check" aria-hidden="true"></span>
+                                        Aprovado
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="maquina" class="col-sm-3 control-label">Texto livre</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="maquina" ng-model="ficha.selected.texto">
+                        </div>
+                    </div>-->
+
+                    <!--<div class="form-group">
+                        <label for="maquina" class="col-sm-3 control-label">Desvio</label>
+                        <div class="col-sm-9">
+                            <span class="fa fa-2x" aria-hidden="true" ng-click="ficha.selected.desvio = !ficha.selected.desvio" style="cursor: pointer"
+                                  ng-class="{'fa-toggle-off text-muted': !ficha.selected.desvio, 'fa-toggle-on text-primary': ficha.selected.desvio}"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="maquina" class="col-sm-3 control-label">Descrição do desvio</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="maquina" ng-model="ficha.selected.descdesvio">
+                        </div>
+                    </div>-->
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                {{mailMessage}}
+                <div class="btn-group btn-group-lg" role="group">
+                    <button type="button" class="btn btn-default" ng-click="navegacao.previous()" ng-disabled="ficha.selected.lineid == 1">
+                        <span class="fa fa-arrow-left" aria-hidden="true"></span>
+                        Etapa Anterior
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="navegacao.next()" ng-disabled="ficha.selected.lineid == ficha.linhas.length">
+                        <span class="fa fa-arrow-right" aria-hidden="true"></span>
+                        Próxima etapa
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-sign-out" aria-hidden="true"></span>
+                        Fechar janela
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#modalLcqInput').on('shown.bs.modal', function () {
+        $('#inputResult').focus();
+    })
+</script>
+<!--<script>
+    $('#modalProductDetails').on('shown.bs.modal', function () {
+        $('#quantity').focus()
+
+        $('#quantity').off('keydown');
+
+        $('#quantity').on('keydown', function (e) {
+
+            if (e.which == 13) {
+                e.preventDefault();
+                $('#addproduct').click();
+
+            }
+        });
+
+    })
+
+
+</script>-->

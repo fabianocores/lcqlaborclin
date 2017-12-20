@@ -1,0 +1,131 @@
+﻿<!--<img src="img/loading.gif" /> aguarde...-->
+<div id="">
+
+    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+        <div id="">
+            
+            <div class="row">
+                <div class="col-xs-12">
+                    <center>
+                        <br />
+                            <h1 style="font-family: Georgia, Arial, Tahoma; margin: 0px; font-size: 44px; text-decoration: none;" >
+                                <!--<a href="#/">
+                                    <img src="img/arkab-full-transp_96x65.png" class="img img-responsive" style="border: none" />
+                                </a>-->
+                                <small>{{loginPageCompanyName}}</small>
+                            </h1>
+                        <img src="img/image_forgot_password.png" />
+                    </center>
+                </div>
+            </div>
+
+            <div class="row" ng-if="view == 'request'">
+                <center>
+                    <h3>
+                        Recuperar minha senha<br />
+                        <small>
+                            Enviaremos um e-mail a você com instruções para alterar a sua senha.
+                        </small>
+                    </h3>
+                </center>
+
+            </div>
+            <div class="row" ng-if="view == 'change'">
+                <center>
+                    <h3>
+                        Definir nova senha<br />
+                        <small>
+                            Informe abaixo uma nova senha para acessar o portal.
+                        </small>
+                    </h3>
+                </center>
+
+            </div>
+
+            <div class="row" ng-if="view == 'request'">
+
+                <div class="col-sm-12">
+                    <div id="loginFields">
+                        <form>
+
+                            <div class="form-group login" ng-if="!dataProfile">
+                                <!--<label for="userName">Email</label>-->
+                                <input ng-model="rememberParams.company" type="text" class="form-control" id="company" placeholder="Domínio" ng-disabled="loadingSettings" >
+                            </div>
+
+                            <div class="form-group login">
+                                <!--<label for="password">Senha</label>-->
+                                <input ng-model="rememberParams.email" type="email" class="form-control" id="email" placeholder="E-mail" ng-disabled="loadingSettings">
+                            </div>
+
+                            <button ng-disabled="!rememberParams.company || !rememberParams.email || loadingSettings" type="submit" class="btn btn-success btn-sm btn-block" ng-click="restorePassword()">Enviar informações</button>
+
+                            <span ng-show="loading || loadingSettings"><img src="img/loading.gif" alt="Carregando, aguarde..." title="Carregando, aguarde..." /></span>
+                            
+                            <div class="alert alert-warning alert-dismissible" role="alert" ng-show="message">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Atenção!</strong> {{message}}
+                            </div>
+                            
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-if="view == 'change'">
+
+                <div class="col-sm-12">
+                    <div id="loginFields">
+                        <form>
+
+                            <div class="form-group login">
+                                <!--<label for="userName">Email</label>-->
+                                <input ng-model="changeParams.NewPassword" type="password" class="form-control" id="password1" placeholder="Nova senha" ng-disabled="loadingSettings">
+                            </div>
+
+                            <div class="form-group login">
+                                <!--<label for="password">Senha</label>-->
+                                <input ng-model="changeParams.ConfirmPassword" type="password" class="form-control" id="password2" placeholder="Repita a nova senha" ng-disabled="loadingSettings">
+                            </div>
+
+                            <button ng-disabled="loadingSettings || ((!changeParams.NewPassword || !changeParams.ConfirmPassword) || (changeParams.NewPassword != changeParams.ConfirmPassword))" type="submit" class="btn btn-success btn-sm btn-block" ng-click="changePassword()">Alterar senha</button>
+
+                            <span ng-show="loading || loadingSettings"><img src="img/loading.gif" alt="Carregando, aguarde..." title="Carregando, aguarde..." /></span>
+
+                            <div class="alert alert-warning alert-dismissible" role="alert" ng-show="message">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Atenção!</strong> {{message}}
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-12">
+                    <center>
+                        <a href="#/login" class="">Voltar a tela de login</a><br /><hr />
+
+                        <!--{{appConfig}}
+
+                        {{urlConfig}}-->
+
+                        <img ng-src="{{urlConfig.baseUrl}}Adm/GetLogo/{{appConfig.logo}}-256px" class="img img-responsive" /><br />
+
+                        <!--<img src="config/branch-logo.png" class="img img-responsive" style="max-width: 200px;" /><br />-->
+                        <img src="img/emblems/arkabcolor100.png" class="img img-responsive " />
+                    </center>
+                    
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+

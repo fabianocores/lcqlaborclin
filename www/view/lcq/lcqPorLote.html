@@ -1,0 +1,128 @@
+﻿<div class="modal fade" id="modalLcqPorLote" tabindex="-1" role="dialog" aria-labelledby="modalLabel" style="z-index: 1100">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 style="margin: 0px;">
+                    Localizar fichas de análise 
+                    <small ng-if="pesquisa.tipo == 'lote'">
+                        Por Lote
+                    </small>
+                    <small ng-if="pesquisa.tipo == 'item'">
+                        Por Item
+                    </small>
+
+                </h3>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="form-horizontal">
+
+
+                    <div class="form-group">
+
+                        <div class="col-xs-12">
+
+                            <input type="text" id="pesqusa" ng-model="pesquisa.valor" ng-keypress="tecladoKeyPress($event, pesquisa.valor)" class="form-control input-lg" style="text-align: right; margin-bottom: 7px;" />
+
+                            <div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-default btn-block btn-lg" ng-click="add('7')"><h1 style="padding: 0px; margin: 0px;">7</h1></button>
+                            </div>
+                            <div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-default btn-block btn-lg" ng-click="add('8')"><h1 style="padding: 0px; margin: 0px;">8</h1></button>
+                            </div>
+                            <div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-default btn-block btn-lg" ng-click="add('9')"><h1 style="padding: 0px; margin: 0px;">9</h1></button>
+                            </div>
+                            <div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-default btn-block btn-lg" ng-click="add('4')"><h1 style="padding: 0px; margin: 0px;">4</h1></button>
+                            </div>
+                            <div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-default btn-block btn-lg" ng-click="add('5')"><h1 style="padding: 0px; margin: 0px;">5</h1></button>
+                            </div>
+                            <div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-default btn-block btn-lg" ng-click="add('6')"><h1 style="padding: 0px; margin: 0px;">6</h1></button>
+                            </div>
+                            <div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-default btn-block btn-lg" ng-click="add('1')"><h1 style="padding: 0px; margin: 0px;">1</h1></button>
+                            </div>
+                            <div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-default btn-block btn-lg" ng-click="add('2')"><h1 style="padding: 0px; margin: 0px;">2</h1></button>
+                            </div>
+                            <div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-default btn-block btn-lg" ng-click="add('3')"><h1 style="padding: 0px; margin: 0px;">3</h1></button>
+                            </div>
+                            <div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-danger btn-block btn-lg" ng-click="add('x')">
+                                    <h1 style="padding: 0px; margin: 0px;">
+                                        <span class="fa fa-remove" aria-hidden="true"></span>
+                                    </h1>
+                                </button>
+                            </div>
+                            <div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-default btn-block btn-lg" ng-click="add('0')"><h1 style="padding: 0px; margin: 0px;">0</h1></button>
+                            </div>
+                            <div class="col-xs-4" style="padding: 0px;">
+                                
+                            </div>
+
+
+                            <!--<div class="col-xs-4" style="padding: 0px;">
+                                <button class="btn btn-danger btn-block"><h1 style="padding: 0px; margin: 0px;" ng-click="add('x')"><span class="fa fa-remove" aria-hidden="true"></span></h1></button>
+                            </div>
+
+                            <div class="col-xs-4 col-xs-offset-4" style="padding: 0px;">
+                                <button class="btn btn-primary btn-block"><h1 style="padding: 0px; margin: 0px;" ng-click="addValue()"><span class="fa fa-plus" aria-hidden="true"></span></h1></button>
+                            </div>-->
+
+                        </div>
+
+                    </div>
+
+                    
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                
+                <div class="btn-group btn-group-lg" role="group">
+                    <button type="button" class="btn btn-primary" ng-click="getFichasListLote(pesquisa)">
+                        <span class="fa fa-search" aria-hidden="true"></span>
+                        Pesquisar
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-sign-out" aria-hidden="true"></span>
+                        Fechar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#modalLcqInput').on('shown.bs.modal', function () {
+        $('#inputResult').focus();
+    })
+</script>
+<!--<script>
+    $('#modalProductDetails').on('shown.bs.modal', function () {
+        $('#quantity').focus()
+
+        $('#quantity').off('keydown');
+
+        $('#quantity').on('keydown', function (e) {
+
+            if (e.which == 13) {
+                e.preventDefault();
+                $('#addproduct').click();
+
+            }
+        });
+
+    })
+
+
+</script>-->

@@ -1,0 +1,175 @@
+<!--<pre-loader ng-show="loginData.checkingCookie"></pre-loader>-->
+<pre-loader-text loader-title="Preparando a aplicação" loader-message="Por favor, aguarde" ng-show="loginData.checkingCookie"></pre-loader-text>
+
+<span ng-if="loginData.isCordovaApp" ng-show="loginData.checkingCookie" style="position: absolute; top: 250px; left: 50px;">
+    
+    <a href="#/setup?ignore=true">
+        <span class="fa fa-cog"></span>
+        Configurar API
+    </a>
+    <br />
+    <button class="btn btn-default" onclick="window.location.reload(true);">
+        <span class="fa fa-refresh" aria-hidden="true"></span>
+        Recaregar
+    </button>
+</span>
+
+<div id="loginCourtine" ng-show="!loginData.checkingCookie && !loginData.checkingConfig" ng-style="appConfig.appWallpaper">
+
+    <div ng-class="{'col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-offset-4 col-lg-4': (!appConfig.loginPosition || appConfig.loginPosition == 'C'), 'col-sm-6 col-md-4 col-lg-3': appConfig.loginPosition == 'L', 'col-sm-offset-6 col-sm-6 col-md-offset-8 col-md-4 col-lg-offset-9 col-lg-3': appConfig.loginPosition == 'R'}">
+        <div id="loginContainer">
+
+            <div class="row" ng-if="loginPageCompanyName">
+                <center>
+                    <h1>
+                        <!--{{loginPageCompanyName}}-->
+                        LCQ Laborclin
+                    </h1>
+                </center>
+            </div>
+
+            <br />
+            
+            <div class="row hidden-xs">
+                <center>
+                    <div class="shrink pic" >
+                        <img ng-src='{{apiURL}}Account/GetAvatarByEmail/email={{loginData.userNameForImage}}' class="img img-rounded img-responsive" ng-if="loginData.userNameForImage" style="height: 96px;">
+                        <img ng-src='{{apiURL}}Account/GetAvatar' class="img img-rounded img-responsive" ng-if="!loginData.userNameForImage" style="height: 96px;">
+                    </div>
+                    
+                </center>
+                <br />
+            </div>
+
+            <div class="row">
+
+                <div class="col-xs-12">
+                    <div id="loginFields" style="text-align: center; align-content: center;">
+                        <div class="">
+                            <form>
+
+                                <div class="form-group login">
+                                    <input ng-model="loginData.userName" type="email" class="form-control" id="userName" placeholder="Email" ng-blur="checkAvatar()">
+                                </div>
+
+                                <div class="form-group login">
+
+                                    <input ng-model="loginData.password" type="password" class="form-control" id="password" placeholder="Senha" ng-blur="checkAvatar()">
+                                </div>
+
+                                <!--<div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="loginData.rememberMe"> Manter conectado
+                                    </label>
+                                    <small ng-if="loginData.rememberMe">
+
+                                        <br /><span class="fa fa-exclamation-triangle fa-2x"></span><i ng-if="!loginData.isCordovaApp"> Não utilize esta opção em computadores públicos ou de terceiros.</i>
+                                    </small>
+                                </div>-->
+
+
+                                <div class="checkbox" ng-show="false">
+                                    <label>
+                                        <input type="checkbox" ng-model="loginData.agree"> Concordo com a <a href="#/rules" style="color: blue;">política de uso</a>.
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <div class="btn btn-group btn-group-justified" role="group" style="padding-left: 0px; padding-right: 0px;">
+                                        
+                                        <div class="btn-group" role="group">
+                                            <div class="btn" ng-click="loginData.rememberMe = !loginData.rememberMe" ng-class="{'btn-default': !loginData.rememberMe, 'btn-success': loginData.rememberMe}">
+
+                                                <span class="fa" aria-hidden="true" ng-click="loginData.rememberMe= !loginData.rememberMe" style="cursor: pointer"
+                                                      ng-class="{'fa-toggle-off text-muted': !loginData.rememberMe, 'fa-toggle-on': loginData.rememberMe}"></span>
+
+                                                <!--<input type="checkbox" ng-model="loginData.rememberMe" readonly>--> 
+                                                
+                                                Salvar senha
+                                            </div>
+
+                                        </div>
+                                        
+                                        <div class="btn-group" role="group">
+                                            <button ng-disabled="loading || !userCanLogin || !loginData.agree" type="submit" class="btn btn-primary btn-block" ng-click="submitLogin()">
+                                                <span class="fa fa-lock"></span>
+                                                Acessar
+                                            </button>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+
+                                
+
+                                <span ng-show="loading"><img src="img/loading.gif" alt="Carregando, aguarde..." title="Carregando, aguarde..." /></span>
+                                <div class="alert alert-warning alert-dismissible" role="alert" ng-show="message">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>Atenção!</strong> {{message}}
+                                </div>
+
+                                <div class="checkbox">
+                                    <div class="btn btn-group btn-group-justified btn-group-xs" role="group" style="padding-left: 0px; padding-right: 0px;">
+
+                                        <div class="btn-group" role="group">
+                                            <a href="#/remember" style="text-align: center;" class="btn btn-default">
+                                                Esqueci a senha
+                                            </a>
+                                        </div>
+
+                                        <div class="btn-group" ng-if="loginData.isCordovaApp">
+                                            <a href="#/setup?ignore=true" ng-hide="loading || !userCanLogin || !loginData.agree" class="btn btn-default"
+                                               ng-disabled="loading || !userCanLogin || !loginData.agree">
+                                                <span class="fa fa-cog"></span>
+                                                Configurar API
+                                            </a>
+                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                
+
+                                
+
+
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div class="row" ng-if="appConfig.logo">
+                <div class="col-xs-12">
+                    <center>
+                        <img ng-src="{{apiURL}}Adm/GetLogo/{{appConfig.logo}}-64px" class="img img-responsive" style="max-width: 200px;" /><br />
+                    </center>
+                </div>
+            </div>
+
+            <div class="row">
+                <br />
+                <div class="col-xs-12">
+                    <center>
+                        <img src="img/emblems/arkabcolor100.png" class="img img-responsive visible-xs " />
+                    </center>
+                </div>
+            </div>
+
+        </div>
+        <br />
+
+    </div>
+
+</div>
+
+
+
+<script>
+    $(function () {
+        $('#userName').focus();
+    });
+</script>

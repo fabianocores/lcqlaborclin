@@ -1,0 +1,288 @@
+﻿<pre-loader ng-if="loading || saving"></pre-loader>
+
+<style>
+    #param tr th {
+        border: none;
+        vertical-align: middle;
+    }
+
+    #param tr td {
+        border: none;
+        vertical-align: middle;
+    }
+
+
+    #result tr td {
+        vertical-align: middle;
+    }
+
+</style>
+
+
+
+<div class="fullcontainer">
+    <div class="panel panel-default">
+
+        <div class="panel-body" ng-keypress="pesquisaKeyPress($event)">
+            <table class="table table-condensed table-striped" id="param">
+                <tr style="border: none !important;">
+                    <th>
+                        Nº Ficha
+                    </th>
+                    <td width="95">
+                        <input type="text" class="form-control input-sm" ng-model="params.ficha_ini" ng-disabled="loading" />
+                    </td>
+                    <td width="95">
+                        <input type="text" class="form-control input-sm" ng-model="params.ficha_fim" ng-disabled="loading" />
+                    </td>
+                    <th>
+                        Série/Lote
+                    </th>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="params.lote" ng-disabled="loading" />
+                    </td>
+                    <th>
+                        Família
+                    </th>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="params.familia" ng-disabled="loading" />
+                    </td>
+                    <th>
+                        Situação
+                    </th>
+                    <td>
+                        <select class="form-control input-sm" ng-model="params.status" ng-disabled="loading">
+                            <option value="">Todos</option>
+                            <option value="Aberto">Aberto</option>
+                            <option value="Fechado">Fechado</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th style="white-space: nowrap;">
+                        Nº Documento
+                    </th>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="params.doc_ini" ng-disabled="loading" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="params.doc_fim" ng-disabled="loading" />
+                    </td>
+
+                    <th>
+                        Item
+                    </th>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="params.item" ng-disabled="loading" />
+                    </td>
+
+                    <th>
+                        Espécie
+                    </th>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="params.especie" ng-disabled="loading" />
+                    </td>
+
+                    <th>
+                        Documento
+                    </th>
+                    <td>
+
+                        <select class="form-control input-sm" ng-model="params.tipodoc" ng-disabled="loading">
+                            <option value="">Todos</option>
+                            <option value="RE">Recebimento</option>
+                            <option value="OP">Ordem de produção</option>
+                            <option value="OS">Ordem de serviço</option>
+                            <option value="DS">Dev. Nota fiscal de Saída</option>
+                            <option value="NE">Nota fiscal de entrada</option>
+                            <option value="MA">Manutenção</option>
+
+                        </select>
+
+
+                    </td>
+
+
+                </tr>
+
+                <tr>
+                    <th>
+                        Data Emissão
+                    </th>
+                    <td>
+                        <input akbdatepicker class="form-control input-sm" ng-model="params.dataini" ng-disabled="loading" />
+                    </td>
+                    <td>
+                        <input akbdatepicker class="form-control input-sm" ng-model="params.datafim" ng-disabled="loading" />
+                    </td>
+
+                    <th>
+                        Análise
+                    </th>
+                    <td>
+                        <select class="form-control input-sm" ng-model="params.tipoanal" ng-options="tipo.docentry as tipo.name for tipo in tipoAnaliseList " ng-disabled="loading">
+                            <option value="">Todos</option>
+                        </select>
+
+                    </td>
+
+                    <th>
+                        Setor
+                    </th>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="params.setor" ng-disabled="loading" />
+                    </td>
+
+                    <th>
+                        Status Lote
+                    </th>
+                    <td>
+                        <!--<input type="text" class="form-control input-sm" ng-model="params.statuslote" />-->
+
+                        <select class="form-control input-sm" ng-model="params.statuslote" ng-options="status.code as status.name for status in statusLoteList" ng-disabled="loading">
+                            <option value="">Todos</option>
+                        </select>
+
+                    </td>
+
+
+
+                </tr>
+
+                <tr>
+                    <th>
+                        Data Inspeção
+                    </th>
+                    <td>
+                        <input akbdatepicker class="form-control input-sm" ng-model="params.datainsini" ng-disabled="loading" />
+                    </td>
+                    <td>
+                        <input akbdatepicker class="form-control input-sm" ng-model="params.datainsfim" ng-disabled="loading" />
+                    </td>
+
+                    <th>
+                        Subgrupo
+                    </th>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="params.subgrupo" ng-disabled="loading" />
+                    </td>
+                    <th>
+                        Observação
+                    </th>
+                    <td colspan="3">
+                        <input type="text" class="form-control input-sm" ng-model="params.observacao" />
+                    </td>
+                    <!--<th>
+                        Grupo moeda
+                    </th>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="params.grupomoeda" />
+                    </td>
+
+                    <th>
+                        Agrupar por
+                    </th>
+                    <td>
+                        <input type="text" class="form-control input-sm" ng-model="params.agrupar" />
+                    </td>-->
+                </tr>
+
+            </table>
+            <div class="col-xs-6" style="padding-left: 0px;">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-primary" ng-click="mostrarPesquisaLote()" ng-disabled="loading">
+                        <span class="fa fa-qrcode" aria-hidden="true"></span>
+                        Localizar lote
+                    </button>
+                    <button class="btn btn-primary" ng-click="mostrarPesquisaItem()" ng-disabled="loading">
+                        <span class="fa fa-qrcode" aria-hidden="true"></span>
+                        Localizar referência
+                    </button>
+                </div>
+            </div>
+            <div class="col-xs-6" style="padding-right: 0px;">
+                <div class="pull-right">
+                    <div class="btn-group" role="group">
+                        <button class="btn" ng-click="getListaFichas()" ng-disabled="loading" ng-class="{'btn-primary': !loading, 'btn-warning': loading}" style="width: 105px;">
+                            <span class="fa fa-search" aria-hidden="true" ng-if="!loading"></span>
+                            <span ng-if="!loading">Pesquisar</span>
+                            
+                            <span class="fa fa-spinner fa-spin" aria-hidden="true" ng-if="loading"></span>
+                            <span ng-if="loading">Aguarde...</span>
+                        </button>
+                    </div>
+                    
+                    <input type="text" ng-model="search" />
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <table class="table table-condensed" ng-show="lista" id="result">
+            <tr>
+                <th>Nº da Ficha</th>
+                <th>Nº Doc</th>
+                <th>Data</th>
+                <th>Inspeção</th>
+                <th>Situação</th>
+                <th>Item</th>
+                <th>Descrição</th>
+                <th>Lote/Nº Série</th>
+                <th>Status lote</th>
+            </tr>
+            <tr ng-repeat="item in lista | filter: search" style="cursor: pointer" ng-click="navigateTo(item.docentry)">
+                <td valign="middle">
+                    <a ng-href="#/lcq/ficha/{{item.docentry}}" class="btn btn-primary btn-sm">
+                        <span class="fa fa-external-link" aria-hidden="true"></span>
+                        {{item.ficha}}
+                    </a>
+                    
+                </td>
+                <td>{{item.doc}}</td>
+                <td>{{item.data|date: 'dd/MM/yyyy'}}</td>
+                <td>{{item.inspecao|date: 'dd/MM/yyyy'}}</td>
+                <td>{{item.situacao}}</td>
+                <td>{{item.item}}</td>
+                <td>{{item.descricao}}</td>
+                <td>{{item.lote}}</td>
+                <td>{{item.statuslotename}}</td>
+            </tr>
+        </table>
+        
+    </div>
+
+    <div ng-if="!lista">
+
+        Suas permissões são:
+
+        <ul>
+            <li>
+                Mudar data de emissão
+                <span class="fa fa-check text-success" ng-if="identity.lcqpermission.mudar_data_emissao"></span>
+                <span class="fa fa-remove text-danger" ng-if="!identity.lcqpermission.mudar_data_emissao"></span>
+            </li>
+            <li>
+                Mudar data de inspeção
+                <span class="fa fa-check text-success" ng-if="identity.lcqpermission.mudar_data_inspecao"></span>
+                <span class="fa fa-remove text-danger" ng-if="!identity.lcqpermission.mudar_data_inspecao"></span>
+            </li>
+            <li>
+                Alterar status do lote
+                <span class="fa fa-check text-success" ng-if="identity.lcqpermission.status_lote"></span>
+                <span class="fa fa-remove text-danger" ng-if="!identity.lcqpermission.status_lote"></span>
+            </li>
+        </ul>
+
+    </div>
+
+    
+
+</div>
+
+<div ng-include="'view/lcq/lcqPorLote.html'"></div>
+
