@@ -30,17 +30,6 @@
 
             <br />
             
-            <div class="row hidden-xs">
-                <center>
-                    <div class="shrink pic" >
-                        <img ng-src='{{apiURL}}Account/GetAvatarByEmail/email={{loginData.userNameForImage}}' class="img img-rounded img-responsive" ng-if="loginData.userNameForImage" style="height: 96px;">
-                        <img ng-src='{{apiURL}}Account/GetAvatar' class="img img-rounded img-responsive" ng-if="!loginData.userNameForImage" style="height: 96px;">
-                    </div>
-                    
-                </center>
-                <br />
-            </div>
-
             <div class="row">
 
                 <div class="col-xs-12">
@@ -49,12 +38,12 @@
                             <form>
 
                                 <div class="form-group login">
-                                    <input ng-model="loginData.userName" type="email" class="form-control" id="userName" placeholder="Email" ng-blur="checkAvatar()">
+                                    <input ng-model="loginData.userName" type="text" class="form-control" id="userName" placeholder="Nome de usuário">
                                 </div>
 
                                 <div class="form-group login">
 
-                                    <input ng-model="loginData.password" type="password" class="form-control" id="password" placeholder="Senha" ng-blur="checkAvatar()">
+                                    <input ng-model="loginData.password" type="password" class="form-control" id="password" placeholder="Senha">
                                 </div>
 
                                 <!--<div class="checkbox">
