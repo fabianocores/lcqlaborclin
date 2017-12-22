@@ -439,7 +439,10 @@
 </div>
 <script>
     $('#modalLcqInput').on('shown.bs.modal', function () {
-        $('#inputResult').focus();
+        if (!isCordovaApp) {
+            $('#inputResult').focus();
+        }
+        
     })
 </script>
 <!--<script>

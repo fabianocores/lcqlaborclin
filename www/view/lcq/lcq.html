@@ -111,12 +111,23 @@
                     <th>
                         Data Emissão
                     </th>
-                    <td>
+
+                    <td colspan="2">
+                        <input date-range-picker="t1"
+                               start-date="params.dataini"
+                               end-date="params.datafim"
+                               data-ng-required="false"
+                               date-range-picker-options="params.daterangeoptions"
+                               readonly
+                               class="form-control input-sm">
+                    </td>
+
+                    <!--<td>
                         <input akbdatepicker class="form-control input-sm" ng-model="params.dataini" ng-disabled="loading" />
                     </td>
                     <td>
                         <input akbdatepicker class="form-control input-sm" ng-model="params.datafim" ng-disabled="loading" />
-                    </td>
+                    </td>-->
 
                     <th>
                         Análise
@@ -155,12 +166,23 @@
                     <th>
                         Data Inspeção
                     </th>
-                    <td>
+
+                    <td colspan="2">
+                        <input date-range-picker="t1"
+                               start-date="params.datainsini"
+                               end-date="params.datainsfim"
+                               data-ng-required="false"
+                               date-range-picker-options="params.daterangeoptions"
+                               readonly
+                               class="form-control input-sm">
+                    </td>
+
+                    <!--<td>
                         <input akbdatepicker class="form-control input-sm" ng-model="params.datainsini" ng-disabled="loading" />
                     </td>
                     <td>
                         <input akbdatepicker class="form-control input-sm" ng-model="params.datainsfim" ng-disabled="loading" />
-                    </td>
+                    </td>-->
 
                     <th>
                         Subgrupo

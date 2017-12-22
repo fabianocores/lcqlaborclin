@@ -37,7 +37,18 @@
             <tr ng-if="ficha.moreDetails">
                 <td>
                     <strong>Data inspeção</strong><br />
-                    <input akbdatepicker class="form-control input-sm" ng-model="ficha.datains" ng-if="params.identity.lcqpermission.mudar_data_inspecao" />
+                    <!--<input akbdatepicker class="form-control input-sm" ng-model="ficha.datains" ng-if="params.identity.lcqpermission.mudar_data_inspecao" disabled />-->
+
+                    <div class="input-group" ng-if="params.identity.lcqpermission.mudar_data_inspecao" >
+                        <input ng-model="ficha.datains" class="form-control" akbdatepicker  id="datains" name="datains" />
+                        <span class="input-group-btn">
+                            <button onclick="show_dp('datains')" class="btn btn-default">
+                                <span class="fa fa-calendar"></span>
+                            </button>
+                            
+                        </span>
+                    </div>
+
                     <span ng-if="!params.identity.lcqpermission.mudar_data_inspecao">{{ficha.datains | date}}</span>
                 </td>
                 <td>
@@ -66,8 +77,20 @@
             <tr ng-if="ficha.moreDetails">
                 <td>
                     <strong>Data emissão</strong><br />
-                    {{params.permissions}}
-                    <input akbdatepicker class="form-control input-sm" ng-model="ficha.dataemi" ng-if="params.identity.lcqpermission.mudar_data_emissao" />
+                    
+                    <!--<input akbdatepicker class="form-control input-sm" ng-model="ficha.dataemi" ng-if="params.identity.lcqpermission.mudar_data_emissao" />-->
+
+                    <div class="input-group" ng-if="params.identity.lcqpermission.mudar_data_emissao">
+                        <input ng-model="ficha.dataemi" class="form-control" akbdatepicker id="dataemi" name="dataemi" />
+                        <span class="input-group-btn">
+                            <button onclick="show_dp('dataemi')" class="btn btn-default">
+                                <span class="fa fa-calendar"></span>
+                            </button>
+
+                        </span>
+                    </div>
+
+
                     <span ng-if="!params.identity.lcqpermission.mudar_data_emissao">{{ficha.dataemi | date}}</span>
                 </td>
                 <td>
@@ -311,3 +334,33 @@
 <div ng-include="'view/lcq/lcqinput.html'"></div>
 <div ng-include="'view/lcq/lcqtag.html'"></div>
 <div ng-include="'view/lcq/lcqhistoricostatus.html'"></div>
+
+
+<script>
+    //function show_dp(who) {
+
+    //    console.log(who);
+
+    //    $("#" + who).datepicker('show'); //Show on click of button
+    //}
+
+    function show_dp(who) {
+
+        $("#" + who).datetimepicker('show'); //Show on click of button
+
+        //var dp = $("#" + who);
+        //console.log('dp', dp);
+        //debugger;
+        //if (dp.attr('datetimepicker')) {
+        //    dp.datetimepicker('destroy');
+        //    dp.removeAttr('datetimepicker');
+        //} else {
+        //    dp.datetimepicker();
+        //    dp.attr('datetimepicker', 1);
+        //}
+
+
+    }
+
+
+</script>
