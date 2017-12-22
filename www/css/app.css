@@ -1000,8 +1000,14 @@ a:link {
     animation-timing-function: linear;
 }
 
-.carousel-indicators {
+/*.carousel-indicators {
     display: none;
+}*/
+
+/* Oculta botões de navegação e efeito degrade nos cantos */
+.right.carousel-control, .left.carousel-control {
+    background-color: transparent;
+    background-image: none;
 }
 
 .importantMessage {

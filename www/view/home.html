@@ -1,8 +1,147 @@
-<div ng-show="identity.isAuthenticated" class="container">
+﻿<div ng-if="identity.isAuthenticated">
 
-    <pre>{{identity.lcqpermission}}</pre>
+    <carousel interval="15000" no-pause="false" no-transition="true" style="position: relative; width: 100%; left: 0px;" class="topslider">
+        <slide active="slide.active">
+            <div class="row">
+                <hc-pie-label-chart title="" id="chartStatusLote" data="chartStatusLote" class="col-md-8 col-xs-12" style="height: 600px;" ng-if="chartStatusLote"></hc-pie-label-chart>
+                <div class="col-md-4 col-xs-12">
+                    <div class="panel panel-default pre-scrollable" style="max-height: 600px;" ng-if="chartStatusLote">
+                        <table class="table table-condensed">
+                            <tr>
+                                <th>Status do lote</th>
+                                <th style="text-align: right;">Quantidade</th>
+                            </tr>
+                            <tr ng-repeat="ind in indicadores.statuslote">
+                                <td>{{ind.label}}</td>
+                                <td style="text-align: right;">{{ind.quantity}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-caption">
+                <h4>Status do lote</h4>
+                <p>Por quantidade</p>
+            </div>
+        </slide>
+        <slide>
+            <div class="row">
+                <hc-pie-label-chart title="" id="chartTipoAnalise" data="chartTipoAnalise" class="col-md-8 col-xs-12" style="height: 600px;" ng-if="chartTipoAnalise"></hc-pie-label-chart>
+                <div class="col-md-4 col-xs-12">
+                    <div class="panel panel-default pre-scrollable" style="max-height: 600px;">
+                        <table class="table table-condensed">
+                            <tr>
+                                <th>Tipo de análise</th>
+                                <th style="text-align: right;">Quantidade</th>
+                            </tr>
+                            <tr ng-repeat="ind in indicadores.tipoanalise">
+                                <td>{{ind.label}}</td>
+                                <td style="text-align: right;">{{ind.quantity}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-caption">
+                <h4>Tipo de análise</h4>
+                <p>Por quantidade</p>
+            </div>
+        </slide>
+        <slide>
+            <div class="row">
+                <hc-pie-label-chart title="" id="chartGrupo" data="chartGrupo" class="col-md-8 col-xs-12" style="height: 600px;" ng-if="chartGrupo"></hc-pie-label-chart>
+                <div class="col-md-4 col-xs-12">
+                    <div class="panel panel-default pre-scrollable" style="max-height: 600px;">
+                        <table class="table table-condensed">
+                            <tr>
+                                <th>Grupos</th>
+                                <th style="text-align: right;">Quantidade</th>
+                            </tr>
+                            <tr ng-repeat="ind in indicadores.grupo">
+                                <td>{{ind.label}}</td>
+                                <td style="text-align: right;">{{ind.quantity}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-caption">
+                <h4>Grupos</h4>
+                <p>Por quantidade</p>
+            </div>
+        </slide>
+    </carousel>
+
+    <div class="container">
+
+
+
+
+        <!--<div class="row">
+            <hc-pie-label-chart title="" id="chartStatusLote" data="chartStatusLote" class="col-md-8 col-xs-12" style="height: 370px;" ng-if="chartStatusLote"></hc-pie-label-chart>
+            <div class="col-md-4 col-xs-12">
+                <div class="panel panel-default pre-scrollable" style="max-height: 600px;" ng-if="chartStatusLote">
+                    <table class="table table-condensed">
+                        <tr>
+                            <th>Status do lote</th>
+                            <th style="text-align: right;">Quantidade</th>
+                        </tr>
+                        <tr ng-repeat="ind in indicadores.statuslote">
+                            <td>{{ind.label}}</td>
+                            <td style="text-align: right;">{{ind.quantity}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>-->
+        <!--<div class="row">
+            <hc-pie-label-chart title="" id="chartTipoAnalise" data="chartTipoAnalise" class="col-md-8 col-xs-12" style="height: 370px;" ng-if="chartTipoAnalise"></hc-pie-label-chart>
+            <div class="col-md-4 col-xs-12">
+                <div class="panel panel-default pre-scrollable" style="max-height: 600px;">
+                    <table class="table table-condensed">
+                        <tr>
+                            <th>Tipo de análise</th>
+                            <th style="text-align: right;">Quantidade</th>
+                        </tr>
+                        <tr ng-repeat="ind in indicadores.tipoanalise">
+                            <td>{{ind.label}}</td>
+                            <td style="text-align: right;">{{ind.quantity}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <hc-pie-label-chart title="" id="chartGrupo" data="chartGrupo" class="col-md-8 col-xs-12" style="height: 370px;" ng-if="chartGrupo"></hc-pie-label-chart>
+            <div class="col-md-4 col-xs-12">
+                <div class="panel panel-default pre-scrollable" style="max-height: 600px;">
+                    <table class="table table-condensed">
+                        <tr>
+                            <th>Grupos</th>
+                            <th style="text-align: right;">Quantidade</th>
+                        </tr>
+                        <tr ng-repeat="ind in indicadores.grupo">
+                            <td>{{ind.label}}</td>
+                            <td style="text-align: right;">{{ind.quantity}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>-->
+        <!--<hc-pie-label-chart title="" id="chartTipoAnalise" data="chartTipoAnalise" class="col-xs-4" style="height: 240px;" ng-if="chartTipoAnalise"></hc-pie-label-chart>
+        <hc-pie-label-chart title="" id="chartGrupo" data="chartGrupo" class="col-xs-4" style="height: 240px;" ng-if="chartGrupo"></hc-pie-label-chart>
+
+        <pre>{{identity.lcqpermission}}</pre>
+
+        {{indicadores}}-->
+
+    </div>
+
+
+
+
+
 
 </div>
-
-
 

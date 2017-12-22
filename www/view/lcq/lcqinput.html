@@ -120,7 +120,7 @@
                             <div class="col-xs-6" style="">
 
                                 <div class="input-group" role="group" style="width: 100%; margin-bottom: 5px;">
-                                    <input type="text" id="inputResult2" ng-model="ficha.selected.resultadot" ng-keypress="resultadoKeyPress($event)" ng-model-options="{updateOn: 'blur'}" class="form-control input-lg" style="text-align: right;" />
+                                    <input type="text" id="inputResult2" ng-model="ficha.selected.resultadot" ng-keypress="resultadoKeyPress($event)" class="form-control input-lg" style="text-align: right;" />
 
                                     <div class="input-group-addon" ng-if="ficha.selected.um">
                                         {{ficha.selected.um}}
@@ -184,22 +184,6 @@
 
                                 <div class="panel panel-default" ng-if="ficha.selected.medias.length > 0">
 
-                                    <!--<div class="row">
-                                        <div class="col-xs-4" style="text-align: right; padding-right: 0px;">
-                                            Resultado
-                                        </div>
-                                        <div class="col-xs-5">
-                                            <div class="pull-right">
-                                                <h4 style="padding: 0px; margin: 0px;">
-                                                    <span class="label"
-                                                          ng-class="{'label-danger': ( ( ficha.selected.p_de && ficha.selected.resultadom < ficha.selected.f_de ) || ( ficha.selected.p_ate && ficha.selected.resultadom > ficha.selected.f_ate ) ), 'label-success': !( ( ficha.selected.p_de && ficha.selected.resultadom < ficha.selected.f_de ) || ( ficha.selected.p_ate && ficha.selected.resultadom > ficha.selected.f_ate ) ) }">
-                                                        {{ficha.selected.resultadom | number: '5'}}
-                                                    </span>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                    </div>-->
-
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <center>
@@ -216,15 +200,6 @@
                                                     </tr>
                                                     <tr ng-if="ficha.selected.medias.length"><th style="text-align: right;">Medições</th><td style="text-align: right;">{{ficha.selected.medias.length}}</td></tr>
                                                     <tr ng-if="ficha.selected.desviopadrao"><th style="text-align: right;">Desvio padrão</th><td style="text-align: right;">{{ficha.selected.desviopadrao|number:'3'}}</td></tr>
-                                                    <!--<tr ng-if="ficha.selected.desviominimo"><th style="text-align: right;">Desvio mínimo</th><td style="text-align: right;">{{ficha.selected.desviominimo|number:'3'}}</td></tr>
-                                                    <tr ng-if="ficha.selected.desviomaximo"><th style="text-align: right;">Desvio máximo</th><td style="text-align: right;">{{ficha.selected.desviomaximo|number:'3'}}</td></tr>-->
-                                                    
-                                                    <!--<tr ng-if="ficha.selected.variacao">
-                                                        
-                                                        <th style="text-align: right;">Variação</th>
-                                                        <td style="text-align: right;">{{ficha.selected.variacao|number:'3'}}</td>
-                                                        <td></td>
-                                                    </tr>-->
                                                 </table>
                                             </center>
                                             
@@ -269,76 +244,22 @@
                                                         <td style="width: 10%; text-align: center;">
                                                             <span class="fa fa-remove text-danger" ng-click="removeMedia(media.index)"></span>
                                                         </td>
+
                                                     </tr>
+
                                                 </table>
+
                                             </center>
+
                                         </div>
+
                                     </div>
-
-                                    <!--<div class="panel-body pre-scrollable" style="padding: 0px; margin: 0px; max-height: 250px;">
-
-                                        
-                                            
-                                        <div class="col-xs-12" ng-repeat="media in ficha.selected.medias">
-                                            <div class="panel panel-default" style="">
-
-                                                <div class="col-xs-2" style="text-align: right;">
-
-                                                    <button class="btn btn-xs btn-primary" ng-click="removeMedia($index)">
-                                                        <span class="fa fa-remove"></span>
-                                                    </button>
-
-
-                                                </div>
-
-                                                <div class="col-xs-2" style="text-align: right; ">
-
-                                                    <small>
-                                                        {{$index+1}}º
-                                                    </small>
-
-                                                </div>
-                                                <div class="col-xs-6" style="text-align: right;" ng-class="{'text-danger': media.desvio}">
-                                                    {{media.valor | number: '5'}}
-                                                </div>
-
-                                                <div class="col-xs-2">
-                                                    <span class="fa fa-sort-up text-danger" ng-if="media.tipodesvio == '+'"></span>
-                                                    <span class="fa fa-sort-down text-danger" ng-if="media.tipodesvio == '-'"></span>
-                                                    <span class="fa fa-check text-success" ng-if="!media.desvio"></span>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        
-                                    </div>-->
-
-                                    
-                                    <!--<div class="row" ng-if="ficha.selected.medias.length > 0">
-                                        <div class="col-xs-offset-4 col-xs-5">
-                                            <hr style="border: thin solid black; margin: 5px 0px 5px 15px;" />
-                                        </div>
-                                    </div>-->
-
                                     
                                 </div>
 
-
-                                
-
-
-
                             </div>
 
-
                         </div>
-
-                        
-
-                        
-
-                        
 
                     </div>
 
@@ -354,17 +275,11 @@
 
                     </div>
                     
-                    
-                    <!--<div class="form-group">
-                        <label for="maquina" class="col-sm-3 control-label">Auditoria</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="maquina" ng-model="ficha.selected.auditoria">
-                        </div>
-                    </div>-->
+                   
                     <div class="form-group">
                         <label for="obs" class="col-sm-3 control-label">Observação</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="obs" ng-model="ficha.selected.obs" ng-change="validarResultado(ficha.selected.resultado)">
+                            <input type="text" class="form-control" id="obs" ng-model="ficha.selected.obs" ng-change="validarResultado(ficha.selected.resultado)" ng-model-options="{updateOn: 'blur'}" >
                         </div>
                     </div>
                     <div class="form-group">
