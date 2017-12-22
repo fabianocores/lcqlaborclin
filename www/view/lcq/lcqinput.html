@@ -81,7 +81,7 @@
                         <div class="form-group">
                             <label for="maquina" class="col-sm-3 control-label">Resultado</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" id="inputResult" ng-model="ficha.selected.resultado" rows="4"></textarea>
+                                <textarea class="form-control" id="inputResult" ng-model="ficha.selected.resultado" ng-model-options="{updateOn: 'blur'}" rows="3"></textarea>
 
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                             <div class="col-xs-6" style="">
 
                                 <div class="input-group" role="group" style="width: 100%; margin-bottom: 5px;">
-                                    <input type="text" id="inputResult2" ng-model="ficha.selected.resultadot" ng-keypress="resultadoKeyPress($event)" class="form-control input-lg" style="text-align: right;" />
+                                    <input type="text" id="inputResult2" ng-model="ficha.selected.resultadot" ng-keypress="resultadoKeyPress($event)" ng-model-options="{updateOn: 'blur'}" class="form-control input-lg" style="text-align: right;" />
 
                                     <div class="input-group-addon" ng-if="ficha.selected.um">
                                         {{ficha.selected.um}}
