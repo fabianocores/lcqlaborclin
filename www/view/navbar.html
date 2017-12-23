@@ -81,7 +81,7 @@
 
                         <li data-toggle="collapse" data-target=".navbar-collapse">
                             <a href="" ng-click="logOut()">
-                                Log off
+                                Log out
                             </a>
                         </li>
                     </ul>
@@ -93,14 +93,20 @@
 
             <ul class="nav navbar-nav navbar-right" ng-if="identity.isAuthenticated == true">
 
-                <li style="padding-top: 12px;" ng-if="loginData.isCordovaApp">
+                <li style="padding-top: 10px; padding-right: 10px;">
+                    <button class="btn btn-default btn-primary btn-sm"  ng-click="logOut()">
+                        <span class="fa fa-sign-out" aria-hidden="true"></span>Log out
+                    </button>
+                </li>
+
+                <li style="padding-top: 10px;" ng-if="loginData.isCordovaApp">
                     <button class="btn btn-default btn-danger btn-sm" ng-click="closeApp()">
                         <span class="fa fa-close" aria-hidden="true"></span>Fechar
                     </button>
                 </li>
 
                 <li ng-if="(identity.roles.toUpperCase() == 'MASTER') && identity.controlpanel " data-toggle="collapse" data-target=".navbar-collapse">
-                    <a href="#/adm" style="font-size: 21px; padding: 13px 4px 13px 4px; width: 43px; text-align: center;">
+                    <a href="#/adm" style="font-size: 21px; padding: 13px 4px 13px 13px; width: 43px; text-align: center;">
                         <span class="fa fa-cogs" style=""
                               title="Painel de controle"></span>
                     </a>

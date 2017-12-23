@@ -1,7 +1,7 @@
 <!--<pre-loader ng-show="loginData.checkingCookie"></pre-loader>-->
 <pre-loader-text loader-title="Preparando a aplicação" loader-message="Por favor, aguarde" ng-show="loginData.checkingCookie"></pre-loader-text>
 
-<span ng-if="loginData.isCordovaApp" ng-show="loginData.checkingCookie" style="position: absolute; top: 250px; left: 50px;">
+<!--<span ng-if="loginData.isCordovaApp" ng-show="loginData.checkingCookie" style="position: absolute; top: 250px; left: 50px;">
     
     <a href="#/setup?ignore=true">
         <span class="fa fa-cog"></span>
@@ -12,9 +12,9 @@
         <span class="fa fa-refresh" aria-hidden="true"></span>
         Recaregar
     </button>
-</span>
-
-<div id="loginCourtine" ng-show="!loginData.checkingCookie && !loginData.checkingConfig" ng-style="appConfig.appWallpaper">
+</span>-->
+ <!--ng-style="appConfig.appWallpaper"-->
+<div id="loginCourtine" ng-show="!loginData.checkingCookie && !loginData.checkingConfig">
 
     <div ng-class="{'col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-offset-4 col-lg-4': (!appConfig.loginPosition || appConfig.loginPosition == 'C'), 'col-sm-6 col-md-4 col-lg-3': appConfig.loginPosition == 'L', 'col-sm-offset-6 col-sm-6 col-md-offset-8 col-md-4 col-lg-offset-9 col-lg-3': appConfig.loginPosition == 'R'}">
         <div id="loginContainer">
