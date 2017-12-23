@@ -20,9 +20,6 @@
 	<plugin name="cordova-plugin-whitelist" spec="1.3.2" />
 	<plugin name="phonegap-plugin-local-notification" spec="1.0.1" />
 	
-	<icon src="res/icon/android/drawable-hdpi-icon.png" />
-	<splash src="res/screen/android/drawable-port-xxhdpi-screen.png" />
-		
 	<platform name="android">
         <allow-intent href="market:*" />
 		
