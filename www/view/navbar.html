@@ -93,25 +93,31 @@
 
             <ul class="nav navbar-nav navbar-right" ng-if="identity.isAuthenticated == true">
 
-                <li style="padding-top: 10px; padding-right: 10px;">
+                <li style="padding-top: 10px; padding-right: 10px;" data-toggle="collapse" data-target=".navbar-collapse">
                     <button class="btn btn-default btn-primary btn-sm"  ng-click="logOut()">
-                        <span class="fa fa-sign-out" aria-hidden="true"></span>Log out
+                        <span class="fa fa-sign-out" aria-hidden="true"></span> Log out
                     </button>
                 </li>
 
-                <li style="padding-top: 10px;" ng-if="loginData.isCordovaApp">
+                <li style="padding-top: 10px; padding-right: 10px;" ng-if="(identity.roles.toUpperCase() == 'MASTER') && identity.controlpanel" data-toggle="collapse" data-target=".navbar-collapse">
+                    <button class="btn btn-default btn-primary btn-sm" ng-click="go('/adm')">
+                        <span class="fa fa-cogs" aria-hidden="true"></span> Painel Controle
+                    </button>
+                </li>
+
+                <li style="padding-top: 10px;" ng-if="loginData.isCordovaApp" data-toggle="collapse" data-target=".navbar-collapse">
                     <button class="btn btn-default btn-danger btn-sm" ng-click="closeApp()">
-                        <span class="fa fa-close" aria-hidden="true"></span>Fechar
+                        <span class="fa fa-close" aria-hidden="true"></span> Fechar
                     </button>
                 </li>
 
-                <li ng-if="(identity.roles.toUpperCase() == 'MASTER') && identity.controlpanel " data-toggle="collapse" data-target=".navbar-collapse">
+                <!--<li ng-if="(identity.roles.toUpperCase() == 'MASTER') && identity.controlpanel " data-toggle="collapse" data-target=".navbar-collapse">
                     <a href="#/adm" style="font-size: 21px; padding: 13px 4px 13px 13px; width: 43px; text-align: center;">
                         <span class="fa fa-cogs" style=""
                               title="Painel de controle"></span>
                     </a>
 
-                </li>
+                </li>-->
 
             </ul>
 

@@ -40,7 +40,7 @@
                     <!--<input akbdatepicker class="form-control input-sm" ng-model="ficha.datains" ng-if="params.identity.lcqpermission.mudar_data_inspecao" disabled />-->
 
                     <div class="input-group" ng-if="params.identity.lcqpermission.mudar_data_inspecao" >
-                        <input ng-model="ficha.datains" class="form-control" akbdatepicker  id="datains" name="datains" />
+                        <input ng-model="ficha.datains" class="form-control" akbdatepicker  id="datains" name="datains" readonly />
                         <span class="input-group-btn">
                             <button onclick="show_dp('datains')" class="btn btn-default">
                                 <span class="fa fa-calendar"></span>
@@ -81,7 +81,7 @@
                     <!--<input akbdatepicker class="form-control input-sm" ng-model="ficha.dataemi" ng-if="params.identity.lcqpermission.mudar_data_emissao" />-->
 
                     <div class="input-group" ng-if="params.identity.lcqpermission.mudar_data_emissao">
-                        <input ng-model="ficha.dataemi" class="form-control" akbdatepicker id="dataemi" name="dataemi" />
+                        <input ng-model="ficha.dataemi" class="form-control" akbdatepicker id="dataemi" name="dataemi" readonly />
                         <span class="input-group-btn">
                             <button onclick="show_dp('dataemi')" class="btn btn-default">
                                 <span class="fa fa-calendar"></span>
