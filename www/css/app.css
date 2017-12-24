@@ -356,6 +356,9 @@ body {
             /*color: white;*/
         }
 
+
+
+
 /*@media screen and (min-width: 767px) {
     #loginContainer {
         position: center;
@@ -403,6 +406,15 @@ body {
             color: black;
         }
 }*/
+
+
+.xdsoft_date {
+        font-size: 20px !important;
+    }
+
+#fichalinhas tbody tr td {
+        vertical-align: middle;
+    }
 
 #loginContainer h2 {
     padding-top: 0px;
@@ -791,7 +803,7 @@ a:link {
     margin-top: 0px;
     padding-top: 0px;
     z-index: 2;
-    top: 48px;
+    top: 49px;
 }
 
     .supLoader:before {
@@ -803,7 +815,7 @@ a:link {
         left: -200px;
         width: 200px;
         height: 7px;
-        background-color: #2980b9; /*#2980b9;*/
+        background-color: #ff6a00; /*#2980b9;*/
         animation: loading 2s linear infinite;
         z-index: 2;
     }
