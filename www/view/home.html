@@ -1,6 +1,24 @@
 ﻿<div ng-if="identity.isAuthenticated">
 
-    <carousel interval="15000" no-pause="false" no-transition="true" style="position: relative; width: 100%; left: 0px;" class="topslider">
+    <div class="row">
+        <hc-pie-label-chart title="" id="chartStatusLote" data="chartStatusLote" class="col-md-8 col-xs-12" style="height: 600px;" ng-if="chartStatusLote"></hc-pie-label-chart>
+        <div class="col-md-4 col-xs-12">
+            <div class="panel panel-default pre-scrollable" style="max-height: 600px;" ng-if="chartStatusLote">
+                <table class="table table-condensed">
+                    <tr>
+                        <th>Status do lote</th>
+                        <th style="text-align: right;">Quantidade</th>
+                    </tr>
+                    <tr ng-repeat="ind in indicadores.statuslote">
+                        <td>{{ind.label}}</td>
+                        <td style="text-align: right;">{{ind.quantity}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--<carousel interval="15000" no-pause="false" no-transition="true" style="position: relative; width: 100%; left: 0px;" class="topslider">
         <slide active="slide.active">
             <div class="row">
                 <hc-pie-label-chart title="" id="chartStatusLote" data="chartStatusLote" class="col-md-8 col-xs-12" style="height: 600px;" ng-if="chartStatusLote"></hc-pie-label-chart>
@@ -70,7 +88,7 @@
                 <p>Por quantidade</p>
             </div>
         </slide>
-    </carousel>
+    </carousel>-->
 
     <div class="container">
 

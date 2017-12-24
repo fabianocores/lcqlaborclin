@@ -191,10 +191,6 @@
                 </div>
                 <div class="col-xs-3" style="padding-left: 0px;">
                     <div class="btn-group pull-right" role="group">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalLcqTag">
-                            <span class="fa fa-tag" aria-hidden="true"></span>
-                            Etiqueta
-                        </button>
                         <button class="btn" ng-click="save()" ng-if="ficha" ng-disabled="saving" ng-class="{'btn-success': !saving, 'btn-warning': saving}">
                             <span ng-if="!saving">
                                 <span class="fa fa-check" aria-hidden="true"></span>
@@ -315,7 +311,35 @@
 
         </div>
 
-        
+        <div class="panel-body">
+
+            <div class="col-xs-3" style="padding-left: 0px;">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalLcqTag">
+                        <span class="fa fa-tag" aria-hidden="true"></span>
+                        Etiqueta
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="col-xs-offset-6 col-xs-3" style="padding-left: 0px;">
+                <div class="btn-group pull-right" role="group">
+                    <button class="btn" ng-click="save()" ng-if="ficha" ng-disabled="saving" ng-class="{'btn-success': !saving, 'btn-warning': saving}">
+                        <span ng-if="!saving">
+                            <span class="fa fa-check" aria-hidden="true"></span>
+                            Salvar
+                        </span>
+                        <span ng-if="saving">
+                            <span class="fa fa-spin fa-spinner" aria-hidden="true"></span>
+                            Aguarde
+                        </span>
+
+                    </button>
+                </div>
+
+            </div>
+        </div>
 
     </div>
 
