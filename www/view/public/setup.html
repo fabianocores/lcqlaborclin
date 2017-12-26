@@ -9,13 +9,13 @@
 
             <img ng-src="{{apiURL}}Adm/GetLogo/{{domainInfo.logo}}-64px" class="img img-responsive" style="max-width: 200px;" /><br />
         </div>
-        
+
     </div>
 
     <div class="panel panel-default" style="position: absolute; bottom: 0px; left: 0px; width: 100%; background-color: transparent; " ng-hide="restarting">
         <div class="panel-body" style="padding: 8px;">
 
-            <div ng-show="setManually">
+            <div>
                 <div class="form-group">
                     <label class="control-label">Protocolo</label>
                     <select class="form-control input-sm" ng-model="config.protocol" ng-options="p.code as p.code for p in protocols" style="width:120px;" ng-disabled="loadingsetup || validating || restarting"></select>
@@ -25,10 +25,10 @@
                     <label class="control-label">URL da API</label>
                     <input type="text" class="form-control input-sm " ng-model="config.baseUrl" placeholder="Ex.: api.arkabit.com/arkabwebapi/api/" ng-disabled="loadingSetup || validating || restarting" />
                     <div ng-if="config.error1">
-                        <input type="checkbox" ng-model="config.ignoreerror1" ng-if="config.error1" />    
+                        <input type="checkbox" ng-model="config.ignoreerror1" ng-if="config.error1" />
                         Eu estou passando exatamente o endereço da API
                     </div>
-                    
+
                 </div>
 
                 <div class="form-group">
@@ -48,36 +48,15 @@
 
             </div>
 
-            
+
 
             <div class="row" ng-show="validating">
                 <div class="col-md-12">
                     <br />
                     <akb-server-loading ng-show="validating"></akb-server-loading>
-                </div>                
-            </div>
-            
-
-            <div class="row">
-                <div class="col-md-12">
-
-                    <button class="btn btn-default btn-lg" ng-click="scanConfig()" ng-disabled="loadingsetup || validating || restarting">
-                        <span class="fa fa-qrcode" aria-hidden="true"></span>
-                    </button>
-
-                    <button class="btn btn-lg" ng-class="{'btn-default': !light, 'btn-primary': light}" ng-click="turnLight()" ng-disabled="loadingsetup || validating || restarting">
-                        <span class="fa fa-flash" aria-hidden="true"></span>
-                    </button>
-
-                    <button class="btn btn-default btn-lg" ng-click="setManually = !setManually" ng-disabled="loadingsetup || validating || restarting">
-                        <span class="fa fa-cogs" aria-hidden="true"></span>
-                    </button>
-
-
                 </div>
-
             </div>
-            
+
             <div class="row" ng-if="error">
                 <div class="col-md-12">
                     <div class="alert alert-warning alert-dismissible" role="alert">
