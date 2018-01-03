@@ -28,6 +28,7 @@
     <link async rel="stylesheet" type="text/css" href="lib/bootstrap-daterangepicker-2.1.25/daterangepicker.css" />
 
     <script type="text/javascript" src="cordova.js"></script>
+
     <script type="text/javascript" src="build/js/lib.js"></script>
 
     <script type="text/javascript" src="build/js/arkab.portal.webapp.min.js"></script>
@@ -39,6 +40,8 @@
 <body>
 
     <div id="arkabPortalApp" name="arkabPortalApp" class="arkabPortalApp">
+        <!--<div ng-include="'view/features/chat/chat.html'" ng-show="chat.enabled && chat.selecteduser && identity.isAuthenticated"></div>
+        <div ng-include="'view/features/chat/users.html'" ng-show="chat.enabled && identity.isAuthenticated"></div>-->
         <div ng-include="'view/navbar.html'" ng-if="identity.isAuthenticated == true"></div>
 
         <div ng-view></div>   <!--class="container"-->
@@ -55,8 +58,14 @@
 
                     navigator.splashscreen.hide();
 
+                    //document.addEventListener("backbutton", function (e) {
+                    //    e.preventDefault();
+                    //}, false);
+
+
                 }, false);
             } else {
+                //console.log("Running in browser, bootstrapping AngularJS now.");
                 angular.bootstrap(document.body, ['arkabPortal']);
                 
             }
