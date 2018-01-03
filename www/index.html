@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE HTML>
 <html lang="pt-br">
 <head>
-    <title>CRM SAP</title>
+    <title>LCQ</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <META NAME="AUTHOR" CONTENT="Arkab Tecnologia da Informação">
@@ -9,13 +9,6 @@
     <META NAME="COPYRIGHT" CONTENT="&copy; 2017 Arkab IT">
     <META NAME="GOOGLEBOT" CONTENT="NOARCHIVE">
     <meta name="theme-color" content="#ffffff">
-
-    <link async rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=wAvmde3Y38">
-    <link async rel="icon" type="image/png" href="favicon-32x32.png?v=wAvmde3Y38" sizes="32x32">
-    <link async rel="icon" type="image/png" href="favicon-16x16.png?v=wAvmde3Y38" sizes="16x16">
-    <link async rel="manifest" href="manifest.json?v=wAvmde3Y38">
-    <link async rel="mask-icon" href="safari-pinned-tab.svg?v=wAvmde3Y38" color="#5bbad5">
-    <link async rel="shortcut icon" href="favicon.ico?v=wAvmde3Y38">
     
     <link async rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
     <link async rel="stylesheet" href="lib/jQueryUI-1.12.1/jquery-ui.css">
@@ -40,8 +33,6 @@
 <body>
 
     <div id="arkabPortalApp" name="arkabPortalApp" class="arkabPortalApp">
-        <!--<div ng-include="'view/features/chat/chat.html'" ng-show="chat.enabled && chat.selecteduser && identity.isAuthenticated"></div>
-        <div ng-include="'view/features/chat/users.html'" ng-show="chat.enabled && identity.isAuthenticated"></div>-->
         <div ng-include="'view/navbar.html'" ng-if="identity.isAuthenticated == true"></div>
 
         <div ng-view></div>   <!--class="container"-->
@@ -58,11 +49,6 @@
 
                     navigator.splashscreen.hide();
 
-                    //document.addEventListener("backbutton", function (e) {
-                    //    e.preventDefault();
-                    //}, false);
-
-
                 }, false);
             } else {
                 //console.log("Running in browser, bootstrapping AngularJS now.");
@@ -72,7 +58,7 @@
 
         });
     </script>
-    
+	
     <script type="text/javascript" src='lib/fullcalendar/angularjs-calendar.js'></script> <!--precisa ficar após aplicação-->
     
 </body>
