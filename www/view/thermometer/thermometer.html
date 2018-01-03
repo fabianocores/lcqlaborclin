@@ -1,0 +1,269 @@
+﻿<style>
+    #param thead tr th {
+        border: none;
+        vertical-align: middle;
+    }
+
+    #param tbody tr td {
+        border: none;
+        vertical-align: middle;
+    }
+</style>
+
+
+
+
+<div class="container">
+
+    <div ng-if="thermometers">
+
+        <div class="panel panel-default">
+            <table class="table table-condensed" id="param">
+                <thead>
+                    <tr>
+                        <th>
+                            Termômetro
+                        </th>
+                        <th style="text-align: center;">
+                            Faixa operação
+                        </th>
+                        <th style="text-align: center;" colspan="4">
+                            Teperatura
+                        </th>
+                        <th style="text-align: center;" colspan="4">
+                            Umidade
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            
+                        </th>
+                        <th>
+                            
+                        </th>
+                        <th style="text-align: center;">
+                            Atual
+                        </th>
+                        <th style="text-align: center;">
+                            Média
+                        </th>
+                        <th style="text-align: center;">
+                            Mínima
+                        </th>
+                        <th style="text-align: center;">
+                            Máxima
+                        </th>
+                        <th style="text-align: center;">
+                            Atual
+                        </th>
+                        <th style="text-align: center;">
+                            Média
+                        </th>
+                        <th style="text-align: center;">
+                            Mínima
+                        </th>
+                        <th style="text-align: center;">
+                            Máxima
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr ng-repeat="t in thermometers">
+                        <td style="width: 250px; text-align: center;">
+                            <a ng-href="#/thermometer/{{t.device}}">
+                                {{t.device}}
+
+                                <img ng-src="{{apiURL}}Thermometer/GetThermometerPicture/{{t.picture}}" class="img img-responsive">
+                            </a>                            
+                        </td>
+                        <td style="text-align: center;">
+                            {{t.devicemintemp | number: '1'}}°C até {{t.devicemaxtemp | number: '1'}}°C 
+                        </td>
+                        <td style="text-align: center;">
+                            {{t.actualtemp | number: '1'}}°C
+                        </td>
+                        <td style="text-align: center;">
+                            {{t.avgtemp | number: '1'}}°C
+                        </td>
+                        <td style="text-align: center;">
+                            {{t.mintemp | number: '1'}}°C
+                        </td>
+                        <td style="text-align: center;">
+                            {{t.maxtemp | number: '1'}}°C
+                        </td>
+                        <td style="text-align: center;">
+                            {{t.actualhumi | number: '1'}}%
+                        </td>
+                        <td style="text-align: center;">
+                            {{t.avghumi | number: '1'}}%
+                        </td>
+                        <td style="text-align: center;">
+                            {{t.minhumi | number: '1'}}%
+                        </td>
+                        <td style="text-align: center;">
+                            {{t.maxhumi | number: '1'}}%
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <!--{{thermometers}}-->
+    </div>
+
+    <div ng-if="temperature">
+        <div class="row">
+            <h4>{{temperature.device}}</h4>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <temperature-chart id="temperatureChart" class="col-md-12 col-sm-12 col-xs-12" data="temperature" ng-if="temperature" style=""></temperature-chart>
+                <humidity-chart id="humidityChart" class="col-md-12 col-sm-12 col-xs-12" data="temperature" ng-if="temperature"></humidity-chart>
+            </div>
+
+
+            <div class="col-md-5" style="">
+                <table class="table table-condensed">
+                    <tr>
+                        <th></th>
+                        <th>Temperatura</th>
+                        <th>Umidade</th>
+                    </tr>
+                    <tr>
+                        <th>Atual</th>
+                        <td>
+                            <h1 ng-class="{'text-danger': temperature.actualtemp < temperature.devicemintemp || temperature.actualtemp > temperature.devicemaxtemp, 'text-success': temperature.actualtemp >= temperature.devicemintemp && temperature.actualtemp <= temperature.devicemaxtemp}">
+                                <small><span class="fa fa-thermometer" aria-hidden="true"></span></small>
+
+                                {{temperature.actualtemp | number: '1'}}°C
+                            </h1>
+
+                        </td>
+                        <td>
+                            <h1>
+                                <small><span class="fa fa-tint" aria-hidden="true"></span></small>
+                                {{temperature.actualhumi | number: '1'}}%
+                            </h1>
+
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Mínima</th>
+                        <td>{{temperature.mintemp | number: '1'}}°C</td>
+                        <td>{{temperature.minhumi | number: '1'}}%</td>
+                    </tr>
+                    <tr>
+                        <th>Máxima</th>
+                        <td>{{temperature.maxtemp | number: '1'}}°C</td>
+                        <td>{{temperature.maxhumi | number: '1'}}%</td>
+
+                    </tr>
+                    <tr>
+                        <th>Média</th>
+                        <td>{{temperature.avgtemp | number: '1'}}°C</td>
+                        <td>{{temperature.avghumi | number: '1'}}%</td>
+                    </tr>
+                    <tr>
+                        <th>Permitido</th>
+                        <td colspan="2">{{temperature.devicemintemp | number: '1'}}°C até {{temperature.devicemaxtemp | number: '1'}}°C</td>
+
+                    </tr>
+                    <tr ng-if="temperature.picture">
+                        <td colspan="3">
+                            <img ng-src="{{apiURL}}Thermometer/GetThermometerPicture/{{temperature.picture}}" class="img img-responsive" ng-if="temperature.picture">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Detalhes</th>
+                        <td colspan="2">
+                            Entre {{temperature.start | date: "dd/MM HH:mm"}} e {{temperature.end | date: "dd/MM HH:mm"}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="2">
+                            {{temperature.measurements}} medições ({{temperature.measurements_per_hour}}/hora)
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+
+
+
+            <temperature-range-chart id="rangeChart" class="col-md-6 col-sm-12 col-xs-12" data="temperaturePerHourChartData" ng-if="temperaturePerHourChartData" style="height: 350px;"></temperature-range-chart>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body pre-scrollable">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th colspan="3" style="text-align: center">Temperatura</th>
+                                    <th colspan="3" style="text-align: center">Umidade</th>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center">Data/hora</th>
+                                    <th style="text-align: center">Mínima</th>
+                                    <th style="text-align: center">Máxima</th>
+                                    <th style="text-align: center">Média</th>
+                                    <th style="text-align: center">Mínima</th>
+                                    <th style="text-align: center">Máxima</th>
+                                    <th style="text-align: center">Média</th>
+                                    <th style="text-align: center">Med.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="temp in temperaturePerHour">
+                                    <td style="text-align: center">
+                                        {{temp.createdate | date: 'dd/MM/yyyy HH'}}h
+                                    </td>
+                                    <td style="text-align: center">
+                                        {{temp.mintemp | number: '1'}}°C
+                                    </td>
+                                    <td style="text-align: center">
+                                        {{temp.maxtemp | number: '1'}}°C
+                                    </td>
+                                    <td style="text-align: center">
+                                        {{temp.avgtemp | number: '1'}}°C
+                                    </td>
+                                    <td style="text-align: center">
+                                        {{temp.minhumi | number: '1'}}%
+                                    </td>
+                                    <td style="text-align: center">
+                                        {{temp.maxhumi | number: '1'}}%
+                                    </td>
+                                    <td style="text-align: center">
+                                        {{temp.avghumi | number: '1'}}%
+                                    </td>
+                                    <td style="text-align: center">
+                                        {{temp.measurements | number: '0'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
