@@ -4,7 +4,7 @@ angular.module("arkabPortal").constant('urlConfigParams', {
 
         // endereço da API do cliente, sempre com /api/ no final.
         //baseUrl: "https://localhost:44338/api/",
-        baseUrl: 'http://192.168.0.13:81/WebAPITempPublish/api/',
+        baseUrl: 'http://192.168.0.1/api/api/',
 
         // nome do domínio da web api.
         dataProfile: "SBO_Laborclin",
