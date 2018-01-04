@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE HTML>
 <html lang="pt-br">
 <head>
-    <title>LCQ</title>
+    <title>CRM SAP</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <META NAME="AUTHOR" CONTENT="Arkab Tecnologia da Informação">
@@ -18,6 +18,9 @@
     <link async href='lib/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
     <link async rel="stylesheet" type="text/css" href="css/app.css" />
     <link async rel="stylesheet" type="text/css" href="lib/bootstrap-daterangepicker-2.1.25/daterangepicker.css" />
+
+    <script type="text/javascript" src="cordova.js"></script>
+
     <script type="text/javascript" src="build/js/lib.js"></script>
 
     <script type="text/javascript" src="build/js/arkab.portal.webapp.min.js"></script>
@@ -29,8 +32,6 @@
 <body>
 
     <div id="arkabPortalApp" name="arkabPortalApp" class="arkabPortalApp">
-        <!--<div ng-include="'view/features/chat/chat.html'" ng-show="chat.enabled && chat.selecteduser && identity.isAuthenticated"></div>
-        <div ng-include="'view/features/chat/users.html'" ng-show="chat.enabled && identity.isAuthenticated"></div>-->
         <div ng-include="'view/navbar.html'" ng-if="identity.isAuthenticated == true"></div>
 
         <div ng-view></div>   <!--class="container"-->
@@ -44,23 +45,15 @@
                 document.addEventListener('deviceready', function () {
                     console.log("Deviceready, bootstrapping AngularJS.");
                     angular.bootstrap(document.body, ['arkabPortal']);
-
                     navigator.splashscreen.hide();
-
-                    //document.addEventListener("backbutton", function (e) {
-                    //    e.preventDefault();
-                    //}, false);
-
-
                 }, false);
             } else {
-                //console.log("Running in browser, bootstrapping AngularJS now.");
                 angular.bootstrap(document.body, ['arkabPortal']);
-                
             }
 
         });
     </script>
+
     <script type="text/javascript" src='lib/fullcalendar/angularjs-calendar.js'></script> <!--precisa ficar após aplicação-->
     
 </body>
