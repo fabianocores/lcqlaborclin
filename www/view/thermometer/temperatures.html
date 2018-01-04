@@ -33,7 +33,7 @@
         <table class="table table-condensed" id="param">
 
             <tbody>
-                <tr ng-repeat="t in temperatures">
+                <tr ng-repeat="t in temperatures | orderBy: 'createdate' | reverse">
                     <td style="width: 100px;">
                         <img ng-src="{{apiURL}}Thermometer/GetThermometerPicture/{{t.picture}}" class="img img-responsive" ng-if="t.picture">
                     </td>
