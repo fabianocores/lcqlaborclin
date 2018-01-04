@@ -1,0 +1,73 @@
+﻿<style>
+    #param thead tr th {
+        border: none;
+        vertical-align: middle;
+    }
+
+    #param tbody tr td {
+        border: none;
+        vertical-align: middle;
+    }
+</style>
+
+
+<pre-loader ng-if="loading"></pre-loader>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-6 pull-right">
+            <div class="pull-right">
+                <a ng-href="#/thermometer/{{thermometerName}}" class="btn btn-default">
+                    <span class="fa fa-arrow-left" aria-hidden="true">
+                    </span>
+                    Voltar
+                </a>
+            </div>            
+        </div>
+    </div>
+
+    <temperature-range-chart id="rangeChart" class="col-md-12 col-sm-12 col-xs-12" data="temperaturePerHourChartData" ng-if="temperaturePerHourChartData" style="height: 350px;"></temperature-range-chart>
+
+    <div class="panel panel-default">
+        <table class="table table-condensed" id="param">
+
+            <tbody>
+                <tr ng-repeat="t in temperatures">
+                    <td style="width: 100px;">
+                        <img ng-src="{{apiURL}}Thermometer/GetThermometerPicture/{{t.picture}}" class="img img-responsive" ng-if="t.picture">
+                    </td>
+                    <td style="text-align: center;">
+                        <!--{{t.temperature | number: '1'}}°C-->
+
+                        <h1 ng-class="{'text-danger': t.temperature < t.devicemintemp || t.temperature > t.devicemaxtemp, 'text-success': t.temperature >= t.devicemintemp && t.temperature <= t.devicemaxtemp}">
+                            <small><span class="fa fa-thermometer" aria-hidden="true"></span></small>
+
+                            {{t.temperature | number: '1'}}°C
+                        </h1>
+
+                    </td>
+                    <td style="text-align: center;">
+                        <h1>
+                            <small><span class="fa fa-tint" aria-hidden="true"></span></small>
+                            {{t.humidity | number: '1'}}%
+                        </h1>
+                    </td>
+                    <td style="text-align: center;">
+                        <h1>
+                            <small><span class="fa fa-clock-o" aria-hidden="true"></span></small>
+                            {{t.createdate | date: 'dd/MM HH:mm'}}
+                        </h1>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
+
+
