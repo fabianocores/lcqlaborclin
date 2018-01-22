@@ -222,6 +222,7 @@
                         <span class="fa fa-qrcode" aria-hidden="true"></span>
                         Localizar referência
                     </button>
+                   
                 </div>
             </div>
             <div class="col-xs-6" style="padding-right: 0px;">
@@ -236,16 +237,21 @@
                         </button>
                     </div>
                     
-                    <input type="text" ng-model="search" />
+                    
                 </div>
             </div>
         </div>
 
 
-
+        <div ng-if="!lista">
+            <small>Esta tela lista no máximo 100 registros. Por favor, utilize os filtros.</small>
+        </div>
 
 
         <table class="table table-condensed" ng-show="lista" id="result">
+            <tr>
+                <td colspan="9"><input type="text" ng-model="search" placeholder="filtrar pesquisa..." /></td>
+            </tr>
             <tr>
                 <th>Nº da Ficha</th>
                 <th>Nº Doc</th>
@@ -275,6 +281,10 @@
                 <td>{{item.statuslotename}}</td>
             </tr>
         </table>
+
+        <div ng-if="lista.length >= 100">
+            <small>Limitado até 100 registros... utilize os filtros.</small>
+        </div>
         
     </div>
 
@@ -297,6 +307,12 @@
                 Alterar status do lote
                 <span class="fa fa-check text-success" ng-if="identity.lcqpermission.status_lote"></span>
                 <span class="fa fa-remove text-danger" ng-if="!identity.lcqpermission.status_lote"></span>
+            </li>
+
+            <li>
+                Alterar status da ficha
+                <span class="fa fa-check text-success" ng-if="identity.lcqpermission.mudar_status_ficha"></span>
+                <span class="fa fa-remove text-danger" ng-if="!identity.lcqpermission.mudar_status_ficha"></span>
             </li>
         </ul>
 

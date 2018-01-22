@@ -1,12 +1,16 @@
 ﻿<div class="modal" id="modalLcqInput" tabindex="-1" role="dialog" aria-labelledby="modalLabel" style="z-index: 1100">
-    <div class="modal-dialog" role="document" style="width: 80%">
+    <div class="modal-dialog" role="document" style="width: 95%">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 style="margin: 0px;">{{ficha.selected.lineid}} - {{ficha.selected.analise}} <small>{{ficha.selected.descresp}}</small></h3>
+                <h3 style="margin: 0px;">
+                    <span class="fa fa-certificate text-success" aria-hidden="true" ng-if="ficha.selected.cq"></span>
+                    {{ficha.selected.lineid}} - {{ficha.selected.analise}} <small>{{ficha.selected.descresp}}</small>
+                </h3>
             </div>
 
             <div class="panel-body" style="background-color: lightskyblue">
+                
                 <div class="form-horizontal">
 
                     <div class="form-group" style="margin-bottom: 0px;" ng-if="ficha.selected.amostra">
@@ -69,12 +73,6 @@
             <div class="panel-body" style="padding-bottom: 0px;">
 
                 <div class="form-horizontal">
-                    <!--<div class="form-group">
-                        <label for="maquina" class="col-sm-3 control-label">Máquina</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="maquina" ng-model="ficha.selected.maquina">
-                        </div>
-                    </div>-->
 
                     <div ng-if="ficha.selected.tpdados == '01'">
 
@@ -310,48 +308,63 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div class="form-group">
-                        <label for="maquina" class="col-sm-3 control-label">Texto livre</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="maquina" ng-model="ficha.selected.texto">
-                        </div>
-                    </div>-->
 
-                    <!--<div class="form-group">
-                        <label for="maquina" class="col-sm-3 control-label">Desvio</label>
-                        <div class="col-sm-9">
-                            <span class="fa fa-2x" aria-hidden="true" ng-click="ficha.selected.desvio = !ficha.selected.desvio" style="cursor: pointer"
-                                  ng-class="{'fa-toggle-off text-muted': !ficha.selected.desvio, 'fa-toggle-on text-primary': ficha.selected.desvio}"></span>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-4" ng-repeat="a in ficha.selected.anexos" >
+                            <a ng-href="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" target="_blank">
+                                <img ng-src="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" class="img img-responsive" />
+                            </a>
                         </div>
+
+
                     </div>
 
-                    <div class="form-group">
-                        <label for="maquina" class="col-sm-3 control-label">Descrição do desvio</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="maquina" ng-model="ficha.selected.descdesvio">
-                        </div>
-                    </div>-->
                 </div>
                 
             </div>
 
             <div class="modal-footer">
                 {{mailMessage}}
-                <div class="btn-group btn-group-lg" role="group">
-                    <button type="button" class="btn btn-default" ng-click="navegacao.previous()" ng-disabled="ficha.selected.lineid == 1">
-                        <span class="fa fa-arrow-left" aria-hidden="true"></span>
-                        Etapa Anterior
-                    </button>
-                    <button type="button" class="btn btn-default" ng-click="navegacao.next()" ng-disabled="ficha.selected.lineid == ficha.linhas.length">
-                        <span class="fa fa-arrow-right" aria-hidden="true"></span>
-                        Próxima etapa
-                    </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        <span class="fa fa-sign-out" aria-hidden="true"></span>
-                        Fechar janela
-                    </button>
-                </div>
 
+                <div class="col-md-5" style="padding-right: 0px; padding-left: 0px;">
+                    <div class="form-group" ng-show="!attachment.processing">
+                        <div class="input-group">
+                            <input type="file" class="form-control fileupload" id="file" file-model="attachment.file">
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" ng-click="postAttachment()">
+                                    Enviar foto
+                                </button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="attachment.processing">
+                        <div class="col-md-12">
+                            <akb-server-loading ng-if="attachment.processing"></akb-server-loading>
+                        </div>
+
+                    </div>
+
+                    <!--<img src="img/small_loading.gif" class="img img-responsive" style="padding-top: 0px;" ng-if="attachment.processing" />-->
+                    {{attachment.message}}
+                </div>
+                <div class="col-md-7 pull-right">
+                    <div class="btn-group btn-group-lg" role="group">
+                        <button type="button" class="btn btn-default" ng-click="navegacao.previous()" ng-disabled="ficha.selected.lineid == 1">
+                            <span class="fa fa-arrow-left" aria-hidden="true"></span>
+                            Etapa Anterior
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="navegacao.next()" ng-disabled="ficha.selected.lineid == ficha.linhas.length">
+                            <span class="fa fa-arrow-right" aria-hidden="true"></span>
+                            Próxima etapa
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <span class="fa fa-sign-out" aria-hidden="true"></span>
+                            Fechar janela
+                        </button>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

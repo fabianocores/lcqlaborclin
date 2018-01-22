@@ -1,0 +1,157 @@
+﻿<style>
+    #param thead tr th {
+        border: none;
+        vertical-align: middle;
+    }
+
+    #param tbody tr td {
+        border: none;
+        vertical-align: middle;
+    }
+</style>
+
+
+<pre-loader ng-if="loading"></pre-loader>
+
+<div class="container">
+
+    <h4>{{thermometer.device}}</h4>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Temperaturas Mínima / Máxima</label>
+            <div class="col-sm-1">
+                <input type="number" class="form-control input-sm" id="min_temp" min="-55" max="80" ng-model="thermometer.min_temp">
+            </div>
+            <div class="col-sm-1">
+                <input type="number" class="form-control input-sm" id="min_temp" min="-55" max="80" ng-model="thermometer.max_temp">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Intervalo leitura (minutos)</label>
+            <div class="col-sm-1">
+                <input type="number" class="form-control input-sm" id="min_temp" min="-55" max="80" ng-model="thermometer.read_interval_min">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Offset temperatura °C / %</label>
+            <div class="col-sm-1">
+                <input type="number" class="form-control input-sm" id="min_temp" min="-5" max="5" ng-model="thermometer.sensor_temp_offset">
+            </div>
+            <div class="col-sm-1">
+                <input type="number" class="form-control input-sm" id="min_temp" min="-5" max="5" ng-model="thermometer.sensor_pr_temp_offset">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Offset umidade °C / %</label>
+            <div class="col-sm-1">
+                <input type="number" class="form-control input-sm" id="min_temp" min="-5" max="5" ng-model="thermometer.sensor_humid_offset">
+            </div>
+            <div class="col-sm-1">
+                <input type="number" class="form-control input-sm" id="min_temp" min="-5" max="5" ng-model="thermometer.sensor_pr_humid_offset">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Habilitar voz eletrônica</label>
+            <div class="col-sm-3">
+                <akb-check ng-model="thermometer.speech_enabled"></akb-check>
+            </div>
+            
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Idioma</label>
+            <div class="col-sm-4">
+                <select class="form-control input-sm" ng-model="thermometer.speech_language" ng-required="true" placeholder="Tipo">
+                    <option value="en-us">Inglês</option>
+                    <option value="pt-br">Português</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Gênero</label>
+            <div class="col-sm-4">
+                <select class="form-control input-sm" ng-model="thermometer.speech_gender" ng-required="true" placeholder="Tipo">
+                    <option value="m">Masculino</option>
+                    <option value="f">Feminino</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Variação</label>
+            <div class="col-sm-4">
+                <select class="form-control input-sm" ng-model="thermometer.speech_variation" ng-required="true" placeholder="Tipo" 
+                        ng-options="s.code as s.name for s in speech_variations">
+                    
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Velocidade da fala</label>
+            <div class="col-sm-2">
+                <input type="number" class="form-control input-sm" id="min_temp" min="100" max="250" ng-model="thermometer.speech_speed">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Habilitar webcam</label>
+            <div class="col-sm-3">
+                <akb-check ng-model="thermometer.webcam_enabled"></akb-check>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Resolução</label>
+            <div class="col-sm-4">
+                <select class="form-control input-sm" ng-model="thermometer.webcam_resolution" ng-required="true" placeholder="Tipo">
+                    <option value="320x240">320x240</option>
+                    <option value="640x480">640x480</option>
+                    <option value="1024x768">1024x768</option>
+                    <option value="1920x1080">1920x1080</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Qualidade da foto (JPEG)</label>
+            <div class="col-sm-2">
+                <input type="number" class="form-control input-sm" id="min_temp" min="10" max="100" ng-model="thermometer.webcam_jpegquality">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Mostrar mensagens de teste</label>
+            <div class="col-sm-3">
+                <akb-check ng-model="thermometer.test_messages"></akb-check>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Mostrar configuração ao iniciar</label>
+            <div class="col-sm-3">
+                <akb-check ng-model="thermometer.show_configuration"></akb-check>
+            </div>
+
+        </div>
+
+        <button class="btn btn-success" ng-click="putThermometer(thermometer)">
+            Salvar
+        </button>
+
+
+    </div>
+
+    {{thermometer}}
+
+</div>
+
+
+
+

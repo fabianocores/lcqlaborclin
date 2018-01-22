@@ -22,7 +22,9 @@
                 </td>
                 <td width="20%">
                     <strong>Situação</strong><br />
-                    {{ficha.status}}
+                    <span ng-if="!params.identity.lcqpermission.mudar_status_ficha">{{ficha.status}}</span>
+                    <select class="form-control input-sm" ng-model="ficha.status" ng-options="status.code as status.name for status in statusList" ng-if="params.identity.lcqpermission.mudar_status_ficha">
+                    </select>
                     
                 </td>
             </tr>
@@ -191,12 +193,13 @@
                 </div>
                 <div class="col-xs-3" style="padding-left: 0px;">
                     <div class="btn-group pull-right" role="group">
+                        
                         <button class="btn" ng-click="save()" ng-if="ficha" ng-disabled="saving" ng-class="{'btn-success': !saving, 'btn-warning': saving}">
                             <span ng-if="!saving">
                                 <span class="fa fa-check" aria-hidden="true"></span>
                                 Salvar
                             </span>
-                            <span ng-if="saving">
+                            <span ng-if="saving">   
                                 <span class="fa fa-spin fa-spinner" aria-hidden="true"></span>
                                 Aguarde
                             </span>
@@ -237,14 +240,18 @@
                                     <th width="25%">Valor nominal</th>
                                     <th width="25%">Resultado</th>
                                     <th width="15%">Status</th>
+                                    <th width="1" style="text-align: center;">CQ</th>
+                                    <th width="1" style="text-align: center;"></th>
                                 </tr>
 
                             </thead>
 
                             <tbody>
-                                <tr ng-repeat="linha in analiselinhas | filter: search" ng-click="selectLinha(linha)" style="cursor: pointer;">
-                                    <td>{{linha.lineid}}</td>
-                                    <td>
+                                <tr ng-repeat="linha in analiselinhas | filter: search" style="cursor: pointer;">
+                                    <td ng-click="selectLinha(linha)">
+                                        {{linha.lineid}}
+                                    </td>
+                                    <td ng-click="selectLinha(linha)">
                                         {{linha.descresp}}
                                         
                                         {{linha.observacao}}
@@ -263,8 +270,10 @@
 
                                     </td>
                                     
-                                    <td>{{linha.valorn}}</td>
-                                    <td ng-class="{'success': linha.status == 'A', 'danger': linha.status == 'R'}">
+                                    <td ng-click="selectLinha(linha)">
+                                        {{linha.valorn}}
+                                    </td>
+                                    <td ng-class="{'success': linha.status == 'A', 'danger': linha.status == 'R'}" ng-click="selectLinha(linha)">
                                         <center>
                                             <table ng-if="linha.tpdados == '02' && linha.resultado" class="" style="">
                                                 <tr><th style="text-align: right; width: 50%">Média</th><td style="text-align: right;width: 50%">{{linha.resultado}} {{linha.um}}</td></tr>
@@ -288,13 +297,22 @@
                                         
 
                                     </td>
-                                    <td ng-class="{'bgsuccess': linha.status == 'A', 'bgdanger': linha.status == 'R'}" align="center">
+                                    <td ng-class="{'bgsuccess': linha.status == 'A', 'bgdanger': linha.status == 'R'}" align="center" ng-click="selectLinha(linha)">
                                         <span class="fa fa-thumbs-up" aria-hidden="true" ng-if="linha.status == 'A'"></span>
 
                                         <span class="fa fa-thumbs-down" aria-hidden="true" ng-if="linha.status == 'R'"></span>
 
                                         {{linha.aprovador}}
 
+                                    </td>
+                                    <td style="text-align: center;" ng-click="selectLinha(linha)">
+                                        <span class="fa fa-certificate text-success" aria-hidden="true" ng-if="linha.cq"></span>
+                                    </td>
+                                    <td ng-click="selectLinhaAttachment(linha)">
+                                        <button class="btn btn-sm" ng-class="{'btn-default': linha.anexos.length == 0, 'btn-success': !(linha.anexos.length == 0) }" >
+                                            {{linha.anexos.length}}
+                                            <span class="fa fa-picture-o" aria-hidden="true"></span>
+                                        </button>
                                     </td>
 
                                 </tr>
@@ -350,7 +368,7 @@
 <div ng-include="'view/lcq/lcqinput.html'"></div>
 <div ng-include="'view/lcq/lcqtag.html'"></div>
 <div ng-include="'view/lcq/lcqhistoricostatus.html'"></div>
-
+<div ng-include="'view/lcq/lcqFichaAnexo.html'"></div>
 
 <script>
     //function show_dp(who) {

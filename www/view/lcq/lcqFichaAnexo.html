@@ -1,0 +1,100 @@
+﻿<div class="modal" id="modalLcqAttachment" tabindex="-1" role="dialog" aria-labelledby="modalLabel" style="z-index: 1100">
+    <div class="modal-dialog modal-lg" role="document" style="width: 95%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 style="margin: 0px;">Anexos</h3>
+            </div>
+
+
+            <!--<div class="row">
+                <div class="col-md-4" ng-repeat="a in ficha.selected.anexos" >
+                    <a ng-href="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" target="_blank">
+                        <img ng-src="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" class="img img-responsive img-thumbnail" />
+                    </a>
+
+                 </div>
+            </div>-->
+
+
+            <div class="row">
+                <div class="col-sm-6 col-md-3" ng-repeat="a in ficha.selected.anexos">
+                    <div class="thumbnail">
+                        <a ng-href="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" target="_blank">
+                            <img ng-src="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" class="img img-responsive" />
+                        </a>
+                        <div class="caption">
+                            <h5>{{a.filename}} <small>{{a.username}}, {{a.createdate | date: 'dd/MM/yyyy HH:mm'}}</small></h5>
+
+                            <p>
+                                <a ng-href="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" target="_blank" class="btn btn-primary btn-sm" role="button">
+                                    <span class="fa fa-external-link" aria-hidden="true"></span>
+                                    Ver imagem
+                                </a>
+                                <button class="btn btn-danger btn-sm" role="button" ng-click="a.temcerteza = true" ng-if="!a.temcerteza">
+                                    <span class="fa fa-remove" aria-hidden="true"></span>
+                                    Excluir
+                                </button>
+                            </p>
+                        </div>
+                        <div class="caption" ng-if="a.temcerteza">
+                            <strong>Atenção</strong> - Tem certeza que deseja excluir esta imagem? Este procedimento é irreversível.<br />
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-danger btn-sm" role="button" ng-click="deleteAttachment(a.attachmentid)">
+                                    <span class="fa fa-check" aria-hidden="true"></span>
+                                    Confirmar
+                                </button>
+                                <button class="btn btn-default btn-sm" role="button" ng-click="a.temcerteza = false">
+                                    <span class="fa fa-remove" aria-hidden="true"></span>
+                                    Cancelar
+                                </button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+
+                <h4>Enviar novo anexo</h4>
+
+                <div class="form-group" ng-show="!attachment.processing">
+                    <div class="input-group">
+                        <input type="file" class="form-control fileupload" id="file" file-model="attachment.file">
+                        <div class="input-group-btn">
+                            <button class="btn btn-success" ng-click="postAttachment()">
+                                Enviar foto
+                            </button>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="attachment.processing">
+                    <div class="col-md-12">
+                        <akb-server-loading ng-if="attachment.processing"></akb-server-loading>
+                    </div>
+
+                </div>
+
+                <!--<img src="img/small_loading.gif" class="img img-responsive" style="padding-top: 0px;" ng-if="attachment.processing" />-->
+                {{attachment.message}}
+            </div>
+
+
+
+
+
+            <div class="modal-footer">
+                <div class="btn-group btn-group-lg" role="group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-sign-out" aria-hidden="true"></span>
+                        Fechar janela
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

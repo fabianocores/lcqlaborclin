@@ -117,13 +117,8 @@
     <div ng-if="temperature">
         <div class="row">
             <h4>{{temperature.device}}</h4>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <temperature-chart id="temperatureChart" class="col-md-12 col-sm-12 col-xs-12" data="temperature" ng-if="temperature" style=""></temperature-chart>
-                <humidity-chart id="humidityChart" class="col-md-12 col-sm-12 col-xs-12" data="temperature" ng-if="temperature"></humidity-chart>
-            </div>
 
-
-            <div class="col-md-5" style="">
+            <div class="col-md-6">
                 <table class="table table-condensed">
                     <tr>
                         <th></th>
@@ -170,11 +165,7 @@
                         <td colspan="2">{{temperature.devicemintemp | number: '1'}}°C até {{temperature.devicemaxtemp | number: '1'}}°C</td>
 
                     </tr>
-                    <tr ng-if="temperature.picture">
-                        <td colspan="3">
-                            <img ng-src="{{apiURL}}Thermometer/GetThermometerPicture/{{temperature.picture}}" class="img img-responsive" ng-if="temperature.picture">
-                        </td>
-                    </tr>
+                    
                     <tr>
                         <th>Detalhes</th>
                         <td colspan="2">
@@ -192,10 +183,25 @@
                             <a href="#/thermometer/{{temperature.device}}/temperatures" class="btn btn-primary btn-sm">
                                 Ver histórico de temperaturas
                             </a>
+                            <a href="#/thermometer/{{temperature.device}}/setup" class="btn btn-primary btn-sm">
+                                Configurar termômetro
+                            </a>
                         </td>
                     </tr>
 
                 </table>
+                <!--<div class="col-md-6 col-sm-6 col-xs-12">
+                    <temperature-chart id="temperatureChart" class="col-md-12 col-sm-12 col-xs-12" data="temperature" ng-if="temperature" style=""></temperature-chart>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <humidity-chart id="humidityChart" class="col-md-12 col-sm-12 col-xs-12" data="temperature" ng-if="temperature"></humidity-chart>
+                </div>-->
+            </div>
+            
+
+
+            <div class="col-md-6" style="">
+                <img ng-src="{{apiURL}}Thermometer/GetThermometerPicture/{{temperature.picture}}" class="img img-responsive" ng-if="temperature.picture">
             </div>
         </div>
 
