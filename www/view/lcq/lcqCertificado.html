@@ -193,13 +193,12 @@
             </thead>
             <tbody>
                 <tr ng-repeat="linha in ficha.linhas" ng-if="linha.cq">
-                    <td>
-                        {{linha.descresp}}
+                    <td style="height: 80px !important;">
+                        {{linha.descresp2}}
                     </td>
                     <td>
                         {{linha.valorn}}
                         <span ng-if="linha.p_de || linha.p_ate">
-                            <br />
                             {{linha.p_de}} 
                             <span ng-if="linha.p_ate">
                                 - {{linha.p_ate}}
@@ -211,7 +210,7 @@
                     <td>
                         {{linha.resultado}}
                     </td>
-                    <td>
+                    <td style="white-space: nowrap;">
                         {{linha.aprovador}}
                     </td>
                 </tr>
