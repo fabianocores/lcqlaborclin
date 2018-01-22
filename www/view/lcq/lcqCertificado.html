@@ -1,0 +1,237 @@
+﻿<style>
+    #param tr th {
+        
+        vertical-align: middle;
+    }
+
+    #param tr td {
+        
+        vertical-align: middle;
+    }
+
+    #param2 tr th {
+        
+        vertical-align: middle;
+        text-align: center;
+        background-color: lightgray;
+    }
+
+    #param2 tr td {
+        
+        vertical-align: middle;
+        text-align: center;
+    }
+
+
+    #param3 tr th {
+        vertical-align: top;
+        text-align: left;
+        background-color: lightgray;
+        font-size: 12px;
+    }
+
+    #param3 tr td {
+        vertical-align: top;
+        text-align: left;
+        font-size: 12px;
+    }
+
+
+    #result tr td {
+        vertical-align: middle;
+    }
+</style>
+
+
+
+<div class="container">
+    <button class="btn btn-default hidden-print" onclick="window.print()">
+        <span class="fa fa-print" aria-hidden="true"></span>
+        Imprimir
+    </button>
+
+    <a ng-href="#/lcq/ficha/{{ficha.docentry}}" class="btn btn-default hidden-print">
+        <span class="fa fa-flask" aria-hidden="true"></span>
+        Ficha LCQ
+    </a>
+    <div class="panel panel-default">
+        <table class="table table-bordered table-condensed" id="param">
+            <thead>
+                <tr>
+                    <th width="20%">
+                        <img ng-src="{{apiURL}}Adm/GetLogo/{{appConfig.logo}}-256px" alt="Arkab.WebApp" class="img img-responsive" style="margin-top: 8px; padding-top: 0px; max-height: 256px;" ng-if="appConfig.logo" />
+                    </th>
+                    <td width="60%" style="text-align: center;">
+                        <h4 style="padding: 0px; margin: 0px;">Ficha de análise técnica</h4>
+
+                        <h4 style="padding: 0px; margin: 0px;">Laborclin Produtos para Laboratório Ltda</h4>
+                        
+                        <div class="col-xs-6">
+                            <small>
+                                Data da produção: {{ficha.op_createdate | date: 'dd/MM/yyyy'}}
+                            </small>
+                            
+                        </div>
+                        <div class="col-xs-6">
+                            <small>
+                                Encerramento previsto: {{ficha.op_duedate | date: 'dd/MM/yyyy'}}
+                            </small>
+                            
+                        </div>
+                    </td>
+                    <td width="20%">
+                        <table class="table-condensed" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">Nº Ficha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center; background-color: lightgray">
+                                        {{ficha.nroficha}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center; font-size: 8px;  ">
+                                        Data: {{params.emissao | date: 'dd/MM/yyyy'}} / Hora: {{params.emissao | date: 'HH:mm'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+            </thead>
+        </table>
+
+        <table class="table table-condensed table-bordered" id="param2">
+            <tr>
+                <th>Nº Análise</th>
+                <th>Plano de inspeção</th>
+                <th>Amostragem</th>
+                <th>Temp Armazenagem</th>
+                <th>Reg Anvisa</th>
+            </tr>
+            <tr>
+                <td>
+                    {{ficha.ficha}}
+                </td>
+                <td>
+                    {{ficha.planoinsp}}
+                </td>
+                <td>
+                    {{ficha.amostragem}}
+                </td>
+                <td>
+                    {{ficha.temperatura}}
+                </td>
+                <td>
+                    {{ficha.anvisa}}
+                </td>
+            </tr>
+
+            <tr>
+                <th>Nº OP</th>
+                <th>Lote</th>
+                <th>Validade</th>
+                <th>Qtde Produzir</th>
+                <th>Data inspeção</th>
+            </tr>
+            <tr>
+                <td>
+                    {{ficha.numdoc}}
+                </td>
+                <td>
+                    {{ficha.batchnum}}
+                </td>
+                <td>
+                    {{ficha.loteval | date: 'dd/MM/yyyy'}}
+                </td>
+                <td>
+                    {{ficha.op_quantity| number: '2'}}
+                </td>
+                <td>
+                    {{ficha.datains | date: 'dd/MM/yyyy'}}
+                </td>
+            </tr>
+
+            <tr>
+                <th>Cód Item</th>
+                <th colspan="4" style="text-align: left;">Descrição</th>
+            </tr>
+            <tr>
+                <td>
+                    {{ficha.item}}
+                </td>
+                <td colspan="4" style="text-align: left;">
+                    {{ficha.itemname}}
+                </td>
+
+            </tr>
+
+            <tr>
+                <th colspan="5" >Especificação</th>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    {{ficha.especificacao}}
+                </td>
+
+            </tr>
+
+        </table>
+
+        <table class="table table-condensed table-bordered" id="param3">
+            <thead>
+                <tr>
+                    <th>Especificação</th>
+                    <th>Valor de referência</th>
+                    <th>Resultado</th>
+                    <th>Responsável</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="linha in ficha.linhas" ng-if="linha.cq">
+                    <td>
+                        {{linha.descresp}}
+                    </td>
+                    <td>
+                        {{linha.valorn}} {{linha.p_de}} - {{linha.p_ate}}
+                    </td>
+                    <td>
+                        {{linha.resultado}}
+                    </td>
+                    <td>
+                        {{linha.aprovador}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="panel-body">
+            <h4>Observações</h4>
+            <hr style="border: 1px solid black; padding-left: 15px; padding-right: 15px;" />
+            <hr style="border: 1px solid black; padding-left: 15px; padding-right: 15px;" />
+            <hr style="border: 1px solid black; padding-left: 15px; padding-right: 15px;" />
+
+            <h4>Matéria-prima</h4>
+
+            <table class="table table-condensed table-bordered">
+                <tr>
+                    <th>Cód. MP</th>
+                    <th>Nome MP</th>
+                    <th>Lote MP</th>
+                </tr>
+                <tr ng-repeat="item in ficha.estrutura">
+                    <td>{{item.filho}}</td>
+                    <td>{{item.nomefilho}}</td>
+                    <td>{{item.lote}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    
+
+</div>
