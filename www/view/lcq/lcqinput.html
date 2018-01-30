@@ -204,6 +204,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        
                                         <div ng-class="{'col-xs-12': ficha.selected.medias.length <= 10, 'col-xs-6': ficha.selected.medias.length > 10 && ficha.selected.medias.length <= 20, 'col-xs-4': ficha.selected.medias.length > 20}">
                                             <center>
                                                 <table ng-if="ficha.selected.tpdados == '02' && ficha.selected.resultado " style="width: 100%;">
@@ -309,7 +310,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-md-2 col-sm-4" ng-repeat="a in ficha.selected.anexos" >
                             <a ng-href="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" target="_blank">
                                 <img ng-src="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" class="img img-responsive" />
@@ -317,7 +318,7 @@
                         </div>
 
 
-                    </div>
+                    </div>-->
 
                 </div>
                 
@@ -327,7 +328,7 @@
                 {{mailMessage}}
 
                 <div class="col-md-5" style="padding-right: 0px; padding-left: 0px;">
-                    <div class="form-group" ng-show="!attachment.processing">
+                    <!--<div class="form-group" ng-show="!attachment.processing">
                         <div class="input-group">
                             <input type="file" class="form-control fileupload" id="file" file-model="attachment.file">
                             <div class="input-group-btn">
@@ -343,10 +344,10 @@
                             <akb-server-loading ng-if="attachment.processing"></akb-server-loading>
                         </div>
 
-                    </div>
+                    </div>-->
 
                     <!--<img src="img/small_loading.gif" class="img img-responsive" style="padding-top: 0px;" ng-if="attachment.processing" />-->
-                    {{attachment.message}}
+                    <!--{{attachment.message}}-->
                 </div>
                 <div class="col-md-7 pull-right">
                     <div class="btn-group btn-group-lg" role="group">

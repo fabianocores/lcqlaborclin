@@ -1,9 +1,22 @@
 ﻿<div class="container">
     <h3 style="margin-top: 0px;" class="georgiaFont">{{identity.companyUserName}} <small>{{identity.roles}} | {{identity.teamsname}}</small></h3>
     <div class="row">
-        <div class="col-sm-3 hidden-xs" style="text-align: center;">
+        <div class="col-sm-3 hidden-xs">
             
-            <img ng-src="{{userProfile.apiurl}}Account/GetAvatar/{{identity.avatarStream}}-256px" class="img img-responsive img-rounded">
+            <div class="form-group">
+                <img ng-src="{{userProfile.apiurl}}Account/GetAvatar/{{identity.avatarStream}}-256px" class="img img-responsive img-rounded">
+            </div>
+            <div class="form-group">
+                <img ng-src="{{userProfile.apiurl}}Account/GetSignaturePicture/{{identity.signature.picture}}" class="img img-responsive" ng-if="identity.signature.picture">
+            </div>
+
+            <div class="form-group" ng-if="identity.signature.signature">
+                <p ng-bind-html="identity.signature.signature"></p>
+            </div>
+            <div class="form-group">
+                <img ng-src="{{userProfile.apiurl}}Adm/GetLogo/{{appConfig.logo}}-256px" class="img img-responsive" /><br />
+            </div>
+
 
         </div>
         <div class="col-sm-9 col-xs-12 form-horizontal">
@@ -67,7 +80,7 @@
                     <div class="form-group">
                         <label for="email" class="col-sm-3 control-label">Assinatura</label>
                         <div class="col-sm-9">
-                            <p ng-bind-html="identity.signature"></p>
+                            <p ng-bind-html="identity.signature.signature"></p>
                         </div>
                     </div>
     
@@ -139,13 +152,47 @@
                 </div>
 
                 <div ng-show="userProfileView == 'userSignature'">
-                    <div ckeditor="options" ng-model="identity.signature" ready="onReady()"></div>
+                    
+                    <!--<div ckeditor="options" ng-model="identity.signature" ready="onReady()"></div>-->
+                    <textarea ng-model="identity.signature.signature" rows="10" class="form-control input-sm"></textarea>
+                    <br />
+
+                    <span ng-bind-html="identity.signature.signature"></span>
+
                     <br />
                     <button class="btn btn-primary" ng-click="putUserSignature()">
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         Salvar
                     </button>
 
+                    <hr />
+
+                    <h4>Assinatura para certificado</h4>
+
+                    <img ng-src="{{userProfile.apiurl}}Account/GetSignaturePicture/{{identity.signature.picture}}" class="img img-responsive" style="max-height: 180px;" ng-if="identity.signature.picture">
+                    <br />
+                    <div class="form-group">
+                        <label for="password2" class="col-sm-3 control-label">Selecionar imagem</label>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input type="file" class="form-control input-sm fileupload" id="file" file-model="userProfile.avatar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-primary" ng-click="postSignaturePicture()">
+                                        <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                        Enviar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-3 col-sm-offset-2">
+                            {{signaturePictureMessage}}
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -197,7 +244,7 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-3 control-label">Senha</label>
                             <div class="col-sm-3">
-                                <input type="password" class="form-control" id="username" ng-model="userSmtp.password">
+                                <input type="password" class="form-control" id="password" ng-model="userSmtp.password">
                             </div>
                         </div>
 
@@ -240,24 +287,5 @@
             </div>
         </div>
     </div>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-
-            <img ng-src="{{userProfile.apiurl}}Adm/GetLogo/{{appConfig.logo}}-256px" class="img img-responsive" /><br />
-
-        </div>
-        <!--<div class="col-md-9">
-            <address>
-                <strong>{{identity.companyName}}</strong><br>
-                {{identity.companyAddress}}<br>
-                {{identity.companyDistrict}} - {{identity.companyCity}}, CEP {{identity.companyZipCode}}<br>
-                Fone: ({{identity.companyDDD}}) {{identity.companyFone}}<br>
-                CNPJ: {{identity.companyTaxId0}}<br>
-                <a ng-href="http://{{identity.companySite}}" target="_blank">{{identity.companySite}}</a><br>
-
-            </address>
-        </div>-->
-    </div>
-
+    
 </div>

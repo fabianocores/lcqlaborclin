@@ -241,7 +241,7 @@
                                     <th width="25%">Resultado</th>
                                     <th width="15%">Status</th>
                                     <th width="1" style="text-align: center;">CQ</th>
-                                    <th width="1" style="text-align: center;"></th>
+                                    <!--<th width="1" style="text-align: center;"></th>-->
                                 </tr>
 
                             </thead>
@@ -308,12 +308,12 @@
                                     <td style="text-align: center;" ng-click="selectLinha(linha)">
                                         <span class="fa fa-certificate text-success" aria-hidden="true" ng-if="linha.cq"></span>
                                     </td>
-                                    <td ng-click="selectLinhaAttachment(linha)">
+                                    <!--<td ng-click="selectLinhaAttachment(linha)">
                                         <button class="btn btn-sm" ng-class="{'btn-default': linha.anexos.length == 0, 'btn-success': !(linha.anexos.length == 0) }" >
                                             {{linha.anexos.length}}
                                             <span class="fa fa-picture-o" aria-hidden="true"></span>
                                         </button>
-                                    </td>
+                                    </td>-->
 
                                 </tr>
 
@@ -323,6 +323,38 @@
 
                     </div>
 
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2 col-sm-4" ng-repeat="a in ficha.anexos">
+                    <a ng-href="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" target="_blank">
+                        <img ng-src="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" class="img img-responsive" />
+                    </a>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="!attachment.processing" style="margin-top: 10px;">
+                <div class="input-group">
+                    <input type="file" class="form-control fileupload" id="file" file-model="attachment.file">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary" ng-click="postAttachment()">
+                            Enviar foto
+                        </button>
+                        <button class="btn" ng-class="{'btn-default': ficha.anexos.length == 0, 'btn-success': !(ficha.anexos.length == 0) }" ng-click="selectLinhaAttachment()">
+                            {{ficha.anexos.length}}
+                            <span class="fa fa-picture-o" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-show="attachment.processing">
+                <div class="col-md-12">
+                    <akb-server-loading ng-if="attachment.processing"></akb-server-loading>
                 </div>
 
             </div>
