@@ -236,6 +236,16 @@
                 <td>{{item.lote}}</td>
             </tr>
         </table>
+        <br />
+        <div class="row">
+            <center>
+                <img ng-src="{{apiURL}}Account/GetSignaturePicture/{{ficha.aprovadorpicture}}" class="" ng-if="ficha.aprovadorpicture" style="width: 250px;">  
+                <span ng-bind-html="ficha.aprovadorsignature"></span>
+            </center>
+        </div>
+
+        
+        
 
     </div>
     
