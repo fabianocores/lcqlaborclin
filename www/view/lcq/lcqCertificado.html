@@ -105,7 +105,10 @@
             </thead>
         </table>
 
-        <table class="table table-condensed table-bordered" id="param2">
+        
+
+        <!--<table class="table table-condensed table-bordered" id="param2">
+
             <tr>
                 <th>Nº Análise</th>
                 <th>Plano de inspeção</th>
@@ -180,20 +183,61 @@
 
             </tr>
 
+        </table>-->
+
+        <table class="table table-condensed table-bordered" id="param2">
+            <tr>
+                <th>Cód Item</th>
+                <th colspan="5" style="text-align: left;">Descrição</th>
+            </tr>
+            <tr>
+                <td>
+                    {{ficha.item}}
+                </td>
+                <td colspan="5" style="text-align: left;">
+                    {{ficha.itemname}}
+                </td>
+
+            </tr>
+            <tr>
+                <th>Lote</th>
+                <th>Fabricação</th>
+                <th>Validade</th>
+                <th>Reg Anvisa</th>
+                <th>Plano Inspeção</th>
+                <th>Temp Armazenagem</th>
+            </tr>
+            <tr>
+                <td>{{ficha.batchnum}}</td>
+                <td>{{ficha.mnfdate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ficha.loteval | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ficha.anvisa}}</td>
+                <td>{{ficha.planoinsp}}</td>
+                <td>{{ficha.temperatura}}</td>
+            </tr>
+            <tr>
+                <th colspan="6" style="text-align: left;">Especificação</th>
+            </tr>
+            <tr>
+                <td colspan="6" style="text-align: left;">
+                    {{ficha.especificacao}}
+                </td>
+
+            </tr>
         </table>
 
         <table class="table table-condensed table-bordered" id="param3">
             <thead>
                 <tr>
-                    <th>Especificação</th>
-                    <th>Valor de referência</th>
-                    <th>Resultado</th>
-                    <th>Responsável</th>
+                    <th style="text-align:center;">Especificação</th>
+                    <th style="text-align:center;">Valor de referência</th>
+                    <th style="text-align:center;">Resultado</th>
+                    <!--<th>Responsável</th>-->
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="linha in ficha.linhas" ng-if="linha.cq && linha.status != 'P'">
-                    <td style="height: 80px !important;">
+                    <td>
                         {{linha.descresp2}}
                     </td>
                     <td>
@@ -210,14 +254,14 @@
                     <td>
                         {{linha.resultado}}
                     </td>
-                    <td style="white-space: nowrap;">
+                    <!--<td style="white-space: nowrap;">
                         {{linha.aprovador}}
-                    </td>
+                    </td>-->
                 </tr>
             </tbody>
         </table>
 
-        <h4>Observações</h4>
+        <!--<h4>Observações</h4>
         <hr style="border: 1px solid black; padding-left: 15px; padding-right: 15px;" />
         <hr style="border: 1px solid black; padding-left: 15px; padding-right: 15px;" />
         <hr style="border: 1px solid black; padding-left: 15px; padding-right: 15px;" />
@@ -235,19 +279,34 @@
                 <td>{{item.nomefilho}}</td>
                 <td>{{item.lote}}</td>
             </tr>
-        </table>
-        <br />
-        <div class="row">
-            <center>
-                <img ng-src="{{apiURL}}Account/GetSignaturePicture/{{ficha.aprovadorpicture}}" class="" ng-if="ficha.aprovadorpicture" style="width: 250px;">  
-                <span ng-bind-html="ficha.aprovadorsignature"></span>
-            </center>
-        </div>
-
-        
-        
+        </table>-->
 
     </div>
+    <center>
+        <strong>
+            <small>
+                Aprovado pelo Controle de Qualidade baseado nos ensaios realizados conforme {{ficha.planoinsp}}.
+            </small>
+            
+        </strong>
+
+        <br />
+        <div class="row">
+
+            <img ng-src="{{apiURL}}Account/GetSignaturePicture/{{ficha.aprovadorpicture}}" class="" ng-if="ficha.aprovadorpicture" style="max-height: 70px;">  <br />
+            <strong><span ng-bind-html="ficha.aprovadorsignature"></span></strong>
+
+        </div>
+        <div class="row">
+            <small>
+                Este certificado de análise foi emitido pelo responsável supra citado.
+            </small>
+            
+
+        </div>
+
+    </center>
+    
     
 
 </div>

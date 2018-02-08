@@ -89,7 +89,7 @@
                                 <div class="pull-right">
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-danger" ng-click="conforme(false)">
-                                            <span class="fa fa-thumbs-up" aria-hidden="true"></span>
+                                            <span class="fa fa-thumbs-down" aria-hidden="true"></span>
                                             Não Conforme
                                         </button>
                                         <button class="btn btn-success" ng-click="conforme(true)">
@@ -126,7 +126,7 @@
 
                                 </div>
 
-                                <div class="col-xs-4" style="padding: 0px;">
+                                <!--<div class="col-xs-4" style="padding: 0px;">
                                     <button class="btn btn-default btn-block btn-lg" ng-click="add('7')"><h1 style="padding: 0px; margin: 0px;">7</h1></button>
                                 </div>
                                 <div class="col-xs-4" style="padding: 0px;">
@@ -163,7 +163,6 @@
                                     <button class="btn btn-default btn-block btn-lg" ng-click="add(',')"><h1 style="padding: 0px; margin: 0px;">,</h1></button>
                                 </div>
 
-
                                 <div class="col-xs-4" style="padding: 0px;">
                                     <button class="btn btn-danger btn-block btn-lg" ng-click="add('x')"><h1 style="padding: 0px; margin: 0px;"><span class="fa fa-remove" aria-hidden="true"></span></h1></button>
                                 </div>
@@ -174,6 +173,57 @@
 
                                 <div class="col-xs-4" style="padding: 0px;">
                                     <button class="btn btn-primary btn-block btn-lg" ng-click="addValue()"><h1 style="padding: 0px; margin: 0px;"><span class="fa fa-plus" aria-hidden="true"></span></h1></button>
+                                </div>-->
+
+
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber('7')"><h1 style="padding: 0px; margin: 0px;">7</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber('8')"><h1 style="padding: 0px; margin: 0px;">8</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber('9')"><h1 style="padding: 0px; margin: 0px;">9</h1></button>
+                                </div>
+
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber('4')"><h1 style="padding: 0px; margin: 0px;">4</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber('5')"><h1 style="padding: 0px; margin: 0px;">5</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber('6')"><h1 style="padding: 0px; margin: 0px;">6</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber('1')"><h1 style="padding: 0px; margin: 0px;">1</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber('2')"><h1 style="padding: 0px; margin: 0px;">2</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber('3')"><h1 style="padding: 0px; margin: 0px;">3</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber('-')"><h1 style="padding: 0px; margin: 0px;">-/+</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber('0')"><h1 style="padding: 0px; margin: 0px;">0</h1></button>
+                                </div>
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-default btn-block btn-lg" onclick="addnumber(',')"><h1 style="padding: 0px; margin: 0px;">,</h1></button>
+                                </div>
+
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-danger btn-block btn-lg" onclick="addnumber('x')"><h1 style="padding: 0px; margin: 0px;"><span class="fa fa-remove" aria-hidden="true"></span></h1></button>
+                                </div>
+
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-danger btn-block btn-lg" onclick="addnumber('bs')"><h1 style="padding: 0px; margin: 0px;"><span class="fa fa-arrow-left" aria-hidden="true"></span></h1></button>
+                                </div>
+
+                                <div class="col-xs-4" style="padding: 0px;">
+                                    <button class="btn btn-primary btn-block btn-lg" ng-click="addValue2()"><h1 style="padding: 0px; margin: 0px;"><span class="fa fa-plus" aria-hidden="true"></span></h1></button>
                                 </div>
 
                             </div>
@@ -197,7 +247,8 @@
                                                         </td>
                                                     </tr>
                                                     <tr ng-if="ficha.selected.medias.length"><th style="text-align: right;">Medições</th><td style="text-align: right;">{{ficha.selected.medias.length}}</td></tr>
-                                                    <tr ng-if="ficha.selected.desviopadrao"><th style="text-align: right;">Desvio padrão</th><td style="text-align: right;">{{ficha.selected.desviopadrao|number:'3'}}</td></tr>
+                                                    <tr ng-if="ficha.selected.desviopadrao"><th style="text-align: right;">DP</th><td style="text-align: right;">{{ficha.selected.desviopadrao|number:'2'}}</td></tr>
+                                                    <tr ng-if="ficha.selected.coeficiente"><th style="text-align: right;">CF</th><td style="text-align: right;">{{ficha.selected.coeficiente|number:'2'}}</td></tr>
                                                 </table>
                                             </center>
                                             
@@ -211,7 +262,7 @@
 
                                                     <tr ng-repeat="media in ficha.selected.medias | orderBy: '-index'" ng-if="media.index <= 10">
                                                         <th style="text-align: right; width: 50%">{{media.index}}º</th>
-                                                        <td style="text-align: right; width: 40%">{{media.valor | number: '3'}}</td>
+                                                        <td style="text-align: right; width: 40%">{{media.valor | number: '2'}}</td>
                                                         <td style="width: 10%; text-align: center;">
                                                             <span class="fa fa-remove text-danger" ng-click="removeMedia(media.index)"></span>
                                                         </td>
@@ -225,7 +276,7 @@
 
                                                     <tr ng-repeat="media in ficha.selected.medias | orderBy: '-index'" ng-if="media.index > 10 && media.index <= 20">
                                                         <th style="text-align: right; width: 50%">{{media.index}}º</th>
-                                                        <td style="text-align: right; width: 40%">{{media.valor | number: '3'}}</td>
+                                                        <td style="text-align: right; width: 40%">{{media.valor | number: '2'}}</td>
                                                         <td style="width: 10%; text-align: center;">
                                                             <span class="fa fa-remove text-danger" ng-click="removeMedia(media.index)"></span>
                                                         </td>
@@ -239,7 +290,7 @@
 
                                                     <tr ng-repeat="media in ficha.selected.medias | orderBy: '-index'" ng-if="media.index > 20">
                                                         <th style="text-align: right; width: 50%">{{media.index}}º</th>
-                                                        <td style="text-align: right; width: 40%">{{media.valor | number: '3'}}</td>
+                                                        <td style="text-align: right; width: 40%">{{media.valor | number: '2'}}</td>
                                                         <td style="width: 10%; text-align: center;">
                                                             <span class="fa fa-remove text-danger" ng-click="removeMedia(media.index)"></span>
                                                         </td>
@@ -274,11 +325,16 @@
 
                     </div>
                     
-                   
+                    <div class="form-group bgwarning" ng-if="(ficha.selected.status == 'A' || ficha.selected.status == 'R') && !ficha.selected.resultado"> 
+                        <center >
+                            <span class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></span> Sem resultado!
+                        </center>
+                    </div>
+
                     <div class="form-group">
                         <label for="obs" class="col-sm-3 control-label">Observação</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="obs" ng-model="ficha.selected.obs" ng-change="validarResultado(ficha.selected.resultado)" ng-model-options="{updateOn: 'blur'}" >
+                            <input type="text" class="form-control" id="obs" ng-model="ficha.selected.obs" ng-change="ficha.selected.edited = true; validarResultado(ficha.selected.resultado)" ng-model-options="{updateOn: 'blur'}" >
                         </div>
                     </div>
                     <div class="form-group">
@@ -377,6 +433,37 @@
         }
         
     })
+
+    function addnumber(val)
+    {
+
+        //$('#inputResult2').val(nro);
+
+        if (val == '-') {
+            $('#inputResult2').val ( (parseFloat($('#inputResult2').val().toString().replace(/,/, '.')) * -1).toString().replace('.', ',') );
+        }
+        else if (val == ',') {
+            $('#inputResult2').val ( $('#inputResult2').val().replace(/,/,'') + ',' );
+        }
+        else if (val == 'x') {
+            $('#inputResult2').val('');
+        }
+        else if (val == 'bs') {
+            $scope.ficha.selected.resultadot = $('#inputResult2').val().substring(0, $('#inputResult2').val().length - 1);
+        }
+        else {
+            var buff = ($('#inputResult2').val() || '').toString();
+
+            buff = buff + val.toString();
+
+            $('#inputResult2').val(buff);
+            
+            //$scope.ficha.selected.resultadot = buff;
+        }
+
+
+    }
+
 </script>
 <!--<script>
     $('#modalProductDetails').on('shown.bs.modal', function () {

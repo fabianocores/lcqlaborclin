@@ -123,14 +123,14 @@
                     {{ficha.peso}}
                 </td>
                 <td>
-                    <strong>Nº nota fiscal</strong><br />
-                    {{ficha.numnf}}
+                    <strong>Temperatura</strong><br />
+                    {{ficha.temperatura}}
                 </td>
                 <td>
-                    <strong>Fornecedor</strong><br />
-                    {{ficha.numpn}} {{ficha.numpnname}}
-
+                    <strong>Validade</strong><br />
+                    {{ficha.loteval | date: 'dd/MM/yyyy'}}
                 </td>
+                
             </tr>
 
             <tr>
@@ -143,8 +143,9 @@
                     {{ficha.itemname}}
                 </td>
                 <td>
-                    <strong>UM</strong><br />
-                    {{ficha.um}}
+                    <strong>Fornecedor</strong><br />
+                    {{ficha.numpn}} {{ficha.numpnname}}
+
                 </td>
             </tr>
 
@@ -170,7 +171,7 @@
             </div>
         </div>
 
-        <div class="panel-body" style="overflow-x: scroll;">
+        <div class="panel-body" style="overflow-x: scroll; padding-bottom: 0px;">
             <div class="row hidden-print">
                 <div class="col-xs-3">
                     <div class="input-group" role="group" style="max-width: 250px; margin-bottom: 5px;">
@@ -247,11 +248,14 @@
                             </thead>
 
                             <tbody>
-                                <tr ng-repeat="linha in analiselinhas | filter: search" style="cursor: pointer;">
-                                    <td ng-click="selectLinha(linha)">
+                                <tr ng-repeat="linha in analiselinhas | filter: search" 
+                                    ng-class="{'success': linha.status == 'A' && linha.resultado, 'danger': linha.status == 'R' && linha.resultado, 'bgwarning': (linha.status == 'A' || linha.status == 'R') && !linha.resultado}"
+                                    ng-if="(linha.ccq && params.identity.lcqpermission.bugs) || (!linha.ccq)"
+                                    >
+                                    <td ng-click="selectLinha(linha)" style="cursor: pointer;">
                                         {{linha.lineid}}
                                     </td>
-                                    <td ng-click="selectLinha(linha)">
+                                    <td ng-click="selectLinha(linha)" style="cursor: pointer;">
                                         {{linha.descresp2}}
                                         
                                         <!--{{linha.observacao}}-->
@@ -270,15 +274,21 @@
 
                                     </td>
                                     
-                                    <td ng-click="selectLinha(linha)">
+                                    <td ng-click="selectLinha(linha)" style="cursor: pointer;">
                                         {{linha.valorn}}
                                     </td>
-                                    <td ng-class="{'success': linha.status == 'A', 'danger': linha.status == 'R'}" ng-click="selectLinha(linha)">
+                                    <td ng-click="selectLinha(linha)" style="cursor: pointer;">
+                                        
+                                        <center ng-if="(linha.status == 'A' || linha.status == 'R') && !linha.resultado">
+                                            <span class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></span> Sem resultado!
+                                        </center>
+                                        
                                         <center>
                                             <table ng-if="linha.tpdados == '02' && linha.resultado" class="" style="">
                                                 <tr><th style="text-align: right; width: 50%">Média</th><td style="text-align: right;width: 50%">{{linha.resultado}} {{linha.um}}</td></tr>
                                                 <tr ng-if="linha.medias.length"><th style="text-align: right;">Medições</th><td style="text-align: right;">x{{linha.medias.length}}</td></tr>
-                                                <tr ng-if="linha.desviopadrao"><th style="text-align: right;">Desvio padrão</th><td style="text-align: right;">{{linha.desviopadrao|number:'3'}}</td></tr>
+                                                <tr ng-if="linha.desviopadrao"><th style="text-align: right;">DP</th><td style="text-align: right;">{{linha.desviopadrao|number:'2'}}</td></tr>
+                                                <tr ng-if="linha.coeficiente"><th style="text-align: right;">CV</th><td style="text-align: right;">{{linha.coeficiente|number:'2'}}</td></tr>
                                                 
                                                 <!--<tr ng-if="linha.desviominimo"><th style="text-align: right;">Desvio mínimo</th><td style="text-align: right;">{{linha.desviominimo|number:'3'}}</td></tr>
                                                 <tr ng-if="linha.desviomaximo"><th style="text-align: right;">Desvio máximo</th><td style="text-align: right;">{{linha.desviomaximo|number:'3'}}</td></tr>-->
@@ -286,27 +296,55 @@
 
                                             </table>
                                         </center>
-                                        <span ng-if="linha.tpdados != '02'">
-                                            {{linha.resultado}}
-                                        </span>
                                         <center>
+                                            <span ng-if="linha.tpdados != '02'">
+                                                {{linha.resultado}}
+                                            </span>
+
                                             <span ng-if="linha.obs">
-                                                {{linha.obs}}
+                                                {{linha.obs|removeAsterisk}}
                                             </span>
                                         </center>
                                         
 
                                     </td>
-                                    <td ng-class="{'bgsuccess': linha.status == 'A', 'bgdanger': linha.status == 'R'}" align="center" ng-click="selectLinha(linha)">
-                                        <span class="fa fa-thumbs-up" aria-hidden="true" ng-if="linha.status == 'A'"></span>
+                                    <td  align="center">
 
-                                        <span class="fa fa-thumbs-down" aria-hidden="true" ng-if="linha.status == 'R'"></span>
+                                        <div ng-if="linha.tpdados == '01'">
+                                            <div class="btn-group" role="group">
+                                                <button class="btn" ng-class="{'btn-danger': linha.status == 'R', 'btn-default': !(linha.status == 'R')}" ng-click="conforme(false, linha)">
+                                                    <span class="fa fa-thumbs-down" aria-hidden="true"></span>
+                                                </button>
+                                                <button class="btn" ng-class="{'btn-success': linha.status == 'A', 'btn-default': !(linha.status == 'A')}" ng-click="conforme(true, linha)">
+                                                    <span class="fa fa-thumbs-up" aria-hidden="true"></span>
+                                                </button>
+                                                <!--<button class="btn btn-default" ng-click="selectLinha(linha)">
+                                                    <span class="fa fa-edit" aria-hidden="true"></span>
+                                                </button>-->
 
-                                        {{linha.aprovador}}
+                                            </div>
+                                        </div>
+                                        <!--<div ng-if="linha.tpdados != '01'">
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-default" ng-click="selectLinha(linha)">
+                                                    <span class="fa fa-edit" aria-hidden="true"></span>
+                                                </button>
+
+                                            </div>
+                                        </div>-->
+
+                                        <div class="row" ng-if="linha.status == 'A' || linha.status == 'R'">
+                                            {{linha.aprovador}}
+                                        </div>
+
+                                        
+
+                                        
 
                                     </td>
-                                    <td style="text-align: center;" ng-click="selectLinha(linha)">
+                                    <td style="text-align: center;">
                                         <span class="fa fa-certificate text-success" aria-hidden="true" ng-if="linha.cq"></span>
+                                        <span class="fa fa-bug text-danger" aria-hidden="true" ng-if="linha.ccq"></span>
                                     </td>
                                     <!--<td ng-click="selectLinhaAttachment(linha)">
                                         <button class="btn btn-sm" ng-class="{'btn-default': linha.anexos.length == 0, 'btn-success': !(linha.anexos.length == 0) }" >
@@ -329,8 +367,27 @@
 
         </div>
 
-        <div class="panel-body">
+        <div class="panel-body" style="padding-top: 0px;">
+
             <div class="row">
+                <center>
+                    <div class="col-md-12">
+                        <h4 style="margin: 0px;">Foto do produto</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <a ng-href="{{apiURL}}Order/GetProductImage/{{identity.company}}/{{ficha.item | encodeURI }}" target="_blank">
+                            <img ng-src="{{apiURL}}Order/GetProductImage/{{identity.company}}/{{ficha.item}}" class="img img-responsive img-thumbnail">
+                        </a>
+                    </div>
+                </center>
+                
+                
+            </div>
+
+            <div class="row" ng-if="ficha.anexos.length > 0" style="margin-top: 10px;">
+                <div class="col-md-12">
+                    <h4 style="margin: 0px;">Anexos</h4>
+                </div>
                 <div class="col-md-2 col-sm-4" ng-repeat="a in ficha.anexos">
                     <a ng-href="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" target="_blank">
                         <img ng-src="{{apiURL}}LCQ/GetFichaLCQAttachment/{{ficha.docentry}}/{{a.localfilename}}" class="img img-responsive" />
