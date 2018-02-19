@@ -47,8 +47,13 @@
     {
 
         if (isCordovaApp) {
-            var page = location.href;
+
+            var page = document.getElementById('legal-notice');
+
             cordova.plugins.printer.print(page, 'Document.html');
+
+            //var page = location.href;
+            //cordova.plugins.printer.print(page, 'Document.html');
         }
         else
         {
@@ -59,7 +64,7 @@
     }
 </script>
 
-<div class="container">
+<div class="container" id="legal-notice">
     <button class="btn btn-default hidden-print" onclick="printPage()">
         <span class="fa fa-print" aria-hidden="true"></span>
         Imprimir
