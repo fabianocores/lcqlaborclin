@@ -42,10 +42,25 @@
     }
 </style>
 
+<script>
+    function printPage()
+    {
 
+        if (isCordovaApp) {
+            var page = location.href;
+            cordova.plugins.printer.print(page, 'Document.html');
+        }
+        else
+        {
+            window.print();
+        }
+
+        
+    }
+</script>
 
 <div class="container">
-    <button class="btn btn-default hidden-print" onclick="window.print()">
+    <button class="btn btn-default hidden-print" onclick="printPage()">
         <span class="fa fa-print" aria-hidden="true"></span>
         Imprimir
     </button>
