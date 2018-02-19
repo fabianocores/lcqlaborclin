@@ -62,7 +62,7 @@
                         <img ng-src="{{apiURL}}Adm/GetLogo/{{appConfig.logo}}-256px" alt="Arkab.WebApp" class="img img-responsive" style="margin-top: 8px; padding-top: 0px; max-height: 256px;" ng-if="appConfig.logo" />
                     </th>
                     <td width="60%" style="text-align: center;">
-                        <h4 style="padding: 0px; margin: 0px;">Ficha de análise técnica</h4>
+                        <h4 style="padding: 0px; margin: 0px;">CERTIFICADO DE ANÁLISE</h4>
 
                         <h4 style="padding: 0px; margin: 0px;">Laborclin Produtos para Laboratório Ltda</h4>
                         
@@ -282,30 +282,57 @@
         </table>-->
 
     </div>
-    <center>
-        <strong>
+    <div class="row">
+        <center>
+            <strong>
+                <small>
+                    Aprovado pelo Controle de Qualidade baseado nos ensaios realizados conforme {{ficha.planoinsp}}.
+                </small>
+
+            </strong>
+
+            <br />
+            <div class="row">
+
+                <img ng-src="{{apiURL}}Account/GetSignaturePicture/{{ficha.aprovadorpicture}}" class="" ng-if="ficha.aprovadorpicture" style="max-height: 70px;">  <br />
+                <strong><span ng-bind-html="ficha.aprovadorsignature"></span></strong>
+
+            </div>
+            <div class="row">
+                <small>
+                    Este certificado de análise foi emitido pelo responsável supra citado.
+                </small>
+
+
+            </div>
+
+        </center>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-4" style="text-align: center;">
             <small>
-                Aprovado pelo Controle de Qualidade baseado nos ensaios realizados conforme {{ficha.planoinsp}}.
+                Rua Casemiro de Abreu, 521<br />
+                Vargem Grande<br />
+                Pinhais - Paraná - CEP 83.321-210
             </small>
             
-        </strong>
-
-        <br />
-        <div class="row">
-
-            <img ng-src="{{apiURL}}Account/GetSignaturePicture/{{ficha.aprovadorpicture}}" class="" ng-if="ficha.aprovadorpicture" style="max-height: 70px;">  <br />
-            <strong><span ng-bind-html="ficha.aprovadorsignature"></span></strong>
-
         </div>
-        <div class="row">
+        <div class="col-xs-4" style="text-align: center;">
             <small>
-                Este certificado de análise foi emitido pelo responsável supra citado.
+                SAC 0800-410027<br />
+                www.laborclin.com.br<br />
+                lcq@laborclin.com.br
             </small>
             
-
         </div>
-
-    </center>
+        <div class="col-xs-4" style="text-align: center;">
+            <small>
+                CNPJ 76.619.113/0001-31<br />
+                Insc. Estadual: 137.00129-26
+            </small>
+        </div>
+    </div>
     
     
 
