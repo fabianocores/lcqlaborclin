@@ -64,7 +64,7 @@
     }
 </script>
 
-<div class="container" id="legal-notice">
+<div class="container">
     <button class="btn btn-default hidden-print" onclick="printPage()">
         <span class="fa fa-print" aria-hidden="true"></span>
         Imprimir
@@ -74,60 +74,63 @@
         <span class="fa fa-flask" aria-hidden="true"></span>
         Ficha LCQ
     </a>
-    <div class="panel panel-default">
-        <table class="table table-bordered table-condensed" id="param">
-            <thead>
-                <tr>
-                    <th width="20%">
-                        <img ng-src="{{apiURL}}Adm/GetLogo/{{appConfig.logo}}-256px" alt="Arkab.WebApp" class="img img-responsive" style="margin-top: 8px; padding-top: 0px; max-height: 256px;" ng-if="appConfig.logo" />
-                    </th>
-                    <td width="60%" style="text-align: center;">
-                        <h4 style="padding: 0px; margin: 0px;">CERTIFICADO DE ANÁLISE</h4>
 
-                        <h4 style="padding: 0px; margin: 0px;">Laborclin Produtos para Laboratório Ltda</h4>
-                        
-                        <div class="col-xs-6">
-                            <small>
-                                Data da produção<br />{{ficha.op_createdate | date: 'dd/MM/yyyy'}}
-                            </small>
-                            
-                        </div>
-                        <div class="col-xs-6">
-                            <small>
-                                Encerramento previsto<br />{{ficha.op_duedate | date: 'dd/MM/yyyy'}}
-                            </small>
-                            
-                        </div>
-                    </td>
-                    <td width="20%">
-                        <table class="table-condensed" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th style="text-align: center;">Nº Ficha</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="text-align: center; background-color: lightgray">
-                                        {{ficha.nroficha}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center; font-size: 8px;  ">
-                                        Data: {{params.emissao | date: 'dd/MM/yyyy'}} / Hora: {{params.emissao | date: 'HH:mm'}}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
+    <div id="legal-notice">
+        <div class="panel panel-default">
+            <table class="table table-bordered table-condensed" id="param">
+                <thead>
+                    <tr>
+                        <th width="20%">
+                            <img ng-src="{{apiURL}}Adm/GetLogo/{{appConfig.logo}}-256px" 
+                                 alt="Arkab.WebApp" class="" style="margin-top: 8px; padding-top: 0px;" width="180" ng-if="appConfig.logo" />
+                        </th>
+                        <td width="60%" style="text-align: center;">
+                            <h4 style="padding: 0px; margin: 0px;">CERTIFICADO DE ANÁLISE</h4>
 
-            </thead>
-        </table>
+                            <h4 style="padding: 0px; margin: 0px;">Laborclin Produtos para Laboratório Ltda</h4>
 
-        
+                            <div class="col-xs-6">
+                                <small>
+                                    Data da produção<br />{{ficha.op_createdate | date: 'dd/MM/yyyy'}}
+                                </small>
 
-        <!--<table class="table table-condensed table-bordered" id="param2">
+                            </div>
+                            <div class="col-xs-6">
+                                <small>
+                                    Encerramento previsto<br />{{ficha.op_duedate | date: 'dd/MM/yyyy'}}
+                                </small>
+
+                            </div>
+                        </td>
+                        <td width="20%">
+                            <table class="table-condensed" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Nº Ficha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: center; background-color: lightgray">
+                                            {{ficha.nroficha}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center; font-size: 8px;  ">
+                                            Data: {{params.emissao | date: 'dd/MM/yyyy'}} / Hora: {{params.emissao | date: 'HH:mm'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                </thead>
+            </table>
+
+
+
+            <!--<table class="table table-condensed table-bordered" id="param2">
 
             <tr>
                 <th>Nº Análise</th>
@@ -205,83 +208,83 @@
 
         </table>-->
 
-        <table class="table table-condensed table-bordered" id="param2">
-            <tr>
-                <th>Cód Item</th>
-                <th colspan="5" style="text-align: left;">Descrição</th>
-            </tr>
-            <tr>
-                <td>
-                    {{ficha.item}}
-                </td>
-                <td colspan="5" style="text-align: left;">
-                    {{ficha.itemname}}
-                </td>
-
-            </tr>
-            <tr>
-                <th>Lote</th>
-                <th>Fabricação</th>
-                <th>Validade</th>
-                <th>Reg Anvisa</th>
-                <th>Plano Inspeção</th>
-                <th>Temp Armazenagem</th>
-            </tr>
-            <tr>
-                <td>{{ficha.batchnum}}</td>
-                <td>{{ficha.mnfdate | date: 'dd/MM/yyyy'}}</td>
-                <td>{{ficha.loteval | date: 'dd/MM/yyyy'}}</td>
-                <td>{{ficha.anvisa}}</td>
-                <td>{{ficha.planoinsp}}</td>
-                <td>{{ficha.temperatura}}</td>
-            </tr>
-            <tr>
-                <th colspan="6" style="text-align: left;">Especificação</th>
-            </tr>
-            <tr>
-                <td colspan="6" style="text-align: left;">
-                    {{ficha.especificacao}}
-                </td>
-
-            </tr>
-        </table>
-
-        <table class="table table-condensed table-bordered" id="param3">
-            <thead>
+            <table class="table table-condensed table-bordered" id="param2">
                 <tr>
-                    <th style="text-align:center;">Especificação</th>
-                    <th style="text-align:center;">Valor de referência</th>
-                    <th style="text-align:center;">Resultado</th>
-                    <!--<th>Responsável</th>-->
+                    <th>Cód Item</th>
+                    <th colspan="5" style="text-align: left;">Descrição</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="linha in ficha.linhas" ng-if="linha.cq && linha.status != 'P'">
+                <tr>
                     <td>
-                        {{linha.descresp2}}
+                        {{ficha.item}}
                     </td>
-                    <td>
-                        {{linha.valorn}}
-                        <span ng-if="linha.p_de || linha.p_ate">
-                            {{linha.p_de}} 
-                            <span ng-if="linha.p_ate">
-                                - {{linha.p_ate}}
+                    <td colspan="5" style="text-align: left;">
+                        {{ficha.itemname}}
+                    </td>
+
+                </tr>
+                <tr>
+                    <th>Lote</th>
+                    <th>Fabricação</th>
+                    <th>Validade</th>
+                    <th>Reg Anvisa</th>
+                    <th>Plano Inspeção</th>
+                    <th>Temp Armazenagem</th>
+                </tr>
+                <tr>
+                    <td>{{ficha.batchnum}}</td>
+                    <td>{{ficha.mnfdate | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{ficha.loteval | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{ficha.anvisa}}</td>
+                    <td>{{ficha.planoinsp}}</td>
+                    <td>{{ficha.temperatura}}</td>
+                </tr>
+                <tr>
+                    <th colspan="6" style="text-align: left;">Especificação</th>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: left;">
+                        {{ficha.especificacao}}
+                    </td>
+
+                </tr>
+            </table>
+
+            <table class="table table-condensed table-bordered" id="param3">
+                <thead>
+                    <tr>
+                        <th style="text-align:center;">Especificação</th>
+                        <th style="text-align:center;">Valor de referência</th>
+                        <th style="text-align:center;">Resultado</th>
+                        <!--<th>Responsável</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="linha in ficha.linhas" ng-if="linha.cq && linha.status != 'P'">
+                        <td>
+                            {{linha.descresp2}}
+                        </td>
+                        <td>
+                            {{linha.valorn}}
+                            <span ng-if="linha.p_de || linha.p_ate">
+                                {{linha.p_de}}
+                                <span ng-if="linha.p_ate">
+                                    - {{linha.p_ate}}
+                                </span>
+
                             </span>
-                            
-                        </span>
-                         
-                    </td>
-                    <td>
-                        {{linha.resultado}}
-                    </td>
-                    <!--<td style="white-space: nowrap;">
+
+                        </td>
+                        <td>
+                            {{linha.resultado}}
+                        </td>
+                        <!--<td style="white-space: nowrap;">
                         {{linha.aprovador}}
                     </td>-->
-                </tr>
-            </tbody>
-        </table>
+                    </tr>
+                </tbody>
+            </table>
 
-        <!--<h4>Observações</h4>
+            <!--<h4>Observações</h4>
         <hr style="border: 1px solid black; padding-left: 15px; padding-right: 15px;" />
         <hr style="border: 1px solid black; padding-left: 15px; padding-right: 15px;" />
         <hr style="border: 1px solid black; padding-left: 15px; padding-right: 15px;" />
@@ -301,59 +304,62 @@
             </tr>
         </table>-->
 
-    </div>
-    <div class="row">
-        <center>
-            <strong>
+        </div>
+        <div class="row">
+            <center>
+                <strong>
+                    <small>
+                        Aprovado pelo Controle de Qualidade baseado nos ensaios realizados conforme {{ficha.planoinsp}}.
+                    </small>
+
+                </strong>
+
+                <br />
+                <div class="row">
+
+                    <img ng-src="{{apiURL}}Account/GetSignaturePicture/{{ficha.aprovadorpicture}}" class="" ng-if="ficha.aprovadorpicture" style="max-height: 70px;">  <br />
+                    <strong><span ng-bind-html="ficha.aprovadorsignature"></span></strong>
+
+                </div>
+                <div class="row">
+                    <small>
+                        Este certificado de análise foi emitido pelo responsável supra citado.
+                    </small>
+
+
+                </div>
+
+            </center>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-4" style="text-align: center;">
                 <small>
-                    Aprovado pelo Controle de Qualidade baseado nos ensaios realizados conforme {{ficha.planoinsp}}.
+                    Rua Casemiro de Abreu, 521<br />
+                    Vargem Grande<br />
+                    Pinhais - Paraná - CEP 83.321-210
                 </small>
 
-            </strong>
-
-            <br />
-            <div class="row">
-
-                <img ng-src="{{apiURL}}Account/GetSignaturePicture/{{ficha.aprovadorpicture}}" class="" ng-if="ficha.aprovadorpicture" style="max-height: 70px;">  <br />
-                <strong><span ng-bind-html="ficha.aprovadorsignature"></span></strong>
-
             </div>
-            <div class="row">
+            <div class="col-xs-4" style="text-align: center;">
                 <small>
-                    Este certificado de análise foi emitido pelo responsável supra citado.
+                    SAC 0800-410027<br />
+                    www.laborclin.com.br<br />
+                    lcq@laborclin.com.br
                 </small>
 
-
             </div>
+            <div class="col-xs-4" style="text-align: center;">
+                <small>
+                    CNPJ 76.619.113/0001-31<br />
+                    Insc. Estadual: 137.00129-26
+                </small>
+            </div>
+        </div>
 
-        </center>
     </div>
-    
-    <div class="row">
-        <div class="col-xs-4" style="text-align: center;">
-            <small>
-                Rua Casemiro de Abreu, 521<br />
-                Vargem Grande<br />
-                Pinhais - Paraná - CEP 83.321-210
-            </small>
-            
-        </div>
-        <div class="col-xs-4" style="text-align: center;">
-            <small>
-                SAC 0800-410027<br />
-                www.laborclin.com.br<br />
-                lcq@laborclin.com.br
-            </small>
-            
-        </div>
-        <div class="col-xs-4" style="text-align: center;">
-            <small>
-                CNPJ 76.619.113/0001-31<br />
-                Insc. Estadual: 137.00129-26
-            </small>
-        </div>
-    </div>
-    
+
+
     
 
 </div>
