@@ -1,4 +1,4 @@
-﻿angular.module("arkabPortal").controller("setupCtrl", ['$scope', '$location', '$window', 'urlConfig', '$timeout', '$routeParams', '$http', function ($scope, $location, $window, urlConfig, $timeout, $routeParams, $http) {
+﻿angular.module("arkabPortal").controller("setupCtrl", ['$scope', '$location', '$window', 'urlConfig', '$timeout', '$routeParams', '$http', '$sce', function ($scope, $location, $window, urlConfig, $timeout, $routeParams, $http, $sce) {
 
     $scope.message = '';
 
@@ -33,11 +33,12 @@
     $scope.protocols = [{ code: 'http' }, { code: 'https' }];
 
     function error(error) {
-        $scope.error = error;
+        //$sce.trustAsHtml(response.content);
+        $scope.error = $sce.trustAsHtml(error);
 
         $timeout(function () {
             $scope.error = '';
-        }, 5000);
+        }, 30000);
 
     }
 
