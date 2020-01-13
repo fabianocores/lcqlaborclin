@@ -353,6 +353,23 @@ body {
     padding: 30px;
 }
 
+#loginFields > .panel{
+    background-color: transparent !important;
+    background-image: url('../img/courtine_md.png');
+    border: none !important;
+}
+
+#loginFields > .panel > .panel-body {
+    background-color: transparent !important;
+    /*background-image: url('../img/courtine_md.png');*/
+
+}
+
+loginFields > .panel > .panel-body > form {
+
+}
+
+
 #selectBatchesTable tbody tr td {
     vertical-align: middle;
 }
@@ -492,7 +509,7 @@ body {
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        background-image: url("../img/w2.jpg");
+        background-image: url("../img/w3.jpg");
     }
 
 
