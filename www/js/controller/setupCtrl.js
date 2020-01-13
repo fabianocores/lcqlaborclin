@@ -277,22 +277,22 @@
 
         $scope.config.baseUrl = $scope.config.baseUrl.replace(/^(https|http):\/\//, '');
 
-        if (!$scope.config.ignoreerror1 && !automatic) {
-            if (/\/api\/$/.test($scope.config.baseUrl) || /\/$/.test($scope.config.baseUrl) || /\/api$/.test($scope.config.baseUrl)) {
-                $scope.config.error1 = true;
-                error('Informe apenas o nome da aplicação da API, sem barra no final.');
-                return;
-            }
-        }
+        //if (!$scope.config.ignoreerror1 && !automatic) {
+        //    if (/\/api\/$/.test($scope.config.baseUrl) || /\/$/.test($scope.config.baseUrl) || /\/api$/.test($scope.config.baseUrl)) {
+        //        $scope.config.error1 = true;
+        //        error('Informe apenas o nome da aplicação da API, sem barra no final.');
+        //        return;
+        //    }
+        //}
 
         var s = angular.copy($scope.config);
 
-        if ($scope.config.ignoreerror1) {
+        //if ($scope.config.ignoreerror1) {
             s.baseUrl = s.protocol + '://' + $scope.config.baseUrl;
-        }
-        else {
-            s.baseUrl = s.protocol + '://' + $scope.config.baseUrl + '/api/';
-        }
+        //}
+        //else {
+            //s.baseUrl = s.protocol + '://' + $scope.config.baseUrl + '/api/';
+        //}
 
         console.log($scope.domainInfo);
 
