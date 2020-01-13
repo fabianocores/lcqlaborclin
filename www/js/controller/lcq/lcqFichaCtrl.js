@@ -198,6 +198,8 @@
 
             if (ficha.datains) { ficha.datains = formatPtBrDate(ficha.datains); }
 
+            console.log('Params', ficha);
+
             lcqService.putFichaLCQ(ficha).success(function (response) {
 
                 checkFichaLCQIntegrationStatus(response);
