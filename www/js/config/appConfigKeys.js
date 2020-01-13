@@ -4,7 +4,7 @@
     googleAnalyticsKey: 'UA-86794666',
     googleMapsAPIUrl: 'https://maps.googleapis.com/maps/api/geocode/json',
 
-    publishVersion: '2019-09-06-1600'
+    publishVersion: '2020-01-13-1400'
 
 
 });
