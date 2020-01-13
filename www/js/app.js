@@ -127,8 +127,23 @@ function formatPtBrDate(sdate) {
     if (sdate == null) {
         return null;
     }
+    var day = sdate.substring(0, 2);
+    var month = sdate.substring(3, 5);
+    var year = sdate.substring(6, 10);
 
-    return moment(sdate, 'DD/MM/YYYY');
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    var fdate = [year, month, day].join('-') + 'T00:00:00-02:00';
+
+    //var date = moment(fdate);
+
+    //console.log('date', date);
+
+    //return fdate;
+
+
+    return moment(sdate, 'DD/MM/YYYY').toDate();
 
     //var day = sdate.substring(0, 2);
     //var month = sdate.substring(3, 5);
@@ -162,7 +177,7 @@ function formatPtBrDateTime(sdate) {
 
     var fdate = [year, month, day].join('-') + 'T' + [hour, minutes, seconds].join(':') + '-02:00';
 
-    var date = moment(fdate);
+    var date = moment(fdate).toDate();
 
     console.log('date', date);
 
