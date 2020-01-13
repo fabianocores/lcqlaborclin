@@ -20,29 +20,19 @@
         <div class="panel panel-default">
             <table class="table table-condensed" id="param">
                 <thead>
+                    
                     <tr>
                         <th>
                             Termômetro
                         </th>
-                        <th style="text-align: center;">
-                            Faixa operação
-                        </th>
-                        <th style="text-align: center;" colspan="4">
-                            Teperatura
-                        </th>
-                        <th style="text-align: center;" colspan="4">
-                            Umidade
-                        </th>
-                    </tr>
-                    <tr>
                         <th>
-                            
-                        </th>
-                        <th>
-                            
+                            Descrição
                         </th>
                         <th style="text-align: center;">
                             Atual
+                        </th>
+                        <th style="text-align: center;">
+                            Faixa de operação
                         </th>
                         <th style="text-align: center;">
                             Média
@@ -53,7 +43,7 @@
                         <th style="text-align: center;">
                             Máxima
                         </th>
-                        <th style="text-align: center;">
+                        <!--<th style="text-align: center;">
                             Atual
                         </th>
                         <th style="text-align: center;">
@@ -64,24 +54,34 @@
                         </th>
                         <th style="text-align: center;">
                             Máxima
-                        </th>
+                        </th>-->
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr ng-repeat="t in thermometers">
-                        <td style="width: 250px; text-align: center;">
+                        <td style="text-align: left;">
                             <a ng-href="#/thermometer/{{t.device}}">
                                 {{t.device}}
-
-                                <img ng-src="{{apiURL}}Thermometer/GetThermometerPicture/{{t.picture}}" class="img img-responsive">
-                            </a>                            
+                                <img ng-src="{{apiURL}}Thermometer/GetThermometerPicture/{{t.picture}}" class="img img-responsive" ng-if="t.picture">
+                            </a>
                         </td>
+                        <td style="text-align: left;">
+                            <a ng-href="#/thermometer/{{t.device}}">
+                                {{t.devicename}}
+                            </a>
+                        </td>
+                        <td style="text-align: center;">
+                            <h1 ng-class="{'text-danger': t.actualtemp < t.devicemintemp || t.actualtemp > t.devicemaxtemp, 'text-success': t.actualtemp >= t.devicemintemp && t.actualtemp <= t.devicemaxtemp}">
+                                <small><span class="fa fa-thermometer" aria-hidden="true"></span></small>
+
+                                {{t.actualtemp | number: '1'}}°C
+                            </h1>
+                            <!--{{t.actualtemp | number: '1'}}°C-->
+                        </td>
+
                         <td style="text-align: center;">
                             {{t.devicemintemp | number: '1'}}°C até {{t.devicemaxtemp | number: '1'}}°C 
-                        </td>
-                        <td style="text-align: center;">
-                            {{t.actualtemp | number: '1'}}°C
                         </td>
                         <td style="text-align: center;">
                             {{t.avgtemp | number: '1'}}°C
@@ -92,7 +92,7 @@
                         <td style="text-align: center;">
                             {{t.maxtemp | number: '1'}}°C
                         </td>
-                        <td style="text-align: center;">
+                        <!--<td style="text-align: center;">
                             {{t.actualhumi | number: '1'}}%
                         </td>
                         <td style="text-align: center;">
@@ -103,7 +103,7 @@
                         </td>
                         <td style="text-align: center;">
                             {{t.maxhumi | number: '1'}}%
-                        </td>
+                        </td>-->
                     </tr>
 
 
@@ -116,7 +116,7 @@
 
     <div ng-if="temperature">
         <div class="row">
-            <h4>{{temperature.device}}</h4>
+            <h4>{{temperature.device}} {{temperature.devicename}}</h4>
 
             <div class="col-md-6">
                 <table class="table table-condensed">
@@ -207,9 +207,11 @@
 
         <div class="row">
 
+            
 
-
-            <temperature-range-chart id="rangeChart" class="col-md-6 col-sm-12 col-xs-12" data="temperaturePerHourChartData" ng-if="temperaturePerHourChartData" style="height: 350px;"></temperature-range-chart>
+            <div class="col-md-6 col-sm-12">
+                <temperature-range-chart id="rangeChart" class="col-xs-12" ranges="temperaturesPerHourChart.ranges" temperatures="temperaturesPerHourChart.temperatures" ng-if="temperaturesPerHourChart" style="height: 350px;" ng-cloak></temperature-range-chart>
+            </div>
 
             <div class="col-md-6 col-sm-12">
                 <div class="panel panel-default">
@@ -233,7 +235,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="temp in temperaturePerHour">
+                                <tr ng-repeat="temp in temperaturePerHour | orderBy : 'rownumber' : true">
                                     <td style="text-align: center">
                                         {{temp.createdate | date: 'dd/MM/yyyy HH'}}h
                                     </td>

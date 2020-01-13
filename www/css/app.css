@@ -1,8 +1,20 @@
 /*@import url('https://fonts.googleapis.com/css?family=Oswald');*/
+/*@import url('https://fonts.googleapis.com/css?family=Share+Tech&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Anton&display=swap');*/
 
-h1, h2, h3, h4, h5, h6 {
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+/*h1, h2, h3, h4, h5, h6 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
+}*/
+
+/*h1, h2, h3, h4, h5, h6 {
+    /*font-family: 'Share Tech', sans-serif;*/
+    /*font-family: 'Anton', sans-serif;*/
+    font-family: 'Orbitron', sans-serif;
+
+}*/
+
 
 kbd {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -79,7 +91,8 @@ body {
     background-color: transparent;
 
     color: #000;
-    font-family: Arial, Tahoma, Calibri;
+    /*font-family: Arial, Tahoma, Calibri;*/
+    font-family: 'Roboto', sans-serif;
 }
 
 }
@@ -96,7 +109,8 @@ body {
     /*background-color: transparent;*/
 
     color: #222;
-    font-family: Arial, Tahoma, Calibri;
+    /*font-family: Arial, Tahoma, Calibri;*/
+    font-family: 'Roboto', sans-serif;
 }
 
 }
@@ -307,15 +321,28 @@ body {
     font-size: smaller;
 }
 
+.container {
+    width: 100%;
+    position: center;
+    max-width: 1400px !important;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 50px;
+}
+
 .fullcontainer {
     width: 100%;
+    position: center;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-.container {
-    margin-bottom: 50px;
-}
+
 
 .topslider {
     top: -20px;

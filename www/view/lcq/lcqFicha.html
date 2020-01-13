@@ -285,6 +285,7 @@
                                         
                                         <center>
                                             <table ng-if="linha.tpdados == '02' && linha.resultado" class="" style="">
+                                                <tr><th style="text-align: right; width: 50%">Resultado</th><td style="text-align: right;width: 50%">{{linha.resultfinal}}</td></tr>
                                                 <tr><th style="text-align: right; width: 50%">Média</th><td style="text-align: right;width: 50%">{{linha.resultado}} {{linha.um}}</td></tr>
                                                 <tr ng-if="linha.medias.length"><th style="text-align: right;">Medições</th><td style="text-align: right;">x{{linha.medias.length}}</td></tr>
                                                 <tr ng-if="linha.desviopadrao"><th style="text-align: right;">DP</th><td style="text-align: right;">{{linha.desviopadrao|number:'2'}}</td></tr>
@@ -421,7 +422,7 @@
 
         <div class="panel-body">
 
-            <div class="col-xs-3" style="padding-left: 0px;">
+            <div class="col-xs-9" style="padding-left: 0px;">
                 <div class="btn-group" role="group">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#modalLcqTag">
                         <span class="fa fa-tag" aria-hidden="true"></span>
@@ -430,13 +431,19 @@
 
                     <a ng-href="#/lcq/certificado/{{params.ficha}}" class="btn btn-primary">
                         <span class="fa fa-print" aria-hidden="true"></span>
-                        Certificado
+                        Imprimir Certificado
                     </a>
+
+                    <button class="btn btn-primary hidden-print" ng-click="getCertificatePDF(ficha)" ng-disabled="loadingpdf">
+                        <span class="fa fa-file-pdf-o" ng-class="{'fa-spin fa-spinner': loadingpdf, 'fa-file-pdf-o': !loadingpdf}" aria-hidden="true"></span>
+                        Baixar certificado (PDF)
+                    </button>
+
                 </div>
 
             </div>
 
-            <div class="col-xs-offset-6 col-xs-3" style="padding-left: 0px;">
+            <div class="col-xs-3" style="padding-left: 0px;">
                 <div class="btn-group pull-right" role="group">
                     <button class="btn" ng-click="save()" ng-if="ficha" ng-disabled="saving" ng-class="{'btn-success': !saving, 'btn-warning': saving}">
                         <span ng-if="!saving">

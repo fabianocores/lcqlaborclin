@@ -4,11 +4,13 @@
     #param tr th {
         border: none;
         vertical-align: middle;
+        padding: 1px 5px 1px 5px;
     }
 
     #param tr td {
         border: none;
         vertical-align: middle;
+        padding: 1px 5px 1px 5px;
     }
 
 
@@ -16,15 +18,20 @@
         vertical-align: middle;
     }
 
+    /*.input-sm {
+        padding: 0px !important;
+        height: 24px !important;
+        margin: 0px;
+    }*/
 </style>
 
 
 
-<div class="fullcontainer">
+<div class="container-fluid">
     <div class="panel panel-default">
 
         <div class="panel-body" ng-keypress="pesquisaKeyPress($event)">
-            <table class="table table-condensed table-striped" id="param">
+            <table class="table table-condensed" id="param">
                 <tr style="border: none !important;">
                     <th>
                         Nº Ficha
@@ -222,7 +229,7 @@
                         <span class="fa fa-qrcode" aria-hidden="true"></span>
                         Localizar referência
                     </button>
-                   
+
                 </div>
             </div>
             <div class="col-xs-6" style="padding-right: 0px;">
@@ -231,13 +238,13 @@
                         <button class="btn" ng-click="getListaFichas()" ng-disabled="loading" ng-class="{'btn-primary': !loading, 'btn-warning': loading}" style="width: 105px;">
                             <span class="fa fa-search" aria-hidden="true" ng-if="!loading"></span>
                             <span ng-if="!loading">Pesquisar</span>
-                            
+
                             <span class="fa fa-spinner fa-spin" aria-hidden="true" ng-if="loading"></span>
                             <span ng-if="loading">Aguarde...</span>
                         </button>
                     </div>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
@@ -250,7 +257,7 @@
 
         <table class="table table-condensed" ng-show="lista" id="result">
             <tr>
-                <td colspan="9"><input type="text" ng-model="search" placeholder="filtrar pesquisa..." /></td>
+                <td colspan="10"><input type="text" ng-model="search" placeholder="filtrar pesquisa..." /></td>
             </tr>
             <tr>
                 <th>Nº da Ficha</th>
@@ -262,30 +269,43 @@
                 <th>Descrição</th>
                 <th>Lote/Nº Série</th>
                 <th>Status lote</th>
+                <th style="width: 64px;" ng-show="!isCordovaApp"></th>
             </tr>
-            <tr ng-repeat="item in lista | filter: search" style="cursor: pointer" ng-click="navigateTo(item.docentry)">
-                <td valign="middle">
+            <tr ng-repeat="item in lista | filter: search" ng-class="{'danger': item.erropdf}">
+                <td valign="middle" style="cursor: pointer" ng-click="navigateTo(item.docentry)">
                     <a ng-href="#/lcq/ficha/{{item.docentry}}" class="btn btn-primary btn-sm">
                         <span class="fa fa-external-link" aria-hidden="true"></span>
                         {{item.ficha}}
                     </a>
+
+                </td>
+                <td style="cursor: pointer" ng-click="navigateTo(item.docentry)">{{item.doc}}</td>
+                <td style="cursor: pointer" ng-click="navigateTo(item.docentry)">{{item.data|date: 'dd/MM/yyyy'}}</td>
+                <td style="cursor: pointer" ng-click="navigateTo(item.docentry)">{{item.inspecao|date: 'dd/MM/yyyy'}}</td>
+                <td style="cursor: pointer" ng-click="navigateTo(item.docentry)">{{item.situacao}}</td>
+                <td style="cursor: pointer" ng-click="navigateTo(item.docentry)">{{item.item}}</td>
+                <td style="cursor: pointer" ng-click="navigateTo(item.docentry)">{{item.descricao}}</td>
+                <td style="cursor: pointer" ng-click="navigateTo(item.docentry)">{{item.lote}}</td>
+                <td style="cursor: pointer" ng-click="navigateTo(item.docentry)">{{item.statuslotename}}</td>
+                <td ng-show="!isCordovaApp">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-default btn-xs hidden-print" ng-click="getCertificatePDF(item)" ng-disabled="item.loadingpdf">
+                            <span class="fa fa-file-pdf-o" ng-class="{'fa-spin fa-spinner': item.loadingpdf, 'fa-file-pdf-o': !item.loadingpdf}" aria-hidden="true"></span>
+                        </button>
+
+                        <a href="#/lcq/certificado/{{item.docentry}}" class="btn btn-default btn-xs hidden-print">
+                            <span class="fa fa-certificate" aria-hidden="true"></span>
+                        </a>
+                    </div>
                     
                 </td>
-                <td>{{item.doc}}</td>
-                <td>{{item.data|date: 'dd/MM/yyyy'}}</td>
-                <td>{{item.inspecao|date: 'dd/MM/yyyy'}}</td>
-                <td>{{item.situacao}}</td>
-                <td>{{item.item}}</td>
-                <td>{{item.descricao}}</td>
-                <td>{{item.lote}}</td>
-                <td>{{item.statuslotename}}</td>
             </tr>
         </table>
 
         <div ng-if="lista.length >= 100">
             <small>Limitado até 100 registros... utilize os filtros.</small>
         </div>
-        
+
     </div>
 
     <div ng-if="!lista">
@@ -324,7 +344,7 @@
 
     </div>
 
-    
+
 
 </div>
 

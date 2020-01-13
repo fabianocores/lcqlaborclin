@@ -1,0 +1,330 @@
+﻿<pre-loader ng-if="loading || saving"></pre-loader>
+<style>
+    #mrp tr th {
+        vertical-align: middle;
+        font-size: 11px;
+        font-weight: bolder;
+        padding: 2px !important;
+        white-space: nowrap;
+        text-align: right;
+    }
+
+    #mrp tr td {
+        border: none;
+        vertical-align: top !important;
+        text-align: right;
+        padding: 2px !important;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+    #ops tr th {
+        vertical-align: middle;
+        font-weight: bolder;
+        padding: 2px !important;
+        white-space: nowrap;
+        text-align: right;
+    }
+
+    #ops tr td {
+        border: none;
+        vertical-align: top !important;
+        text-align: right;
+        padding: 2px !important;
+        white-space: nowrap;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 style="margin-top: 0px;">
+                <span class="hidden-xs">Planejamento de materiais</span>
+                <span class="visible-xs">MRP - Materiais</span>
+            </h3>
+        </div>
+
+    </div>
+
+    <div class="row" ng-show="loading">
+        <div class="col-md-12">
+            <center style="margin-top: 25px;">
+                <h1 class="text-primary">
+                    <span class="fa fa-refresh fa-spin fa-2x"></span>
+                </h1>
+            </center>
+
+        </div>
+
+    </div>
+
+    <div class="row" ng-show="!loading">
+        <div class="col-xs-6">
+            <div class="btn-group" role="group">
+                <button class="btn btn-sm" ng-class="{'btn-primary': view == 'mrp', 'btn-default': !(view == 'mrp')}" ng-click="changeView('mrp')">
+                    <span class="fa fa-table" aria-hidden="true"></span>
+                    <span class="hidden-xs">MRP</span>
+
+                </button>
+                <button class="btn btn-sm" ng-class="{'btn-primary': view == 'chart', 'btn-default': !(view == 'chart')}" ng-click="changeView('chart')">
+                    <span class="fa fa-area-chart" aria-hidden="true"></span>
+                    <span class="hidden-xs">Gráfico</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="pull-right">
+                <div class="input-group" role="group">
+                    <input type="text" class="form-control input-sm" ng-model="search" />
+                    <div class="input-group-btn">
+                        <div class="btn btn-default btn-sm" title="Instruções para conexão no Excel" ng-click="getMRP()" ng-disabled="loading">
+                            <span class="fa fa-refresh" aria-hidden="true" ng-class="{'fa-spin': loading}"></span>
+                            <span class="hidden-xs">
+                                Atualizar
+                            </span>
+                        </div>
+                        <div class="btn btn-default btn-sm" title="Todos com alerta" ng-click="selectAll(true)" ng-disabled="loading">
+                            <span class="fa fa-check" aria-hidden="true" ng-class="{'fa-spin': loading}"></span>
+                            <span class="hidden-xs">
+                                Todos com alerta
+                            </span>
+                        </div>
+                        <div class="btn btn-default btn-sm" title="Criar ordens de produção" ng-click="postOPs()" ng-disabled="loading">
+                            <span class="fa fa-truck" aria-hidden="true" ng-class="{'fa-spin': loading}"></span>
+                            <span class="hidden-xs">
+                                Requisitar materiais
+                            </span>
+                        </div>
+                        <div class="btn btn-default btn-sm" title="Instruções para conexão no Excel" data-toggle="modal" data-target="#modalConnection" ng-disabled="loading">
+                            <span class="fa fa-database" aria-hidden="true"></span>
+                        </div>
+                        <div class="btn btn-default btn-sm" title="Exportar para o excel" ng-disabled="loading">
+                            <span class="fa fa-file-excel-o" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="view == 'chart'">
+        <hc-chart options="alertsChart" ng-if="alertsChart && !loading && view == 'chart'" class="col-xs-12" style="height: 75vh;"></hc-chart>
+    </div>
+
+    <div class="row" ng-show="view == 'mrp'">
+        <div class="col-md-12">
+            <div class="panel panel-default" style="overflow: scroll; max-height: 75vh;" ng-if="!loading">
+
+                <table class="table table-condensed table-hover table-bordered" id="mrp">
+                    <thead>
+                        <!--<tr>
+                            <th colspan="3" style="text-align: center;">Produto</th>
+                            <th colspan="7" style="text-align: center;">Parâmetros</th>
+                            <th colspan="2" style="text-align: center;">Anterior</th>
+                            <th colspan="8" style="text-align: center;">Do mês</th>
+                            <th colspan="2" style="text-align: center;">Programar</th>
+                            <th colspan="4" style="text-align: center;">Futuro</th>
+
+                        </tr>-->
+                        <tr>
+                            <th style="text-align: left;">Item</th>
+                            <th style="text-align: left;">Descrição</th>
+                            <th style="text-align: left;">Grupo</th>
+                            <!--<th style="text-align: left;">Tipo</th>-->
+
+                            <th>Leadtime</th>
+                            <th>Mínimo</th>
+                            <th>Máximo</th>
+                            <th>Saldo</th>
+                            <th>Giro 12M</th>
+                            <th>Dias</th>
+                            <th>(+33%)</th>
+
+                            <th>Explosão</th>
+                            <th>Necessário</th>
+                            <th>Falta</th>
+                            
+                            <th>Compra</th>
+                            <th>Entre</th>
+                            <th>E</th>
+                            <th>Status</th>
+                            <th>Recebido</th>
+
+                            <th>Danger</th>
+                            <th style="text-align: left;">Último fornecedor</th>
+                            <!--<th>Fabricante</th>-->
+                            <!--<th>LCQ</th>-->
+
+                        </tr>
+                    </thead>
+                    <tbody style="">
+                        
+                        <tr ng-repeat="p in mrp | filter: search" ng-class="{'warning': p.lack > 0}">
+                            <td style="text-align: left;">
+                                {{p.itemcode}}
+                            </td>
+                            <td style="text-align: left; white-space: normal;">
+                                {{p.itemname}}
+                            </td>
+                            <td style="text-align: left;">
+                                {{p.itmsgrpname}}
+                            </td>
+                            <!--<td style="text-align: left;">
+                                {{p.treetypedesc}}
+                            </td>-->
+                            <td>
+                                {{p.leadtime}}
+                            </td>
+                            <td>
+                                {{p.minlevel}}
+                            </td>
+                            <td>
+                                {{p.maxlevel}}
+                            </td>
+                            <td>
+                                {{p.instock}}
+                            </td>
+                            <td>{{p.giro_12m}}</td>
+                            <td>{{p.duration}}</td>
+                            <td>{{p.duration_33pr}}</td>
+                            
+                            
+                            <td>{{p.exploded}}</td>
+                            <td>{{p.necessary}}</td>
+                            <td>{{p.lack}}</td>
+
+                            <td>{{p.purchase}}</td>
+                            <td>{{p.minship|date:'dd/MM/yyyy'}}</td>
+                            <td>{{p.maxship|date:'dd/MM/yyyy'}}</td>
+                            <td>{{p.statusoc}}</td>
+                            <td>{{p.received}}</td>
+                            <td>{{p.danger_zone}}</td>
+                            <td style="text-align: left;">
+                                {{p.lastforn | ellipsisFilter: 15}}
+                            </td>
+                            <!--<td style="text-align: left;">
+                                {{p.firmname}}
+                            </td>-->
+
+                            <!--<td style="text-align: left;">
+                                {{p.lastlcq}}
+                            </td>-->
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!--{{productMRP}}-->
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<div class="modal" id="modalConnection" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalLabel">
+                    <span class="fa fa-database" aria-hidden="true"></span>
+                    Obter dados para o Excel
+                </h4>
+            </div>
+            <div class="modal-body">
+                <br />
+                <center>
+                    Utilize a view <code>vArkabMRP</code> para importar estes dados no excel.
+                </center>
+                <br />
+
+
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                        Cancelar
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="modalPostOps" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="color: black;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                <h4 class="modal-title" style="padding-top: 0px; margin-top: 0px;" id="myModalLabel">
+                    <span class="fa fa-industry"></span>
+                    Criar ordens de produção
+                </h4>
+            </div>
+            <div class="panel-body" style="height: calc(100vh - 250px); overflow-y: scroll;">
+                <table class="table table-condensed" id="ops">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left;">Item</th>
+                            <th style="text-align: left;">Descrição</th>
+                            <th>Falta</th>
+                            <th>Sugestão</th>
+                            <th>Produção</th>
+                            <th style="width: 96px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="op in opsList" ng-class="{'warning': op.saving, 'success': op.workorderentry, 'danger': op.serverResponse}">
+                            <td style="text-align: left;">
+                                {{op.itemcode}}
+                            </td>
+                            <td style="text-align: left;">
+                                {{op.itemname}}
+                            </td>
+                            <td>
+                                {{op.lack}}
+                            </td>
+                            <td>
+                                {{op.suggestion}}
+                            </td>
+                            <td>
+                                <input class="nobs" style="width: 50px; text-align: right;" ng-model="op.program" ng-disabled="saved || saving" />
+                            </td>
+                            <td style="white-space: normal !important;">
+                                <span class="fa fa-spin fa-spinner" aria-hidden="true" ng-if="op.saving"></span>
+                                <span class="fa fa-check" aria-hidden="true" ng-if="op.workorderentry"></span>
+                                <span class="fa fa-remove" aria-hidden="true" ng-if="op.serverResponse"></span>
+
+                                <span ng-if="op.serverResponse">
+                                    {{op.serverResponse}}
+                                </span>
+                                <span ng-if="op.workorderentry">
+                                    {{op.workorderentry}}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--{{opsList}}-->
+            </div>
+
+            <div class="modal-footer">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="confirmPostOps()" ng-if="!saved && !saving">
+                        <span class="fa fa-industry" aria-hidden="true"></span>
+                        Criar ordens de produção
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Fechar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

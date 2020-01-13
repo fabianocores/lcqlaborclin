@@ -1,0 +1,414 @@
+﻿
+<pre-loader ng-if="loading || saving"></pre-loader>
+<style>
+    #mrp tr th {
+        vertical-align: middle;
+        font-size: 12px;
+        font-weight: bolder;
+        padding: 2px ;
+        white-space: nowrap;
+        /*text-align: right;*/
+    }
+
+    .ct {
+        text-align: center;
+    }
+    .lt {
+        text-align: left;
+    }
+    .rt {
+        text-align: right;
+    }
+
+
+    #mrp tr td {
+        /*border: none;*/
+        vertical-align: middle !important;
+        /*text-align: right;*/
+        padding: 2px ;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+        #mrp tr td input {
+            text-align: right;
+            width: 60px;
+        }
+
+    #ops tr th {
+        vertical-align: middle;
+        font-weight: bolder;
+        padding: 2px ;
+        white-space: nowrap;
+        text-align: right;
+        font-size: 11px;
+    }
+
+    #ops tr td {
+        /*border: none;*/
+        vertical-align: middle !important;
+        text-align: right;
+        padding: 2px ;
+        white-space: nowrap;
+        font-size: 11px;
+    }
+
+        #ops tr td input {
+            text-align: right;
+            width: 70px;
+        }
+
+
+        td .input-sm {
+            padding: 0px !important;
+            height: 20px !important;
+            margin: 0px;
+            width: 60px;
+
+        }
+
+        .input-sm {
+            padding: 0px !important;
+            height: 20px !important;
+            margin: 0px;
+
+        }
+
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8">
+            <h3 style="margin-top: 0px;">
+                <span class="">Recomendações do MRP</span>
+                <small ng-if="mrp">calculado em {{mrp[0].docdate | date: 'dd/MM/yyyy HH:mm'}}</small>
+            </h3>
+        </div>
+        <div class="col-sm-4">
+            <div class="pull-right">
+                <div class="btn-group" role="group">
+                    <div class="btn btn-default btn-sm" title="Instruções para conexão no Excel" data-toggle="modal" data-target="#modalConnection" ng-disabled="loading">
+                        <span class="fa fa-database" aria-hidden="true"></span>
+                    </div>
+                    <div class="btn btn-default btn-sm" title="Exportar para o excel" ng-disabled="loading">
+                        <span class="fa fa-file-excel-o" aria-hidden="true"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-xs-9" style="padding: 0px;">
+                <div class="form-group" style="margin-top: 0px;">
+                    <div class="col-sm-2" style="padding: 3px;">
+                        <label class="control-label" style="margin: 0px;">Tipo</label>
+                        <select class="form-control input-sm" ng-model="params.ordertype" ng-disabled="loading" ng-change="getWarehouses()"
+                                ng-options="ordertype.code as ordertype.name for ordertype in orderTypeList"></select>
+                    </div>
+                    <div class="col-sm-2" style="padding: 3px;">
+                        <label class="control-label" style="margin: 0px;">Cenário</label>
+                        <select class="form-control input-sm" ng-model="params.scenario" ng-disabled="loading"
+                                ng-options="scenario.absentry as scenario.msncode for scenario in scenariosList"></select>
+                    </div>
+
+                    <div class="col-sm-2" style="padding: 3px;">
+                        <label class="control-label" style="margin: 0px;">Inicio</label>
+                        <input akbdatepicker class="form-control input-sm" ng-model="params.startdate" placeholder="Inicial" ng-change="changeStartDate()" ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                    <div class="col-sm-2" style="padding: 3px;">
+                        <label class="control-label" style="margin: 0px;">Final</label>
+                        <input akbdatepicker class="form-control input-sm" ng-model="params.enddate" placeholder="Final" />
+                    </div>
+                    <div class="col-sm-2" style="padding: 3px;">
+                        <label class="control-label" style="margin: 0px;">Depósito</label>
+                        <select class="form-control input-sm" ng-model="params.whscode" ng-disabled="loading"
+                                ng-options="w.whscode as w.whsname for w in warehousesList"></select>
+                    </div>
+                    <div class="col-sm-2" style="padding: 3px;">
+                        <label class="control-label" style="margin: 0px;">Pesquisar</label>
+                        <input type="text" class="form-control input-sm" ng-model="params.search" placeholder="Pesquisar" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3" style="padding: 0px;">
+                <div class="pull-right">
+                    <div style="position: relative; bottom: -14px;">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-default btn-sm" title="Instruções para conexão no Excel" ng-click="getRecommendations()" ng-disabled="loading">
+                                <span class="fa fa-refresh" aria-hidden="true" ng-class="{'fa-spin': loading}"></span>
+                                <span class="hidden-xs">
+                                    Atualizar
+                                </span>
+                            </button>
+                            <button class="btn btn-default btn-sm" title="Executar recomendações" ng-click="executeRecommendation()" ng-disabled="loading">
+                                <span class="fa fa-industry" aria-hidden="true"></span>
+                                <span class="hidden-xs">
+                                    Executar
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+   
+    </div>
+
+    <div class="row" ng-show="view == 'chart'" ng-if="!loading">
+        <hc-chart options="alertsChart" ng-if="alertsChart && !loading && view == 'chart'" class="col-xs-12" style="height: 75vh;"></hc-chart>
+    </div>
+
+    <div class="row" ng-show="view == 'mrp'" ng-if="!loading">
+        <div class="col-md-12">
+            <div class="panel panel-default" style="overflow: scroll; max-height: calc(100vh - 200px);" ng-if="!loading">
+
+                <table class="table table-condensed table-hover table-bordered" id="mrp">
+                    <thead>
+                        <tr style="cursor: pointer; background-color: lightsteelblue">
+                            <th class="lt" ng-click="orderBy('itemcode')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'itemcode' && order.inverted, 'fa-sort-up': order.by == 'itemcode' && !order.inverted}"></span>Item</th>
+                            <th class="lt" ng-click="orderBy('itemname')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'itemname' && order.inverted, 'fa-sort-up': order.by == 'itemname' && !order.inverted}"></span>Descrição</th>
+                            <th class="ct" ng-click="orderBy('itmsgrpname')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'itmsgrpname' && order.inverted, 'fa-sort-up': order.by == 'itmsgrpname' && !order.inverted}"></span>Grupo</th>
+
+                            <th class="ct" ng-click="orderBy('ordertype')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'ordertype' && order.inverted, 'fa-sort-up': order.by == 'ordertype' && !order.inverted}"></span>Tipo</th>
+                            <th class="ct" ng-click="orderBy('recommended')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'recommended' && order.inverted, 'fa-sort-up': order.by == 'recommended' && !order.inverted}"></span>Sugerido</th>
+                            <th style="width: 50px;" ng-click="orderBy('quantity')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'quantity' && order.inverted, 'fa-sort-up': order.by == 'quantity' && !order.inverted}"></span>Produzir</th>
+                            <th style="width: 50px;" ng-click="orderBy('batches')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'batches' && order.inverted, 'fa-sort-up': order.by == 'batches' && !order.inverted}"></span>Op's</th>
+                            <th style="width: 50px;" ng-click="orderBy('batchquantity')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'batchquantity' && order.inverted, 'fa-sort-up': order.by == 'batchquantity' && !order.inverted}"></span>Qt p/ OP</th>
+                            <th style="width: 50px;" ng-click="orderBy('batchrest')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'batchrest' && order.inverted, 'fa-sort-up': order.by == 'batchrest' && !order.inverted}"></span>OP Ajuste</th>
+                            <th class="ct" ng-click="orderBy('create')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'create' && order.inverted, 'fa-sort-up': order.by == 'create' && !order.inverted}"></span>Criar</th>
+                            <th class="ct" ng-click="orderBy('uom')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'uom' && order.inverted, 'fa-sort-up': order.by == 'uom' && !order.inverted}"></span>UM</th>
+                            <th class="ct" ng-click="orderBy('leadtime')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'leadtime' && order.inverted, 'fa-sort-up': order.by == 'leadtime' && !order.inverted}"></span>Leadtime</th>
+                            <th class="ct" ng-click="orderBy('warehouse')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'warehouse' && order.inverted, 'fa-sort-up': order.by == 'warehouse' && !order.inverted}"></span>Depósito</th>
+                            <th class="ct" ng-click="orderBy('usersignname')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'usersignname' && order.inverted, 'fa-sort-up': order.by == 'usersignname' && !order.inverted}"></span>Usuário</th>
+                            <th class="ct" ng-click="orderBy('releasdate')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'releasdate' && order.inverted, 'fa-sort-up': order.by == 'releasdate' && !order.inverted}"></span>Liberação</th>
+                            <th class="ct" ng-click="orderBy('duedate')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'duedate' && order.inverted, 'fa-sort-up': order.by == 'duedate' && !order.inverted}"></span>Vencimento</th>
+                            <!--<th ng-click="orderBy('fstreqdate')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'fstreqdate' && order.inverted, 'fa-sort-up': order.by == 'fstreqdate' && !order.inverted}"></span>1º Req</th>
+                            <th ng-click="orderBy('fromwhse')"><span class="fa" ng-class="{'fa-sort-down': order.by == 'fromwhse' && order.inverted, 'fa-sort-up': order.by == 'fromwhse' && !order.inverted}"></span>Do depósito</th>-->
+
+
+                        </tr>
+                    </thead>
+                    <tbody style="">
+
+                        <tr ng-repeat="p in mrp | filter: params.search | orderBy : order.by : order.inverted">
+                            <td class="lt">
+                                {{p.itemcode}}
+                            </td>
+                            <td class="lt" style="white-space: normal;">
+                                {{p.itemname}}
+                            </td>
+                            <td class="ct">
+                                {{p.itmsgrpname}}
+                            </td>
+                            <td  class="ct">
+                                {{p.ordertype | ordertype}}
+                            </td>
+                            <td class="ct">
+                                {{p.recommended}}
+                            </td>
+                            <td style="padding: 1px;">
+                                <input type="number" ng-model="p.quantity" class="form-control input-sm" ng-change="changeValue(p, 't')" ng-model-options="{updateOn: 'blur'}" min="1" />
+                            </td>
+                            <td style="padding: 1px;">
+                                <input type="number" ng-model="p.batches" class="form-control input-sm" ng-change="changeValue(p, 'b')" ng-model-options="{updateOn: 'blur'}" min="1" />
+                            </td>
+                            <td style="padding: 1px;">
+                                <input type="number" ng-model="p.batchquantity" class="form-control input-sm" ng-change="changeValue(p, 'q')" ng-model-options="{updateOn: 'blur'}" min="1" />
+                            </td>
+                            <td ng-class="{'has-error': p.batchrest}" style="padding: 1px;">
+                                <input type="number" ng-model="p.batchrest" class="form-control input-sm" ng-change="changeValue(p, 'r')" ng-model-options="{updateOn: 'blur'}" min="0" />
+                            </td>
+                            <td class="ct">
+                                <akb-check ng-model="p.create"></akb-check>
+                            </td>
+                            <td class="ct">{{p.uom}}</td>
+                            <td class="ct">{{p.leadtime}}</td>
+                            <td class="ct">{{p.warehouse}}</td>
+                            <td class="ct">{{p.usersignname}}</td>
+
+                            <td class="ct">
+                                <!--<input akbdatepicker ng-model="p.releasdate" />-->
+                                {{p.releasdate | date: 'dd/MM/yyyy'}}
+                            </td>
+                            <td class="ct">
+                                {{p.duedate | date: 'dd/MM/yyyy'}}
+                                <!--<input akbdatepicker class="form-control input-sm" ng-model="p.duedate" />-->
+                            </td>
+
+                            
+                            <!--<td>{{p.fstreqdate | date: 'dd/MM/yyyy'}}</td>
+                            <td>{{p.fromwhse}}</td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<div class="modal" id="modalConnection" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalLabel">
+                    <span class="fa fa-database" aria-hidden="true"></span>
+                    Obter dados para o Excel
+                </h4>
+            </div>
+            <div class="modal-body">
+                <br />
+                <center>
+                    Utilize a view <code>vArkabMRP</code> para importar estes dados no excel.
+                </center>
+                <br />
+
+
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                        Cancelar
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="modalExecRec" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="color: black; width: 85vw;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                <h4 class="modal-title" style="padding-top: 0px; margin-top: 0px;" id="myModalLabel">
+                    <span class="fa fa-industry"></span>
+                    Executar recomendações selecionadas
+                </h4>
+            </div>
+            <div class="panel-body" style="height: calc(100vh - 250px); overflow-y: scroll;">
+                <table class="table table-condensed" id="ops">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left;">Item</th>
+                            <th style="text-align: left;">Descrição</th>
+                            <th style="text-align: center;">Tipo</th>
+                            <th style="text-align: center;">Sugerido</th>
+                            <th style="width: 50px;">Qtde</th>
+                            <th style="width: 50px;">Op's</th>
+                            <th style="width: 50px;">Qt p/ OP</th>
+                            <th style="width: 50px;">OP Ajuste</th>
+                            <th style="text-align: center;">Criar</th>
+                            <th>UM</th>
+                            <th>Depósito</th>
+                            <th>Usuário</th>
+                            <th style="text-align: center;">Liberação</th>
+                            <th style="text-align: center;">Vencimento</th>
+                            <th style="width: 96px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="p in opsList" ng-class="{'warning': p.saving, 'success': p.workorderentry, 'danger': p.serverResponse}">
+                        <tr class="bg-primary">
+                            <td style="text-align: left;">
+                                {{p.itemcode}}
+                            </td>
+                            <td style="text-align: left;">
+                                {{p.itemname}}
+                            </td>
+                            <td style="text-align: center;">
+                                {{p.ordertype | ordertype}}
+                            </td>
+                            <td style="text-align: center;">
+                                {{p.recommended}}
+                            </td>
+                            <td style="padding: 1px; text-align: right;" align="right">
+                                <!--<input type="number" ng-model="p.quantity" class="form-control input-sm" ng-change="changeValue(p, 't')" min="1" />-->
+                                {{p.quantity}}
+                            </td>
+                            <td style="padding: 1px;" align="right">
+                                <!--<input type="number" ng-model="p.batches" class="form-control input-sm" ng-change="changeValue(p, 'b')" min="1" />-->
+                                {{p.batches}}
+                            </td>
+                            <td style="padding: 1px;" align="right">
+                                <!--<input type="number" ng-model="p.batchquantity" class="form-control input-sm" ng-change="changeValue(p, 'q')" min="1" />-->
+                                {{p.batchquantity}}
+                            </td>
+                            <td ng-class="{'has-error': p.batchrest}" style="padding: 1px;" align="right">
+                                <!--<input type="number" ng-model="p.batchrest" class="form-control input-sm" ng-change="changeValue(p, 'r')" max="{{p.batchquantity - 1}}" min="0" />-->
+                                {{p.batchrest}}
+                            </td>
+                            <td style="text-align: center;">
+                                <akb-check ng-model="p.create"></akb-check>
+                            </td>
+                            <td>{{p.uom}}</td>
+                            <td>{{p.warehouse}}</td>
+                            <td>{{p.usersignname}}</td>
+
+                            <td style="width: 50px;">
+                                <input akbdatepicker class="form-control input-sm" ng-model="p.releasdate_f" style="width: 75px; text-align: center;" />
+                                <!--{{p.releasdate | date: 'dd/MM/yyyy'}}-->
+                            </td>
+
+                            <td style="width: 50px;">
+                                <!--{{p.duedate | date: 'dd/MM/yyyy'}}-->
+                                <input akbdatepicker class="form-control input-sm" ng-model="p.duedate_f" style="width: 75px; text-align: center;" />
+                            </td>
+
+                            
+                        </tr>
+                        <tr ng-repeat="op in p.opsList" ng-class="{'warning': op.saving, 'success': op.workorderentry, 'danger': op.serverResponse}">
+                            <td colspan="3">
+                                
+                                
+                            </td>
+                            <td>
+                                OP <span ng-if="op.ajust">ajuste</span> nº {{op.number}}
+                            </td>
+                            <td>
+                                {{op.quantity}} {{op.uom}}
+                                <!--{{p.opsList}}-->
+                            </td>
+                            <td style="white-space: normal !important;">
+                                <span class="fa fa-spin fa-spinner" aria-hidden="true" ng-if="op.saving"></span>
+                                <span class="fa fa-check" aria-hidden="true" ng-if="op.workorderentry"></span>
+                                <span class="fa fa-remove" aria-hidden="true" ng-if="op.serverResponse"></span>
+
+                                <span ng-if="op.serverResponse">
+                                    {{op.serverResponse}}
+                                </span>
+                                <span ng-if="op.workorderentry">
+                                    {{op.workorderentry}}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--{{opsList}}-->
+            </div>
+
+            <div class="modal-footer">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="confirmPostOps()" ng-if="!saved && !saving">
+                        <span class="fa fa-industry" aria-hidden="true"></span>
+                        Criar ordens de produção
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Fechar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

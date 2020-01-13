@@ -1,0 +1,85 @@
+﻿<style>
+
+    #permissions thead tr th {
+        vertical-align: middle;
+    }
+
+    #permissions tbody tr td {
+        vertical-align: middle;
+    }
+</style>
+
+
+
+
+<pre-loader ng-show="loading"></pre-loader>
+<div class="container">
+
+    <ol class="breadcrumb">
+        <li><a href="#/">Home</a></li>
+        <li><a href="#/adm">Painel de controle</a></li>
+        <li><a href="#/adm/industry">Indústria</a></li>
+        <li class="active"><a href="#/adm/industry/permissions">Permissões</a></li>
+    </ol>
+    <!--<akb-title page-title="Segurança" page-subtitle="Controle as permissões dos usuários"></akb-title>
+    <div class="row">
+        <div class="col-md-12">
+            <small>
+                <a href="#/adm">Painel de controle</a> | Permissões
+            </small>
+        </div>
+    </div>
+
+    <br />-->
+    
+    <div class="panel panel-default">
+                
+        <table class="table table-condensed" id="permissions">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="input-group input-group-sm">
+                            <input class="form-control" ng-model="search" placeholder="Procurar" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" ng-click="search = ''">
+                                    <span class="fa fa-remove" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </th>
+                    <th>
+                        <akb-checkbox ng-model="onlyUsers" label="Mostrar apenas autorizados"></akb-checkbox>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Nome</th>
+                    <th style="background-color: lightgoldenrodyellow; text-align: center;">Autorizado</th>   
+                    <th style="background-color: lightsteelblue; text-align: center;">MRP</th>
+                    <th style="text-align: center;">Atribuido por</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in permissions | filter: search" ng-if="!onlyUsers || (onlyUsers && !user.bloqueado)">
+                    <td>
+                        {{user.username}}
+                    </td>
+                    <td style="text-align: center;">
+                        <akb-check-sm-inverted ng-model="user.bloqueado" ng-click="putPermission(user)"></akb-check-sm-inverted>
+                    </td>
+                    <td style="text-align: center;">
+                        <akb-check-sm ng-model="user.mrp" ng-click="putPermission(user)"></akb-check-sm>
+                    </td>
+                    <td style="text-align: center;">
+                        <span ng-if="user.alterado_por_nome">
+                            {{user.alterado_por_nome}} em {{user.alterado_em | date: 'dd/MM/yyyy HH:mm'}}
+                        </span>                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+</div>
+

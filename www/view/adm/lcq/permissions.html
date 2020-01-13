@@ -1,0 +1,105 @@
+﻿<style>
+
+    #permissions thead tr th {
+        vertical-align: middle;
+    }
+
+    #permissions tbody tr td {
+        vertical-align: middle;
+    }
+</style>
+
+
+
+
+<pre-loader ng-show="loading"></pre-loader>
+<div class="container">
+
+    <!--<akb-title page-title="Segurança" page-subtitle="Controle as permissões dos usuários"></akb-title>
+    <div class="row">
+        <div class="col-md-12">
+            <small>
+                <a href="#/adm">Painel de controle</a> | Permissões
+            </small>
+        </div>
+    </div>
+
+    <br />-->
+
+    <ol class="breadcrumb">
+        <li><a href="#/">Home</a></li>
+        <li><a href="#/adm">Painel de controle</a></li>
+        <li><a href="#/adm/lcq">LCQ</a></li>
+        <li class="active"><a href="#/adm/lcq/permissions">Permissões</a></li>
+    </ol>
+    
+    <div class="panel panel-default">
+                
+        <table class="table table-condensed" id="permissions">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="input-group input-group-sm">
+                            <input class="form-control" ng-model="search" placeholder="Procurar" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" ng-click="search = ''">
+                                    <span class="fa fa-remove" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </th>
+                    <th>
+                        <akb-checkbox ng-model="onlyUsers" label="Mostrar apenas autorizados"></akb-checkbox>
+                    </th>
+                    <!--<th style="text-align: center; background-color: lightgoldenrodyellow;">Acesso</th>
+                    <th colspan="5" style="text-align: center; background-color: lightsteelblue;">Permitir editar</th>
+                    <th style="text-align: center;">Log</th>-->
+                </tr>
+                <tr>
+                    <th>Nome</th>
+                    <th style="background-color: lightgoldenrodyellow; text-align: center;">Autorizado</th>   
+                    <th style="background-color: lightsteelblue; text-align: center;">Data de emissão</th>
+                    <th style="background-color: lightsteelblue; text-align: center;">Data de inspeção</th>
+                    <th style="background-color: lightsteelblue; text-align: center;">Status do lote</th>
+                    <th style="background-color: lightsteelblue; text-align: center;">Status da ficha</th>
+                    <th style="background-color: lightsteelblue; text-align: center;">Bugs</th>
+                    <th style="text-align: center;">Atribuido por</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in permissions | filter: search" ng-if="!onlyUsers || (onlyUsers && !user.bloqueado)">
+                    <td>
+                        {{user.username}}
+                    </td>
+                    <td style="text-align: center;">
+                        <akb-check-sm-inverted ng-model="user.bloqueado" ng-click="putPermission(user)"></akb-check-sm-inverted>
+                    </td>
+                    <td style="text-align: center;">
+                        <akb-check-sm ng-model="user.mudar_data_emissao" ng-click="putPermission(user)"></akb-check-sm>
+                    </td>
+                    <td style="text-align: center;">
+                        <akb-check-sm ng-model="user.mudar_data_inspecao" ng-click="putPermission(user)"></akb-check-sm>
+                    </td>
+                    <td style="text-align: center;">
+                        <akb-check-sm ng-model="user.status_lote" ng-click="putPermission(user)"></akb-check-sm>
+                    </td>
+                    <td style="text-align: center;">
+                        <akb-check-sm ng-model="user.mudar_status_ficha" ng-click="putPermission(user)"></akb-check-sm>
+                    </td>
+                    <td style="text-align: center;">
+                        <akb-check-sm ng-model="user.bugs" ng-click="putPermission(user)"></akb-check-sm>
+                    </td>
+                    <td style="text-align: center;">
+                        <span ng-if="user.alterado_por_nome">
+                            {{user.alterado_por_nome}} em {{user.alterado_em | date: 'dd/MM/yyyy HH:mm'}}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+</div>
+

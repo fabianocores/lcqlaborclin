@@ -1,25 +1,43 @@
 ﻿<style>
+    body {
+        line-height: 14px !important;
+    }
+    #param {
+        border: none !important;
+    }
     #param tr th {
-        
+        /*border: none !important;*/
         vertical-align: middle;
+        font-size: 12px;
     }
 
     #param tr td {
-        
+        /*border: none !important;*/
         vertical-align: middle;
+        font-size: 12px;
+    }
+
+    #param2 {
+        /*border: none !important;*/
+        margin-bottom: 0px;
+        font-size: 12px;
     }
 
     #param2 tr th {
-        
+        /*border: none !important;*/
         vertical-align: middle;
         text-align: center;
         background-color: lightgray;
+        font-size: 12px;
+        padding: 2px;
     }
 
     #param2 tr td {
-        
+        /*border: none !important;*/
         vertical-align: middle;
         text-align: center;
+        font-size: 12px;
+        padding: 2px;
     }
 
 
@@ -27,13 +45,14 @@
         vertical-align: top;
         text-align: left;
         background-color: lightgray;
-        font-size: 12px;
+        font-size: 11px;
     }
 
     #param3 tr td {
         vertical-align: top;
         text-align: left;
-        font-size: 12px;
+        font-size: 11px;
+        padding: 2px;
     }
 
 
@@ -75,21 +94,27 @@
         Ficha LCQ
     </a>
 
+    <button class="btn btn-default hidden-print" ng-click="getCertificatePDF()" ng-disabled="loadingpdf">
+        <span class="fa fa-file-pdf-o" ng-class="{'fa-spin fa-spinner': loadingpdf, 'fa-file-pdf-o': !loadingpdf}" aria-hidden="true"></span>
+        PDF
+    </button>
+    <div id="status" ng-if="ficha"></div>
     <div id="legal-notice">
-        <div class="panel panel-default">
-            <table class="table table-bordered table-condensed" id="param">
+        <div class="panel panel-default" style="border: none;">
+            <table class="table table-condensed table-bordered" id="param" style="margin-bottom: 0px; ">
                 <thead>
                     <tr>
-                        <th width="20%">
-                            <img ng-src="{{apiURL}}Adm/GetLogo/{{appConfig.logo}}-256px" 
-                                 alt="Arkab.WebApp" class="" style="margin-top: 8px; padding-top: 0px;" width="180" ng-if="appConfig.logo" />
-                        </th>
-                        <td width="60%" style="text-align: center;">
+                        <td width="20%" style="border-bottom: none !important">
+                            
+                            <img ng-src="{{apiURL}}Adm/GetLogo/{{ficha.companylogo}}-256px"  id="imglogo"
+                                 alt="Arkab.WebApp" class="" style="margin-top: 8px; padding-top: 0px;" width="180" ng-if="ficha.companylogo" />
+                        </td>
+                        <td width="60%" style="text-align: center; border-bottom: none !important;">
                             <h4 style="padding: 0px; margin: 0px;">CERTIFICADO DE ANÁLISE</h4>
 
                             <h4 style="padding: 0px; margin: 0px;">Laborclin Produtos para Laboratório Ltda</h4>
 
-                            <div class="col-xs-6">
+                            <!--<div class="col-xs-6">
                                 <small>
                                     Data da produção<br />{{ficha.op_createdate | date: 'dd/MM/yyyy'}}
                                 </small>
@@ -100,9 +125,9 @@
                                     Encerramento previsto<br />{{ficha.op_duedate | date: 'dd/MM/yyyy'}}
                                 </small>
 
-                            </div>
+                            </div>-->
                         </td>
-                        <td width="20%">
+                        <td width="20%" style="border-bottom: none !important">
                             <table class="table-condensed" style="width: 100%;">
                                 <thead>
                                     <tr>
@@ -128,90 +153,10 @@
                 </thead>
             </table>
 
-
-
-            <!--<table class="table table-condensed table-bordered" id="param2">
-
-            <tr>
-                <th>Nº Análise</th>
-                <th>Plano de inspeção</th>
-                <th>Amostragem</th>
-                <th>Temp Armazenagem</th>
-                <th>Reg Anvisa</th>
-            </tr>
-            <tr>
-                <td>
-                    {{ficha.ficha}}
-                </td>
-                <td>
-                    {{ficha.planoinsp}}
-                </td>
-                <td>
-                    {{ficha.amostragem}}
-                </td>
-                <td>
-                    {{ficha.temperatura}}
-                </td>
-                <td>
-                    {{ficha.anvisa}}
-                </td>
-            </tr>
-
-            <tr>
-                <th>Nº OP</th>
-                <th>Lote</th>
-                <th>Validade</th>
-                <th>Qtde Produzir</th>
-                <th>Data inspeção</th>
-            </tr>
-            <tr>
-                <td>
-                    {{ficha.numdoc}}
-                </td>
-                <td>
-                    {{ficha.batchnum}}
-                </td>
-                <td>
-                    {{ficha.loteval | date: 'dd/MM/yyyy'}}
-                </td>
-                <td>
-                    {{ficha.op_quantity | number: '2'}}
-                </td>
-                <td>
-                    {{ficha.datains | date: 'dd/MM/yyyy'}}
-                </td>
-            </tr>
-
-            <tr>
-                <th>Cód Item</th>
-                <th colspan="4" style="text-align: left;">Descrição</th>
-            </tr>
-            <tr>
-                <td>
-                    {{ficha.item}}
-                </td>
-                <td colspan="4" style="text-align: left;">
-                    {{ficha.itemname}}
-                </td>
-
-            </tr>
-
-            <tr>
-                <th colspan="5" >Especificação</th>
-            </tr>
-            <tr>
-                <td colspan="5">
-                    {{ficha.especificacao}}
-                </td>
-
-            </tr>
-
-        </table>-->
-
-            <table class="table table-condensed table-bordered" id="param2">
-                <tr>
-                    <th>Cód Item</th>
-                    <th colspan="5" style="text-align: left;">Descrição</th>
+            <table class="table table-condensed table-bordered" id="param2" style="margin-bottom: 0px; border-top: none !important;">
+                <tr style="">
+                    <th >Código</th>
+                    <th colspan="5" style="text-align: left; ">Descrição</th>
                 </tr>
                 <tr>
                     <td>
@@ -224,37 +169,37 @@
                 </tr>
                 <tr>
                     <th>Lote</th>
-                    <th>Fabricação</th>
+                    <th ng-if="ficha.mnfdate">Fabricação</th>
                     <th>Validade</th>
-                    <th>Reg Anvisa</th>
-                    <th>Plano Inspeção</th>
-                    <th>Temp Armazenagem</th>
+                    <th>Registro Anvisa</th>
+                    <th>Plano de Inspeção</th>
+                    <th>Temperatura de Armazenagem</th>
                 </tr>
                 <tr>
                     <td>{{ficha.batchnum}}</td>
-                    <td>{{ficha.mnfdate | date: 'dd/MM/yyyy'}}</td>
+                    <td ng-if="ficha.mnfdate">{{ficha.mnfdate | date: 'dd/MM/yyyy'}}</td>
                     <td>{{ficha.loteval | date: 'dd/MM/yyyy'}}</td>
                     <td>{{ficha.anvisa}}</td>
                     <td>{{ficha.planoinsp}}</td>
                     <td>{{ficha.temperatura}}</td>
                 </tr>
-                <tr>
+                <tr ng-if="ficha.especificacao">
                     <th colspan="6" style="text-align: left;">Especificação</th>
                 </tr>
-                <tr>
+                <tr ng-if="ficha.especificacao">
                     <td colspan="6" style="text-align: left;">
-                        {{ficha.especificacao}}
+                        {{ficha.especificacao}}&nbsp;
                     </td>
 
                 </tr>
             </table>
 
-            <table class="table table-condensed table-bordered" id="param3">
+            <table class="table table-condensed table-bordered" id="param3" style="border-top: none;">
                 <thead>
-                    <tr>
-                        <th style="text-align:center;">Especificação</th>
-                        <th style="text-align:center;">Valor de referência</th>
-                        <th style="text-align:center;">Resultado</th>
+                    <tr style="border-top: none !important;">
+                        <th style=" border-top: none !important;">Análise</th>
+                        <th style="border-top: none !important;">Valor de referência</th>
+                        <th style="border-top: none !important;">Resultado</th>
                         <!--<th>Responsável</th>-->
                     </tr>
                 </thead>
@@ -266,16 +211,16 @@
                         <td>
                             {{linha.valorn}}
                             <span ng-if="linha.p_de || linha.p_ate">
-                                {{linha.p_de}}
+                                {{linha.p_de}}{{linha.um}}
                                 <span ng-if="linha.p_ate">
-                                    - {{linha.p_ate}}
+                                    - {{linha.p_ate}}{{linha.um}}
                                 </span>
 
                             </span>
 
                         </td>
                         <td>
-                            {{linha.resultado}}
+                            {{linha.resultado}}{{linha.um}}
                         </td>
                         <!--<td style="white-space: nowrap;">
                         {{linha.aprovador}}
@@ -316,8 +261,8 @@
 
                 <br />
                 <div class="row">
-
-                    <img ng-src="{{apiURL}}Account/GetSignaturePicture/{{ficha.aprovadorpicture}}" class="" ng-if="ficha.aprovadorpicture" style="max-height: 70px;">  <br />
+                    
+                    <img ng-src="{{apiURL}}Account/GetSignaturePicture/{{ficha.aprovadorpicture}}" class="" ng-if="ficha.aprovadorpicture" style="max-height: 150px;">  <br />
                     <strong><span ng-bind-html="ficha.aprovadorsignature"></span></strong>
 
                 </div>
@@ -334,7 +279,7 @@
 
         <div class="row">
             <div class="col-xs-4" style="text-align: center;">
-                <small>
+                <small style="font-size: 10px;">
                     Rua Casemiro de Abreu, 521<br />
                     Vargem Grande<br />
                     Pinhais - Paraná - CEP 83.321-210
@@ -342,7 +287,7 @@
 
             </div>
             <div class="col-xs-4" style="text-align: center;">
-                <small>
+                <small style="font-size: 10px;">
                     SAC 0800-410027<br />
                     www.laborclin.com.br<br />
                     lcq@laborclin.com.br
@@ -350,7 +295,7 @@
 
             </div>
             <div class="col-xs-4" style="text-align: center;">
-                <small>
+                <small style="font-size: 10px;">
                     CNPJ 76.619.113/0001-31<br />
                     Insc. Estadual: 137.00129-26
                 </small>

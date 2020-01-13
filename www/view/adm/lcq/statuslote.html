@@ -1,0 +1,69 @@
+﻿<style>
+
+    #statuslote thead tr th {
+        vertical-align: middle;
+    }
+
+    #statuslote tbody tr td {
+        vertical-align: middle;
+    }
+</style>
+
+<pre-loader ng-show="loading"></pre-loader>
+<div class="container">
+
+    <ol class="breadcrumb">
+        <li><a href="#/">Home</a></li>
+        <li><a href="#/adm">Painel de controle</a></li>
+        <li><a href="#/adm/lcq">LCQ</a></li>
+        <li class="active"><a href="#/adm/lcq/statuslote">Status do lote</a></li>
+    </ol>
+    <!--<akb-title page-title="Status do lote" page-subtitle="Determine os usuários autorizados a modificar o status do lote."></akb-title>
+    <div class="row">
+        <div class="col-md-12">
+            <small>
+                <a href="#/adm">Painel de controle</a> | Status do lote
+            </small>
+        </div>
+    </div>
+
+    <br />-->
+
+    <div class="panel panel-default">
+
+        <table class="table table-condensed" id="statuslote">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Código</th>
+                    <th style="width: 200px;">Status do lote</th>
+                    <th>Usuários</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="s in statusLoteList | filter: search" style="cursor: pointer" ng-click="selectStatus(s)">
+                    <td>
+                        {{s.code}}
+                    </td>
+                    <td>
+                        {{s.name}}
+                    </td>
+                    <td>
+                        <span class="label label-danger" ng-if="s.users.length == 0">
+                            TODOS
+                        </span>
+                        <span ng-repeat="user in s.users">
+                            <span class="label label-warning" >
+                                {{user.username | uppercase}}
+                            </span>&nbsp;
+                        </span>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    
+</div>
+
+<div ng-include="'view/adm/lcq/statusloteusers.html'"></div>

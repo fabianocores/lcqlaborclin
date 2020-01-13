@@ -6,7 +6,7 @@
     <small>
         <!--<span ng-bind-html="footerText" class="hidden-xs"></span>--> 
         <!--Laborclin Produtos para Laboratório - (41)3661-9000 - DESENVOLVIDO POR ARKAB IT | Copyright © 2017 - Todos os direitos reservados-->
-        Laborclin Produtos para Laboratório - (41)3661-9000 - DESENVOLVIDO POR ARKAB IT | Copyright © 2017 - Todos os direitos reservados
+        Laborclin Produtos para Laboratório - (41)3661-9000 - DESENVOLVIDO POR ARKAB IT | Copyright © 2017 - {{actualYear}} - Todos os direitos reservados
     </small>
     
     <div class="pull-right hidden-xs" style="display: inline-block">
@@ -14,6 +14,7 @@
             <a href="https://arkabit.com" target="_blank">
                 arkabit.com
             </a>
+            | Versão: {{appConfigKeys.publishVersion}}
         </small>
         
         <span ng-if="partnerConfig">
