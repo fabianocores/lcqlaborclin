@@ -146,6 +146,7 @@ function formatPtBrDateTime(sdate) {
     // 0123456789012345
     // 13/05/2017 21:37
 
+    console.log('sdate', sdate);
 
     var day = sdate.substring(0, 2);
     var month = sdate.substring(3, 5);
@@ -159,9 +160,11 @@ function formatPtBrDateTime(sdate) {
     if (hour.length < 2) hour = '0' + hour;
     if (minutes.length < 2) minutes = '0' + minutes;
 
-    var fdate = [year, month, day].join('-') + 'T' + [hour, minutes, seconds].join(':');
+    var fdate = [year, month, day].join('-') + 'T' + [hour, minutes, seconds].join(':') + '-02:00';
 
     var date = moment(fdate);
+
+    console.log('date', date);
 
     return date;
 

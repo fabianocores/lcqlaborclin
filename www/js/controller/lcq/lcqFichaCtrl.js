@@ -194,9 +194,9 @@
 
             var ficha = angular.copy($scope.ficha);
 
-            if (ficha.dataemi) { ficha.dataemi = formatPtBrDateTime(ficha.dataemi); }
+            if (ficha.dataemi) { ficha.dataemi = formatPtBrDate(ficha.dataemi); }
 
-            if (ficha.datains) { ficha.datains = formatPtBrDateTime(ficha.datains); }
+            if (ficha.datains) { ficha.datains = formatPtBrDate(ficha.datains); }
 
             lcqService.putFichaLCQ(ficha).success(function (response) {
 
