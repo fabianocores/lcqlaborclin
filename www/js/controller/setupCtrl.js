@@ -23,6 +23,14 @@
         $scope.config.protocol = 'https';
     }
 
+    if (!$scope.config.baseUrl) {
+        $scope.config.baseUrl = 'portal.laborclin.com.br/api';
+    }
+
+    if (!$scope.config.dataProfile) {
+        $scope.config.dataProfile = 'SBO_Laborclin';
+    }
+
     if ($scope.config) {
         if ($scope.config.baseUrl) {
             $scope.config.baseUrl = $scope.config.baseUrl.replace(/^(https|http):\/\//, '').replace(/\/api\/$/, '');
