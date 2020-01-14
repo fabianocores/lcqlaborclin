@@ -2,7 +2,10 @@
 
 <div class="fullcontainer">
     <div class="panel panel-default">
-        {{timezone}}
+        <span ng-if="roles == 'Master'">
+            Timezone: {{timezone}}, Emissão: {{datains}}, Formatado: {{datainsf}}
+        </span>
+        
         <table class="table table-condensed table-bordered">
             <tr>
                 <td width="20%">

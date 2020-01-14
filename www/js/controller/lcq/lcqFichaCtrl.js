@@ -16,6 +16,8 @@
             
         ];
 
+        $scope.roles = identityService.getUserIdentity().roles;
+
         //console.log('Home', appConfig.getAppConfig());
 
         $scope.params = {
@@ -44,7 +46,19 @@
 
             lcqService.getFichaLCQ($scope.params.ficha).success(function (response) {
 
+                if ($scope.roles == 'Master') {
+
+                    console.log('Data inspeção', response.datains);
+
+                    console.log('Data inspeção formatada', formatDateToPtBr(response.datains));
+
+                    $scope.datains = response.datains;
+                    $scope.datainsf = formatDateToPtBr(response.datains);
+
+                }
+
                 
+
 
                 response.dataemi = formatDateToPtBr(response.dataemi);
 
@@ -186,7 +200,7 @@
             }
         }
 
-        if (identityService.getUserIdentity().roles == 'Master') {
+        if ($scope.roles == 'Master') {
             $scope.timezone = moment.tz.guess();
             console.log(identityService.getUserIdentity());
         }
