@@ -143,7 +143,7 @@ function formatPtBrDate(sdate) {
     //return fdate;
 
 
-    return moment(sdate, 'DD/MM/YYYY').toDate();
+    return moment(sdate, 'DD/MM/YYYY').tz(moment.tz.guess()).toDate();
 
     //var day = sdate.substring(0, 2);
     //var month = sdate.substring(3, 5);
@@ -175,7 +175,7 @@ function formatPtBrDateTime(sdate) {
 
     var fdate = [year, month, day].join('-') + 'T' + [hour, minutes, seconds].join(':');
 
-    var date = moment(fdate).toDate();
+    var date = moment(fdate).tz(moment.tz.guess()).toDate();
 
     return date;
 
