@@ -186,9 +186,10 @@
             }
         }
 
-        $scope.timezone = moment.tz.guess();
-
-        console.log('timezone', moment.tz.guess());
+        if (identityService.getUserIdentity().roles == 'Master') {
+            $scope.timezone = moment.tz.guess();
+            console.log(identityService.getUserIdentity());
+        }
 
         $scope.save = function()
         {
@@ -198,13 +199,13 @@
 
             var ficha = angular.copy($scope.ficha);
 
-            console.log('Params antes', angular.copy(ficha));
+            //console.log('Params antes', angular.copy(ficha));
 
             if (ficha.dataemi) { ficha.dataemi = formatPtBrDate(ficha.dataemi); }
 
             if (ficha.datains) { ficha.datains = formatPtBrDate(ficha.datains); }
 
-            console.log('Params', ficha);
+            //console.log('Params', ficha);
 
             lcqService.putFichaLCQ(ficha).success(function (response) {
 
