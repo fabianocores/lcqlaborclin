@@ -173,7 +173,7 @@ function formatPtBrDateTime(sdate) {
     if (hour.length < 2) hour = '0' + hour;
     if (minutes.length < 2) minutes = '0' + minutes;
 
-    var fdate = [year, month, day].join('-') + 'T' + [hour, minutes, seconds].join(':') + '-02:00';
+    var fdate = [year, month, day].join('-') + 'T' + [hour, minutes, seconds].join(':');
 
     var date = moment(fdate).toDate();
 

@@ -1,6 +1,5 @@
 ﻿angular.module("arkabPortal").constant("appConfigKeys", {
 
-    googleMapsAPIKey: 'AIzaSyBNeYTBeIZb23_4fE2Ox5a6weXcH6FoS3M',
     googleAnalyticsKey: 'UA-86794666',
     googleMapsAPIUrl: 'https://maps.googleapis.com/maps/api/geocode/json',
 

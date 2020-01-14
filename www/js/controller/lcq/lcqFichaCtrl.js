@@ -186,6 +186,10 @@
             }
         }
 
+        $scope.timezone = moment.tz.guess();
+
+        console.log('timezone', moment.tz.guess());
+
         $scope.save = function()
         {
             $scope.saving = true;
@@ -193,6 +197,8 @@
             $scope.serverResponse = null;
 
             var ficha = angular.copy($scope.ficha);
+
+            console.log('Params antes', angular.copy(ficha));
 
             if (ficha.dataemi) { ficha.dataemi = formatPtBrDate(ficha.dataemi); }
 
